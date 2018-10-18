@@ -1,0 +1,115 @@
+[
+  {
+    "id": "1",
+    "name": "Vasya",
+    "surname": "Vasechkin",
+    "password": "123456",
+    "email": "test@mail.ru",
+
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      },
+      {
+        "id": "2",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      },
+      {
+        "id": "3",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      }
+    ]
+  },
+
+  {
+    "id": "2",
+    "name": "Vasya",
+    "surname": "Vasechkin",
+    "password": "123456",
+    "email": "test1@mail.ru",
+
+
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      },
+      {
+        "id": "2",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      },
+      {
+        "id": "3",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "Vasya",
+    "surname": "Vasechkin",
+    "password": "123456",
+    "email": "test@mail.ru",
+
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      },
+      {
+        "id": "2",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      },
+      {
+        "id": "3",
+        "title": "Buy bread",
+        "text": "Go to the shop and buy smothing",
+        "createdDate": "2018-10-18T18:00:00+03:00",
+        "deadline": "2018-11-18T18:00:00+03:00",
+        "notificationTime": "2018-10-23T18:00:00+03:00",
+        "color": "red"
+      }
+    ]
+  }
+]
