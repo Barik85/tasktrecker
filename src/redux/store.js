@@ -1,9 +1,11 @@
 
-import { createStore, combineReducers } from 'redux';
-import loginReducer from '../components/login/loginReducer'
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import loginReducer from '../components/login/loginReducer';
 
 const rootReduser = combineReducers({
-  is_auth: loginReducer,
+  session: loginReducer,
 
   // user: {
   //   id: '',
@@ -25,11 +27,11 @@ const rootReduser = combineReducers({
   // ]
 });
 
-/* eslint-disable no-underscore-dangle */
- const store = createStore(
-  rootReduser, /* preloadedState, */
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
- );
-/* eslint-enable */
+const enhancer = composeWithDevTools(applyMiddleware(thunk))
+
+const store = createStore(
+rootReduser, /* preloadedState, */
+enhancer
+);
 
 export default store;

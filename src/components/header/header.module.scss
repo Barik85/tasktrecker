@@ -1,0 +1,14 @@
+@import 'styles/_colors.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 50px;
+  background-color: $violet;
+  color: #fff;
+  align-items: center;
+
+  a {
+    color: #fff;
+  }
+}

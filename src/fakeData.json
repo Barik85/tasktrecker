@@ -5,6 +5,7 @@
     "surname": "Vasechkin",
     "password": "123456",
     "email": "test@mail.ru",
+    "jwt_token": null,
 
     "tasks": [
       {
@@ -43,7 +44,7 @@
     "surname": "Vasechkin",
     "password": "123456",
     "email": "test1@mail.ru",
-
+    "jwt_token": null,
 
     "tasks": [
       {
@@ -81,6 +82,7 @@
     "surname": "Vasechkin",
     "password": "123456",
     "email": "test@mail.ru",
+    "jwt_token": null,
 
     "tasks": [
       {
