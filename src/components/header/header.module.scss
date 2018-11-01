@@ -10,5 +10,27 @@
 
   a {
     color: #fff;
+    transition: transform 200ms;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.login_link {
+  &::after {
+    content: '|';
+    display: inline-block;
+    margin: 0 10px;
+  }
+}
+
+.logo_link {
+  display: block;
+  width: 200px;
+
+  img {
+    width: 100%;
   }
 }

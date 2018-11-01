@@ -2,10 +2,11 @@ import React, {Fragment} from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './header.module.scss';
+import logo from '../../images/logo_white.png';
 
 const PublicActions = () => (
   <Fragment>
-    <Link to="/login">Войти </Link>
+    <Link to="/login" className={styles.login_link}>Войти </Link>
     <Link to="/register">Зарегистрироваться </Link>
   </Fragment>
 );
@@ -40,8 +41,8 @@ PrivateActions.defaultProps = {
 
 const Header = ({authenticated, userName, ...props}) => (
   <header className={styles.header}>
-    <Link to="/">
-      Tasktrecker
+    <Link className={styles.logo_link} to="/">
+      <img src={logo} alt="tasktreker"/>
     </Link>
     <div>
       { authenticated ?
