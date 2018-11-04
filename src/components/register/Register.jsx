@@ -1,7 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import FacebookLogin from 'react-facebook-login';
+import { GoogleLogin } from 'react-google-login';
 import { registerUser } from '../login/loginActions';
+import config from '../../config.json';
+// google account than working with localhost:3000
+// clientID="614607739990-0s5ak41hfht9f7o7p4h9m7qirab4jnht.apps.googleusercontent.com"
 
 const initialState = {
   name: '',
@@ -56,43 +61,66 @@ class Register extends Component {
     this.resetState();
   }
 
+  responseGoogle = (res) => {
+    console.log(res);
+  }
+
+  responseFacebook = (res) => {
+    console.log(res);
+  }
+
   render() {
     const {error} = this.props;
 
     return(
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label htmlFor="name">Имя </label>
-          <input
-            type="name"
-            name="name"
-            onChange={this.handleInputChange}
-            value={this.state.name}
-          />
-        </div>
-        <div>
-          <label htmlFor="email">Почта </label>
-          <input
-            type="email"
-            name="email"
-            onChange={this.handleInputChange}
-            value={this.state.email}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Пароль </label>
-          <input
-            type="password"
-            name="password"
-            onChange={this.handleInputChange}
-            value={this.state.password}
-          />
-        </div>
-        <div>
-          <input type="submit" value="Register"/>
-        </div>
-        {error ? (<div>{error}</div>) : null}
-      </form>
+      <Fragment>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label htmlFor="name">Имя </label>
+            <input
+              type="name"
+              name="name"
+              onChange={this.handleInputChange}
+              value={this.state.name}
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Почта </label>
+            <input
+              type="email"
+              name="email"
+              onChange={this.handleInputChange}
+              value={this.state.email}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Пароль </label>
+            <input
+              type="password"
+              name="password"
+              onChange={this.handleInputChange}
+              value={this.state.password}
+            />
+          </div>
+          <div>
+            <input type="submit" value="Register"/>
+          </div>
+          {error ? (<div>{error}</div>) : null}
+        </form>
+        <GoogleLogin
+          clientId={config.GOOGLE_CLIENT_ID}
+          buttonText="Login with google"
+          onSuccess={this.responseGoogle}
+          onFailure={this.responseGoogle}
+        />
+        <FacebookLogin
+          appId={config.FACEBOOK_APP_ID}
+          autoLoad
+          fields="name,email,picture"
+          callback={this.responseFacebook}
+          icon="fa-facebook"
+        />
+      </Fragment>
     );
   }
 }
