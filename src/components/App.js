@@ -4,14 +4,17 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NotFoundPage from '../pages/NotFoundPage';
 import Login from './login/Login';
-import Home from '../pages/Home';
+import Home from './home/homeContainer';
 import Header from './header/headerContainer';
 import ProtectedRoute from './shared/ProtectedRoute';
 import Profile from '../pages/Profile';
 import Register from '../components/register/Register';
+import Footer from './footer/footer';
+
+import styles from './App.module.scss';
 
 const App = ({auth}) => (
-  <div>
+  <div className={styles.wrapper}>
     <Header />
     <Switch>
       <Route exact path="/" component={Home} />
@@ -20,6 +23,7 @@ const App = ({auth}) => (
       <ProtectedRoute exact path="/profile" component={Profile} authenticated={auth} redirectTo="/login" />
       <Route component={NotFoundPage} />
     </Switch>
+    <Footer />
   </div>
 );
 

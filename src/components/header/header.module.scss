@@ -11,4 +11,50 @@
   a {
     color: #fff;
   }
+
+  .button {
+    border: none;
+    background-color: inherit;
+
+
+  }
+
+  .menu {
+    display: flex;
+    position: relative;
+    list-style: none;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .submenu {
+    list-style: none;
+    position: absolute;
+    display: none;
+    left: 0;
+    width: 200px;
+    background-color: $violet;
+    padding: 10px;
+  }
+
+  .submenuItem {
+    list-style: none;
+    padding: 10px;
+  }
+
+  .menuItem {
+    &:active .submenu {
+      display: block
+    }
+
+    &:hover .submenu {
+      display: block
+    }
+  }
+
+  .user {
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+  }
+
 }
