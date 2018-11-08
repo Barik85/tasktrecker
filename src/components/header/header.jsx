@@ -3,10 +3,6 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './header.module.scss';
 
-
-import arrow from '../../img/arrow-point-to-down.svg';
-import user from '../../img/user.svg';
-
 const PublicActions = () => (
   <Fragment>
     <Link to="/login">Войти </Link>
@@ -15,28 +11,21 @@ const PublicActions = () => (
 );
 
 const PrivateActions = ({userName, handleLogout}) => (
-  <ul className={styles.menu}>
+  <div>
+    {userName}
+    <ul>
       <li>
-        <Link to="/profile">{userName}</Link>
+        <Link to="/profile">
+          Настройки профиля
+        </Link>
       </li>
       <li>
-        <Link to="/profile"><img src={user} alt="" className={styles.user}/></Link>
+        <button onClick={handleLogout}>
+          Logout
+        </button>
       </li>
-      <li className={styles.menuItem}><button className={styles.button}><img src={arrow} alt=""/></button>
-      <ul className={styles.submenu} >
-        <li key="1-1" className={styles.submenuItem}>
-          <Link to="/profile">
-            Настройки профиля
-          </Link>
-        </li>
-        <li key="1-2">
-          <button onClick={handleLogout}>
-            Logout
-          </button>
-        </li>
-      </ul>
-      </li>
-  </ul>
+    </ul>
+  </div>
 );
 
 PrivateActions.propTypes = {

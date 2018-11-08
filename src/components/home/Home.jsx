@@ -26,12 +26,7 @@ const Home = ({authenticated, ...props}) => (
           <PublicActions />
         )
       }
-    </main>
-  
+    </main>  
 );
-
-
-
-
 
 export default Home;
