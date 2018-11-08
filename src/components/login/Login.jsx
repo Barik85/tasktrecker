@@ -81,7 +81,7 @@ class Login extends Component {
         <div>
           <input type="submit" value="Login"/>
         </div>
-        {error ? (<div>{error}</div>) : null}
+        {error ? (<div>Что-то пошло не так</div>) : null}
       </form>
     );
   }

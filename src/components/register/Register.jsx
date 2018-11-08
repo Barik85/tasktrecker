@@ -18,7 +18,6 @@ class Register extends Component {
   static propTypes = {
     registerUser: PropTypes.func.isRequired,
     error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    auth: PropTypes.bool,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }),
@@ -31,12 +30,6 @@ class Register extends Component {
   }
 
   state = {...initialState};
-
-  componentDidUpdate() {
-    if (this.props.auth) {
-      this.props.history.push('/');
-    }
-  }
 
   resetState = () => {
     this.setState(initialState);
@@ -108,7 +101,7 @@ class Register extends Component {
           {error ? (<div>{error}</div>) : null}
         </form>
         <GoogleLogin
-          clientId={config.GOOGLE_CLIENT_ID}
+          clientId="614607739990-0s5ak41hfht9f7o7p4h9m7qirab4jnht.apps.googleusercontent.com"
           buttonText="Login with google"
           onSuccess={this.responseGoogle}
           onFailure={this.responseGoogle}
