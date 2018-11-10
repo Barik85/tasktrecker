@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signIn } from './loginActions';
+import styles from './login.module.scss'
 
 const initialState = {
   email: '',
@@ -59,27 +60,30 @@ class Login extends Component {
     const {error} = this.props;
 
     return(
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label htmlFor="email">Почта </label>
+      <form className={styles.Login} onSubmit={this.handleSubmit}>
+        <h3>Вход</h3>
+        <div className={styles.Login_inputEmail}>
+          <label htmlFor="email"><span>&#9993;</span></label>
           <input
             type="email"
             name="email"
+            placeholder="Почта"
             onChange={this.handleInputChange}
             value={this.state.email}
           />
         </div>
-        <div>
-          <label htmlFor="password">Пароль </label>
+        <div className={styles.Login_inputPassword}>
+          <label  htmlFor="password"><span role="img" aria-label="none" >&#128275;</span></label>
           <input
             type="password"
             name="password"
+            placeholder="Пароль"
             onChange={this.handleInputChange}
             value={this.state.password}
           />
         </div>
-        <div>
-          <input type="submit" value="Login"/>
+        <div className={styles.Login_submit}>
+          <input type="submit" value="ВОЙТИ"/>
         </div>
         {error ? (<div>{error}</div>) : null}
       </form>

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser } from '../login/loginActions';
+import styles from './register.module.scss'
 
 const initialState = {
   name: '',
@@ -60,36 +61,40 @@ class Register extends Component {
     const {error} = this.props;
 
     return(
-      <form onSubmit={this.handleSubmit}>
-        <div>
-          <label htmlFor="name">Имя </label>
+      <form onSubmit={this.handleSubmit} className={styles.register_form} >
+        <h3>Регистрация</h3>
+        <div className={styles.register_name}>
+          <label htmlFor="name"><span role="img" aria-label="none" >&#128100;</span> </label>
           <input
             type="name"
             name="name"
+            placeholder="Имя Фамилия"
             onChange={this.handleInputChange}
             value={this.state.name}
           />
         </div>
-        <div>
-          <label htmlFor="email">Почта </label>
+        <div className={styles.register_email}>
+          <label htmlFor="email"><span>&#9993;</span></label>
           <input
             type="email"
             name="email"
+            placeholder="Почта"
             onChange={this.handleInputChange}
             value={this.state.email}
           />
         </div>
-        <div>
-          <label htmlFor="password">Пароль </label>
+        <div className={styles.register_password}>
+          <label htmlFor="password"><span role="img" aria-label="none" >&#128275;</span> </label>
           <input
             type="password"
             name="password"
+            placeholder="Пароль"
             onChange={this.handleInputChange}
             value={this.state.password}
           />
         </div>
-        <div>
-          <input type="submit" value="Register"/>
+        <div className={styles.register_submit}>
+          <input  type="submit" value="Регистрация"/>
         </div>
         {error ? (<div>{error}</div>) : null}
       </form>
