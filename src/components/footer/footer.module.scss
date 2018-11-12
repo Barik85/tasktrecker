@@ -1,0 +1,11 @@
+@import 'styles/_colors.scss';
+
+.footer {
+  background-color: $violet;
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  color: #fff;
+}

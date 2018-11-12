@@ -1,0 +1,23 @@
+@import 'styles/_colors.scss';
+
+.button {
+  border: none;
+  border-radius: 5px;
+  background-color: $orange;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  color: #fff;
+  box-shadow: #999 3px 3px 9px 0;
+
+  &::before {
+    content: "";
+    display: inline-block;
+    background-image: url(../../img/plus-button.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+}
