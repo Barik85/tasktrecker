@@ -15,13 +15,15 @@ import styles from './App.module.scss';
 const App = ({auth}) => (
   <div className={styles.wrapper}>
     <Header />
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-      <ProtectedRoute exact path="/profile" component={Profile} authenticated={auth} redirectTo="/login" />
-      <Route component={NotFoundPage} />
-    </Switch>
+    <div className={styles.main_container}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <ProtectedRoute exact path="/profile" component={Profile} authenticated={auth} redirectTo="/login" />
+        <Route component={NotFoundPage} />
+      </Switch>
+    </div>
     <Footer />
   </div>
 );
