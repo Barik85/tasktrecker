@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
 import { signIn } from './loginActions';
 
 const initialState = {
@@ -60,6 +61,7 @@ class Login extends Component {
 
     return(
       <form onSubmit={this.handleSubmit}>
+        <Link to="/note">I want to look on note</Link>
         <div>
           <label htmlFor="email">Почта </label>
           <input

@@ -1,14 +1,14 @@
 @import '../../styles/colors';
 
 .note_wrapper {
+  position: relative;
   width: 200px;
+  min-height: 140px;
   padding: 16px;
   box-sizing: border-box;
-  border: 1px solid;
-  min-height: 140px;
   border-radius: 10px;
-  position: relative;
   overflow: hidden;
+  background-color: #fff;
 
   .corner {
     position: absolute;
@@ -110,4 +110,24 @@
       background-color: #ccc;
     }
   }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.checkmark_box {
+  width: 52px;
+  height: 52px;
+  background: url('../../images/checkmark.png') no-repeat 0 0;
+  background-size: 52px;
 }
