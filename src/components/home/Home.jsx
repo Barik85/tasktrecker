@@ -10,9 +10,9 @@ const cardListEmpty = (CardsList.length > 0);
 const PublicActions = () => (<MainPage/>);
 
 const PrivateActions = () => (
-  <div className={styles.home}>
+  <div>
     {cardListEmpty ? 
-    "Здесь будет список карточек CardsList" : "Пока что ничего не создано"}
+    "Здесь будет список карточек CardsList" : <p className={styles.text}>Пока что ничего не создано</p>}
     <Button text="Добавить задачу"/>
   </div>
 )

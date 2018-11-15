@@ -1,5 +1,10 @@
 @import 'styles/_colors.scss';
 
+.description {
+  color: $violet;
+  font-weight: 700;
+}
+
 .action {
   display: flex;
   justify-content: center;
