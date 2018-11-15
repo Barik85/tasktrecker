@@ -1,0 +1,22 @@
+@import 'styles/_colors.scss';
+
+.button {
+  border: none;
+  border-radius: 5px;
+  background-color: $orange;
+  padding: 0.5rem 1rem;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.text {
+  font-size: 1.2rem;
+  color: $violet;
+  font-weight: 600;
+  width: 150px;
+  text-align: center;
+  margin: 0 auto;
+}
