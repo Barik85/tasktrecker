@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './home.module.scss';
 import Button from '../../components/shared/Button';
+import MainPage from '../mainPage/MainPage';
 
 
 const CardsList = [];
 
 const cardListEmpty = (CardsList.length > 0);
-const PublicActions = () => (<div>Hello world from home!</div>);
+const PublicActions = () => (<MainPage/>);
 
 const PrivateActions = () => (
   <div className={styles.home}>

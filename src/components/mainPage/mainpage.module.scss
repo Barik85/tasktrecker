@@ -1,0 +1,15 @@
+@import 'styles/_colors.scss';
+
+.action {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  border-radius: 5px;
+  background-color: $orange;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  color: #fff;
+  box-shadow: #999 3px 3px 9px 0;
+}
