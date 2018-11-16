@@ -149,42 +149,4 @@ class Note extends Component {
   }
 }
 
-// Note.propTypes = {
-//   note: PropTypes.shape({
-//     userId: PropTypes.string,
-//     title: PropTypes.string,
-//     description: PropTypes.string,
-//     color: PropTypes.string,
-//     deadline: PropTypes.string,
-//     completed: PropTypes.bool.isRequired,
-//     reminder: PropTypes.oneOfType([
-//       PropTypes.string,
-//       PropTypes.object,
-//     ]),
-//     timestamps: PropTypes.shape({
-//       createdAt: PropTypes.string,
-//       updatedAt: PropTypes.string,
-//     }),
-//   }),
-//   onEdit: PropTypes.func,
-//   onDelete: PropTypes.func,
-// };
-
-// Note.defaultProps = {
-//   note: {
-//     userId: '',
-//     title: '',
-//     description: '',
-//     color: '#fff',
-//     deadline: '',
-//     reminder: '',
-//     timestamps: {
-//       createdAt: '',
-//       updatedAt: ''
-//     },
-//   },
-//   onEdit: () => {},
-//   onDelete: () => {},
-// };
-
 export default Note;
