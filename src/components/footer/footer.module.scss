@@ -4,8 +4,13 @@
   background-color: $violet;
   display: flex;
   justify-content: center;
+  padding-bottom: 0.75rem;
+  padding-top: 0.5rem;
 }
 
 .text {
   color: #fff;
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 400;
 }
