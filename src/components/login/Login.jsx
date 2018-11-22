@@ -5,7 +5,8 @@ import { signIn } from './loginActions';
 import styles from './login.module.scss';
 import lockIcon from './img/blocked-padlock.svg';
 import letterIcon from './img/letter.svg';
-import falseTick from './img/tick.svg';
+import tickFalse from './img/tick.svg';
+import tickTrue from './img/tickTrue.svg'
 import privateEye from './img/private.svg';
 
 const initialState = {
@@ -29,7 +30,7 @@ class Login extends Component {
     history: null,
   }
 
-  state = {...initialState,isValidateEmail:true};
+  state = {...initialState,isValidEmail:true};
 
   componentDidUpdate() {
     if (this.props.auth) {
@@ -47,14 +48,18 @@ class Login extends Component {
     this.setState({
       [name]: value
     })
+
+    this.validate(name,value)
   };
 
-  // validateEmail = ()=>{
-  //   const valEmail = {'/^\S+@\S+\.\S+$/'};
-  //   this.setState({
-  //     isValidateEmail: !valEmail.test(this.state.email)
-  //   })
-  // };
+  validate = (name,value)=>{
+    if(name === 'email'){
+      const valEmail = /^\S+@\S+\.\S+$/;
+      this.setState({
+        isValidEmail: valEmail.test(value)
+      })
+    }
+  };
 
 
   handleSubmit = (e) => {
@@ -83,7 +88,7 @@ class Login extends Component {
             onChange={this.handleInputChange}
             value={this.state.email}
           />
-          <span><img src={falseTick} alt='tick' width="5%" /></span>
+          <span><img src={this.state.isValidEmail?tickTrue:tickFalse} alt='tick' width="5%" /></span>
         </div>
         <div className={styles.login_inputPassword}>
           <label htmlFor="password"><span><img src={lockIcon} alt='lock' width="5%"/></span></label>
