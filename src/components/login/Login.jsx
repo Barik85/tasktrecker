@@ -8,6 +8,7 @@ import letterIcon from './img/letter.svg';
 import tickFalse from './img/tick.svg';
 import tickTrue from './img/tickTrue.svg'
 import privateEye from './img/private.svg';
+import eye from './img/eye.svg';
 
 const initialState = {
   email: '',
@@ -30,7 +31,7 @@ class Login extends Component {
     history: null,
   }
 
-  state = {...initialState,isValidEmail:true};
+  state = {...initialState,isValidEmail:true,isVisiblePassword:true};
 
   componentDidUpdate() {
     if (this.props.auth) {
@@ -61,6 +62,11 @@ class Login extends Component {
     }
   };
 
+  visiblePassword = () =>{
+      this.setState({
+        isVisiblePassword:!this.state.isVisiblePassword
+      })
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -82,6 +88,7 @@ class Login extends Component {
         <div className={styles.login_inputEmail}>
           <label htmlFor="email"><span><img src={letterIcon} alt='letter' width="5%" /></span></label>
           <input
+            className={styles.login_box}
             type="email"
             name="email"
             placeholder="Почта"
@@ -93,13 +100,20 @@ class Login extends Component {
         <div className={styles.login_inputPassword}>
           <label htmlFor="password"><span><img src={lockIcon} alt='lock' width="5%"/></span></label>
           <input
-            type="password"
+            className={styles.login_box}
+            type={this.state.isVisiblePassword?"password":"text"}
             name="password"
             placeholder="Пароль"
             onChange={this.handleInputChange}
             value={this.state.password}
           />
-          <span><img src={privateEye} alt='lock' width="5%" /></span>
+          <span>
+            <input
+            type="image" 
+            onClick={this.visiblePassword}
+            className={styles.login_passwordVisible}
+            src={this.state.isVisiblePassword?privateEye:eye} alt='lock' width="5%" />
+          </span>
         </div>
         <div className={styles.login_submit}>
           <input type="submit" value="ВОЙТИ"/>
