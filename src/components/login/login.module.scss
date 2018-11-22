@@ -1,69 +1,82 @@
-.Login{
-    width: 25%;
+.login{
+    width: 35%;
+    min-width: 200px;
     margin: auto;
-    margin-top: 15%;
+    margin-top: 12%;
     border: solid 1px #d7d8d8;
     box-shadow: 1px 1px 1px 2px #d7d8d8;
 }
-.Login H3{
-    color: #3f51b5;
-    font-size: 20px;
-    font-weight: 500;
-    margin: 10px;
-    text-align: center;
-}
-.Login_inputEmail{
-    color: #3f51b5;
-    font-size: 18px;
-    text-align: center;
 
+.login h3{
+    color: #3f51b5;
+    font-size: 30px;
+    font-weight: 500;
+    margin: 5px;
+    margin-top: 14px;
+    text-align: center;
 }
-.Login_inputEmail input{
+
+.login_inputEmail{
+    color: #3f51b5;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 35px;
+}
+
+.login_inputEmail input{
     border: solid 0px #3f51b5;
     border-bottom: solid 1px #3f51b5;
     width: 70%;
+    height: 35px;
+
 }
-.Login_inputEmail span{
+
+.login_inputEmail span{
     margin-right: 15px;
 }
 
-.Login_inputEmail input:focus {
+.login_inputEmail input:focus{
   outline: none;
 }
 
-
-.Login_inputPassword{
+.login_inputPassword{
      color: #3f51b5;
      font-size: 18px;
      text-align: center;
-
+     margin-top: 25px;
 }
-.Login_inputPassword input{
+
+.login_inputPassword input{
     border: solid 0px #3f51b5;
     border-bottom: solid 1px #3f51b5;
     width: 70%;
+    height: 35px;
+
 }
-.Login_inputPassword input:focus{
+
+.login_inputPassword input:focus{
     outline: none;
 }
 
-.Login_inputPassword span{
+.login_inputPassword span{
     margin-right: 15px;
- 
 }
 
-.Login_submit  {
+.login_submit{
     text-align: center;
 }
-.Login_submit input{
+
+.login_submit input{
     background-color: #ee6337;
     margin: 25px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: solid 1px #ee6337;
     color: white;
-
+    width: 125px;
+    height: 35px;
+    font-size: 18px;
 }
 
-.Login_submit input:focus{
+.login_submit input:focus{
     outline: none;
 }

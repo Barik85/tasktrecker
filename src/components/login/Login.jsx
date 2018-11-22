@@ -2,7 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signIn } from './loginActions';
-import styles from './login.module.scss'
+import styles from './login.module.scss';
+import lockIcon from './img/blocked-padlock.svg';
+import letterIcon from './img/letter.svg';
+import falseTick from './img/tick.svg';
+import privateEye from './img/private.svg';
 
 const initialState = {
   email: '',
@@ -25,7 +29,7 @@ class Login extends Component {
     history: null,
   }
 
-  state = {...initialState};
+  state = {...initialState,isValidateEmail:true};
 
   componentDidUpdate() {
     if (this.props.auth) {
@@ -37,13 +41,21 @@ class Login extends Component {
     this.setState(initialState);
   }
 
-    handleInputChange = (e) => {
+  handleInputChange = (e) => {
     const {value, name} = e.target;
 
     this.setState({
       [name]: value
     })
   };
+
+  // validateEmail = ()=>{
+  //   const valEmail = {'/^\S+@\S+\.\S+$/'};
+  //   this.setState({
+  //     isValidateEmail: !valEmail.test(this.state.email)
+  //   })
+  // };
+
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -60,10 +72,10 @@ class Login extends Component {
     const {error} = this.props;
 
     return(
-      <form className={styles.Login} onSubmit={this.handleSubmit}>
+      <form className={styles.login} onSubmit={this.handleSubmit}>
         <h3>Вход</h3>
-        <div className={styles.Login_inputEmail}>
-          <label htmlFor="email"><span>&#9993;</span></label>
+        <div className={styles.login_inputEmail}>
+          <label htmlFor="email"><span><img src={letterIcon} alt='letter' width="5%" /></span></label>
           <input
             type="email"
             name="email"
@@ -71,9 +83,10 @@ class Login extends Component {
             onChange={this.handleInputChange}
             value={this.state.email}
           />
+          <span><img src={falseTick} alt='tick' width="5%" /></span>
         </div>
-        <div className={styles.Login_inputPassword}>
-          <label  htmlFor="password"><span role="img" aria-label="none" >&#128275;</span></label>
+        <div className={styles.login_inputPassword}>
+          <label htmlFor="password"><span><img src={lockIcon} alt='lock' width="5%"/></span></label>
           <input
             type="password"
             name="password"
@@ -81,8 +94,9 @@ class Login extends Component {
             onChange={this.handleInputChange}
             value={this.state.password}
           />
+          <span><img src={privateEye} alt='lock' width="5%" /></span>
         </div>
-        <div className={styles.Login_submit}>
+        <div className={styles.login_submit}>
           <input type="submit" value="ВОЙТИ"/>
         </div>
         {error ? (<div>{error}</div>) : null}

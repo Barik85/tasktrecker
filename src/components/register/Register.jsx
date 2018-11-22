@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { registerUser } from '../login/loginActions';
 import styles from './register.module.scss'
+import lockIcon from '../login/img/blocked-padlock.svg';
+import letterIcon from '../login/img/letter.svg';
+import userAvatar from '../login/img/avatar.svg'
+
 
 const initialState = {
   name: '',
@@ -64,7 +68,7 @@ class Register extends Component {
       <form onSubmit={this.handleSubmit} className={styles.register_form} >
         <h3>Регистрация</h3>
         <div className={styles.register_name}>
-          <label htmlFor="name"><span role="img" aria-label="none" >&#128100;</span> </label>
+          <label htmlFor="name"><span><img src={userAvatar} alt='lock' width="5%" /></span></label>
           <input
             type="name"
             name="name"
@@ -74,7 +78,7 @@ class Register extends Component {
           />
         </div>
         <div className={styles.register_email}>
-          <label htmlFor="email"><span>&#9993;</span></label>
+          <label htmlFor="email"><span><img src={letterIcon} alt='letter' width="5%" /></span></label>
           <input
             type="email"
             name="email"
@@ -84,7 +88,7 @@ class Register extends Component {
           />
         </div>
         <div className={styles.register_password}>
-          <label htmlFor="password"><span role="img" aria-label="none" >&#128275;</span> </label>
+          <label htmlFor="password"><span><img src={lockIcon} alt='lock' width="5%" /></span></label>
           <input
             type="password"
             name="password"
