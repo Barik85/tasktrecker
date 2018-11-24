@@ -9,6 +9,10 @@ import tickFalse from './img/tick.svg';
 import tickTrue from './img/tickTrue.svg'
 import privateEye from './img/private.svg';
 import eye from './img/eye.svg';
+import facebookLogo from './img/facebook-logo.svg';
+import googleplusLogo from './img/google-plus.svg';
+import linkedinLogo from './img/linkedin-logo.svg';
+
 
 const initialState = {
   email: '',
@@ -115,10 +119,20 @@ class Login extends Component {
             src={this.state.isVisiblePassword?privateEye:eye} alt='lock' width="5%" />
           </span>
         </div>
+        {error ? (<div className={styles.errorLogin}>Вы ввели неверные данные</div>) : null}
+        <div className={styles.subMenu}>
+          <div><input type="checkbox" /><span>Запомнить меня</span></div>
+          <div><a href="http://">Восстановить пароль</a></div>
+        </div>
+        <div className={styles.socialnetBox}>
+          <div><button type="button"><img src={facebookLogo} alt='lock' width="20%" />Facebook</button></div>
+          <div><button type="button"><img src={googleplusLogo} alt='lock' width="20%" />Google</button></div>
+          <div><button type="button"><img src={linkedinLogo} alt='lock' width="20%" />Linkedin</button></div>
+        </div>
         <div className={styles.login_submit}>
           <input type="submit" value="ВОЙТИ"/>
         </div>
-        {error ? (<div>{error}</div>) : null}
+        
       </form>
     );
   }

@@ -46,18 +46,6 @@
      margin-top: 25px;
 }
 
-// .login_inputPassword input{
-//     border: solid 0px #3f51b5;
-//     border-bottom: solid 1px #3f51b5;
-//     width: 70%;
-//     height: 35px;
-
-// }
-
-// .login_inputPassword input:focus{
-//     outline: none;
-// }
-
 .login_inputPassword span{
     margin-right: 15px;
 }
@@ -84,4 +72,35 @@
 .login_passwordVisible{
     width: 5%;
     border: none;
+}
+
+.subMenu{
+    display: flex;
+    justify-content: space-between;
+    margin: 45px 40px 15px;
+    font-size: 14px;
+}
+
+.subMenu a{
+    color: #f29473;
+    text-decoration: underline;
+}
+
+.errorLogin{
+    color: #ec3323;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 12px;
+    margin-right: 65px;
+}
+
+.socialnetBox{
+    display: flex;
+    justify-content: space-around;
+    margin: 25px;
+}
+
+.socialnetBox div button{
+    width: 125px;
+    height: 35px;
 }
