@@ -1,0 +1,18 @@
+@import './colors';
+
+.btn {
+  box-sizing: border-box;
+  min-width: 105px;
+  border-radius: 10px;
+  padding: 10px 20px;
+  margin: 12px 0;
+  font-size: 14px;
+  color: #fff;
+  box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 9px 0;
+  background-color: $orange;
+  cursor: pointer;
+}
+
+.btn_upper {
+  text-transform: uppercase;
+}
