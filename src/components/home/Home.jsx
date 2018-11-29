@@ -2,6 +2,7 @@ import React from 'react';
 import styles from './home.module.scss';
 import Button from '../../components/shared/Button';
 import MainPage from '../mainPage/MainPage';
+import ModalManager from '../modalManager/ModalManager';
 
 
 const CardsList = [];
@@ -27,6 +28,8 @@ const Home = ({authenticated, ...props}) => (
           <PublicActions />
         )
       }
+
+      <ModalManager />
     </main>  
 );
 
