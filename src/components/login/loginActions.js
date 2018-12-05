@@ -37,6 +37,8 @@ export const signInWithGoogle = (token) => dispatch => {
           token,
           user: {
             email: data.email,
+            name: data.firstName,
+            surname: data.lastName,
           }
         },
       });

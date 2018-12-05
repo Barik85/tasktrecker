@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import qs from 'qs';
 import styles from './home.module.scss';
 import Button from '../../components/shared/Button';
 import MainPage from '../mainPage/MainPage';
@@ -136,18 +138,44 @@ const PrivateActions = () => (
     </div>
     ) : <NotesList notes={CardsList} />
 )
-const Home = ({authenticated, ...props}) => (
 
-    <main className={styles.wrapper}>
+class Home extends Component {
+  static propTypes = {
+    location: PropTypes.shape({
+      search: PropTypes.string,
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func,
+    }).isRequired,
+    signInWithGoogle: PropTypes.func.isRequired,
+    authenticated: PropTypes.bool.isRequired,
+  }
 
-      { authenticated ?
-        (
-          <PrivateActions {...props}/>
-        ) : (
-          <PublicActions />
-        )
-      }
-    </main>
-);
+  componentDidMount() {
+    const userToken = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
+
+    if (userToken.token) {
+        this.props.signInWithGoogle(userToken.token);
+        this.props.history.push("/");
+    }
+
+  }
+
+  render() {
+    const { authenticated } = this.props;
+
+    return (
+      <main className={styles.wrapper}>
+        { authenticated ?
+          (
+            <PrivateActions {...this.props}/>
+          ) : (
+            <PublicActions />
+          )
+        }
+      </main>
+    );
+  }
+}
 
 export default Home;

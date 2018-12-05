@@ -2,11 +2,8 @@ import React, { Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FacebookLogin from 'react-facebook-login';
-import { GoogleLogin } from 'react-google-login';
 import { registerUser } from '../login/loginActions';
 import config from '../../config.json';
-// google account than working with localhost:3000
-const clientID="614607739990-0s5ak41hfht9f7o7p4h9m7qirab4jnht.apps.googleusercontent.com"
 
 const initialState = {
   name: '',
@@ -54,10 +51,6 @@ class Register extends Component {
     this.resetState();
   }
 
-  responseGoogle = (res) => {
-    console.log(res);
-  }
-
   responseFacebook = (res) => {
     console.log(res);
   }
@@ -100,12 +93,6 @@ class Register extends Component {
           </div>
           {error ? (<div>{error}</div>) : null}
         </form>
-        <GoogleLogin
-          clientId={clientID}
-          buttonText="Login with google"
-          onSuccess={this.responseGoogle}
-          onFailure={this.responseGoogle}
-        />
         <FacebookLogin
           appId={config.FACEBOOK_APP_ID}
           autoLoad
@@ -114,7 +101,7 @@ class Register extends Component {
           icon="fa-facebook"
         />
         <div>
-          <a href="https://taskboard.luisi.top/auth/google">Google auth with backend</a>
+          <a href="https://taskboard.luisi.top/auth/google">Login with google account</a>
         </div>
       </Fragment>
     );

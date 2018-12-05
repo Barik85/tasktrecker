@@ -59,30 +59,35 @@ class Login extends Component {
     const {error} = this.props;
 
     return(
-      <form onSubmit={this.handleSubmit}>
+      <>
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <label htmlFor="email">Почта </label>
+            <input
+              type="email"
+              name="email"
+              onChange={this.handleInputChange}
+              value={this.state.email}
+            />
+          </div>
+          <div>
+            <label htmlFor="password">Пароль </label>
+            <input
+              type="password"
+              name="password"
+              onChange={this.handleInputChange}
+              value={this.state.password}
+            />
+          </div>
+          <div>
+            <input type="submit" value="Login"/>
+          </div>
+          {error ? (<div>Что-то пошло не так</div>) : null}
+        </form>
         <div>
-          <label htmlFor="email">Почта </label>
-          <input
-            type="email"
-            name="email"
-            onChange={this.handleInputChange}
-            value={this.state.email}
-          />
+          <a href="https://taskboard.luisi.top/auth/google">Login with google account</a>
         </div>
-        <div>
-          <label htmlFor="password">Пароль </label>
-          <input
-            type="password"
-            name="password"
-            onChange={this.handleInputChange}
-            value={this.state.password}
-          />
-        </div>
-        <div>
-          <input type="submit" value="Login"/>
-        </div>
-        {error ? (<div>Что-то пошло не так</div>) : null}
-      </form>
+      </>
     );
   }
 }

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Home from './Home';
-import {signOut} from '../../components/login/loginActions';
+import {signOut, signInWithGoogle } from '../login/loginActions';
 
 const mSTP = state => ({
   authenticated: state.session.authenticated,
@@ -8,7 +8,8 @@ const mSTP = state => ({
 });
 
 const mDTP = dispatch => ({
-  handleLogout: () => dispatch(signOut())
+  handleLogout: () => dispatch(signOut()),
+  signInWithGoogle: (token) => dispatch(signInWithGoogle(token)),
 });
 
 export default connect(mSTP, mDTP)(Home);
