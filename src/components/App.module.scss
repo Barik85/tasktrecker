@@ -1,0 +1,12 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #f2f2f2;
+}
+
+.main_container {
+  // flex: 1;
+  overflow: auto;
+}

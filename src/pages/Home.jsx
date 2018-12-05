@@ -3,6 +3,20 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import { connect } from 'react-redux';
 import { signInWithGoogle } from '../components/login/loginActions';
+import Note from '../components/note/Note';
+
+const fakeNote = {
+  userId: '',
+  title: 'Go on shopping and then go back. Lorem ipsum',
+  description: 'i wont to by some food.',
+  color: '#000',
+  deadline: '2019/01/31',
+  reminder: '',
+  timestamps: {
+    createdAt: '',
+    updatedAt: ''
+  }
+};
 
 class Home extends Component {
   static propTypes = {
@@ -26,9 +40,11 @@ class Home extends Component {
   }
 
   render() {
-    return (<div>
-      Hello world from home!
-    </div>)
+    return (
+      <div>
+        <Note note={fakeNote}/>
+      </div>
+    );
   }
 }
 
