@@ -127,7 +127,7 @@ class Login extends Component {
         <div className={styles.socialnetBox}>
           <div><button type="button"><img src={facebookLogo} alt='lock' width="20%" />Facebook</button></div>
           <div><button type="button"><img src={googleplusLogo} alt='lock' width="20%" />Google</button></div>
-          <div><button type="button"><img src={linkedinLogo} alt='lock' width="20%" />Linkedin</button></div>
+          <div><button type="button"><img src={linkedinLogo} alt='lock' width="20%" />Linked In</button></div>
         </div>
         <div className={styles.login_submit}>
           <input type="submit" value="ВОЙТИ"/>
