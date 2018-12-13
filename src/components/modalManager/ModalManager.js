@@ -1,23 +1,25 @@
-import React, { Component } from 'react';
-
-
+import React from 'react';
+import { connect } from 'react-redux';
 import NewTaskModal from "../modals/newTaskModal/NewTaskModal";
+import { closeModal } from "./modalActions";
 
-class ModalManager extends Component {
+const ModalManager = ({ currentModal, ...props }) => {
+  switch (currentModal) {
+    case 'NEW_TASK_MODAL':
+      return <NewTaskModal { ...props }/>;
+    default:
+      return null;
+  }
+};
 
-    state = {
-        modalIsOpen: true
-    };
+const mSTP = state => ({
+  currentModal: state.currentModal,
+  isModalOpen: state.isModalOpen,
+});
 
-    render() {
-       
-    return (
-        
-            <NewTaskModal />
-         
-    
-    )
-    }
-}
+const mDTP = dispatch => ({
+  closeModal: () => dispatch(closeModal()),
+});
 
-export default ModalManager;
+export default connect(mSTP, mDTP)(ModalManager);
+

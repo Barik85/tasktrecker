@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Datetime from 'react-datetime';
 import Modal from 'react-modal';
 import { v4 } from 'uuid';
@@ -33,16 +34,18 @@ const customStyles = {
             notificationTime: '',
             color: 'Без цвета'
         }        
-    }
-
-class NewTaskModal extends Component {
-    state = {
-        ...initialState,  
-        tasks: []      
     };
-    
-    closeModal = () => {
-        this.setState({isOpen: false});
+
+  class NewTaskModal extends Component {
+
+    static propTypes = {
+      isModalOpen: PropTypes.bool.isRequired,
+      closeModal: PropTypes.func.isRequired,
+    };
+
+    state = {
+      ...initialState,
+      tasks: []
     };
 
     colorPickerOpener = (e) => {    
@@ -94,12 +97,13 @@ class NewTaskModal extends Component {
     };
 
     render() {
-        
+
         return (
+
         <Modal
-            isOpen={this.state.isOpen}
+            isOpen={this.props.isModalOpen}
             onAfterOpen={this.afterOpenModal}
-            onRequestClose={this.closeModal}
+            onRequestClose={this.props.closeModal}
             style={customStyles}
             contentLabel="Example Modal"
         >
