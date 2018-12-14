@@ -3,11 +3,12 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import loginReducer from '../components/login/loginReducer';
-import modalManager from '../components/modalManager/modalReducers';
+import { modalOpenReducer, currentModalReducer } from '../components/modalManager/modalReducers';
 
 const rootReducer = combineReducers({
   session: loginReducer,
-  modal: modalManager
+  isModalOpen: modalOpenReducer,
+  currentModal: currentModalReducer
   // user: {
   //   id: '',
   //   name: '',

@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
+
 import { OPEN_MODAL, CLOSE_MODAL, CURRENT_MODAL } from '../../redux/actionTypes';
 
 
@@ -7,7 +7,7 @@ const initialState = {
   currentModal: null,
 };
 
-const modalOpenReducer = (state = initialState.isModalOpen, action) => {
+export const modalOpenReducer = (state = initialState.isModalOpen, action) => {
   switch (action.type) {
     case CLOSE_MODAL:
       return false;
@@ -20,7 +20,7 @@ const modalOpenReducer = (state = initialState.isModalOpen, action) => {
   }
 };
 
-const currentModalReducer = (state = initialState.currentModal, action) => {
+export const currentModalReducer = (state = initialState.currentModal, action) => {
   switch (action.type) {
     case CURRENT_MODAL:
       return action.payload;
@@ -32,8 +32,3 @@ const currentModalReducer = (state = initialState.currentModal, action) => {
       return state;
   }
 };
-
-export default combineReducers({
-  isModalOpen: modalOpenReducer,
-  currentModal: currentModalReducer
-})

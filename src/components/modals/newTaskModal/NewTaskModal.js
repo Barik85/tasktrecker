@@ -107,7 +107,6 @@ const customStyles = {
             style={customStyles}
             contentLabel="Example Modal"
         >
-   
             <h2 className={styles.title}>Новая задача</h2>
             <button onClick={this.closeModal} className={styles.close}> <Close className={styles.closesvg} /></button>
             
