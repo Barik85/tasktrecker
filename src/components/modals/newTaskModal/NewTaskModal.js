@@ -102,13 +102,12 @@ const customStyles = {
 
         <Modal
             isOpen={this.props.isModalOpen}
-            onAfterOpen={this.afterOpenModal}
             onRequestClose={this.props.closeModal}
             style={customStyles}
             contentLabel="Example Modal"
         >
             <h2 className={styles.title}>Новая задача</h2>
-            <button onClick={this.closeModal} className={styles.close}> <Close className={styles.closesvg} /></button>
+            <button onClick={this.props.closeModal} className={styles.close}> <Close className={styles.closesvg} /></button>
             
             <form className={styles.form}  onSubmit={this.handleSubmit}>
               <textarea placeholder='Ввести название ...' className={styles.name} name="title" onChange={this.handleInputChange}/>
