@@ -61,17 +61,14 @@ const customStyles = {
         this.setState(prevState => ({  
             tasks: [  { id: v4(), createdDate: new Date(), title, text, deadline, notificationTime, color }, ...prevState.tasks,],  
         }))
-    }
+    };
 
     handleInputChange = e => {
         const name = e.target.name;
         const value = e.target.value;
-
         this.setState(prevState =>({
-            task: { ...prevState.task, [name]: value},   
-            
+            task: { ...prevState.task, [name]: value},
         }));
-    
     };
 
     handleDateChange =  datemoment => {
@@ -93,22 +90,19 @@ const customStyles = {
             displayColorPicker: !this.state.displayColorPicker,
             task: {...prevState.task, color }       
         }));
-       
     };
 
     render() {
-
+      const { isModalOpen, closeModal } = this.props;
         return (
-
         <Modal
-            isOpen={this.props.isModalOpen}
-            onRequestClose={this.props.closeModal}
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
             style={customStyles}
             contentLabel="Example Modal"
         >
             <h2 className={styles.title}>Новая задача</h2>
-            <button onClick={this.props.closeModal} className={styles.close}> <Close className={styles.closesvg} /></button>
-            
+            <button onClick={closeModal} className={styles.close}> <Close className={styles.closesvg} /></button>
             <form className={styles.form}  onSubmit={this.handleSubmit}>
               <textarea placeholder='Ввести название ...' className={styles.name} name="title" onChange={this.handleInputChange}/>
               <textarea placeholder='Добавить комментарий ...' className={styles.name} name="text" onChange={this.handleInputChange} />
@@ -147,17 +141,13 @@ const customStyles = {
                   {this.state.displayColorPicker ?                 
                     <ColorPicker onSelectColor={this.selectColor} />                
                   : null}
-                  </div>    
-                                
+                  </div>
               </div>
               <SimpleButton text="Сохранить" className={styles.saveButton} />
             </form>
-            
-            
         </Modal>
-    )
+      )
     }
-    
 }
 
 export default NewTaskModal;

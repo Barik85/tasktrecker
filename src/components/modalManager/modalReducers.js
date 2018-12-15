@@ -1,6 +1,4 @@
-
 import { OPEN_MODAL, CLOSE_MODAL, CURRENT_MODAL } from '../../redux/actionTypes';
-
 
 const initialState = {
   isModalOpen: false,

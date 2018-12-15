@@ -11,10 +11,10 @@ import PropTypes from 'prop-types';
 
  Close.propTypes = {
     className: PropTypes.string,
-  }
+  };
   
   Close.defaultProps = {
     className: '',
-  }
+  };
 
  export default Close;

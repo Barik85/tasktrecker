@@ -10,8 +10,8 @@ const mSTP = state => ({
 
 const mDTP = dispatch => ({
   handleLogout: () => dispatch(signOut()),
-  openModal: (modalNeme) => {
-    dispatch(setCurrentModal(modalNeme));
+  openModal: (modalName) => {
+    dispatch(setCurrentModal(modalName));
     dispatch(openModal());
   },
 });

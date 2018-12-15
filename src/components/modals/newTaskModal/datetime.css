@@ -7,8 +7,7 @@
    position: absolute;
    width: 123px;
    padding: 4px;
-
-   z-index: 99999;
+   z-index: 999;
    background: #fff;
    box-shadow: 0 1px 3px rgba(0, 0, 0, .1);
    border: 1px solid #f9f9f9;
@@ -16,7 +15,6 @@
    top: -2px;
    border-radius: 5px;
  }
-
 
  .rdtOpen .rdtPicker {
    display: block;
@@ -126,15 +124,10 @@
  .rdtNext span {
    display: block;
    -webkit-touch-callout: none;
-
    -webkit-user-select: none;
-
    -khtml-user-select: none;
-
    -moz-user-select: none;
-
    -ms-user-select: none;
-
    user-select: none;
  }
 
@@ -209,17 +202,11 @@
    line-height: 40px;
    cursor: pointer;
    display: block;
-
    -webkit-touch-callout: none;
-
    -webkit-user-select: none;
-
    -khtml-user-select: none;
-
    -moz-user-select: none;
-
    -ms-user-select: none;
-
    user-select: none;
  }
 

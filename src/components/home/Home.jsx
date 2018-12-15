@@ -5,8 +5,6 @@ import Button from '../../components/shared/Button';
 import MainPage from '../mainPage/MainPage';
 import ModalManager from '../modalManager/ModalManager';
 
-
-
 const CardsList = [];
 
 const cardListEmpty = (CardsList.length > 0);
@@ -18,16 +16,15 @@ const PrivateActions = ({ openModal }) => (
     "Здесь будет список карточек CardsList" : <p className={styles.text}>Пока что ничего не создано</p>}
     <Button text="Добавить задачу" onClick={() => {openModal('NEW_TASK_MODAL')}}/>
   </div>
-)
+);
 
 PrivateActions.propTypes = {
   openModal: PropTypes.func.isRequired,
-}
+};
 
 const Home = ({authenticated, ...props}) => (
 
     <main className={styles.wrapper}>
-
       { authenticated ?
         (
           <PrivateActions {...props}/>
@@ -35,11 +32,8 @@ const Home = ({authenticated, ...props}) => (
           <PublicActions />
         )
       }
-
       <ModalManager />
     </main>
 );
-
-
 
 export default Home;
