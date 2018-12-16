@@ -8,11 +8,12 @@
   margin: 16px;
   color: #fff;
   box-shadow: #999 3px 3px 9px 0;
+  cursor: pointer;
 
   &::before {
     content: "";
     display: inline-block;
-    background-image: url(../../img/plus-button.svg);
+    background-image: url(../../images/plus-button.svg);
     background-repeat: no-repeat;
     background-position: center center;
     height: 16px;

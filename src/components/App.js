@@ -28,7 +28,6 @@ const App = ({auth}) => (
   </div>
 );
 
-
 App.propTypes = {
   auth: PropTypes.bool,
 }
@@ -42,5 +41,3 @@ const mSTP = (state) => ({
 });
 
 export default withRouter(connect(mSTP)(App));
-
-// export default App;
