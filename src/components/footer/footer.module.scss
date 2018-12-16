@@ -1,0 +1,16 @@
+@import 'styles/_colors.scss';
+
+.footer {
+  background-color: $violet;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 12px;
+  padding-top: 8px;
+}
+
+.text {
+  color: #fff;
+  font-family: 'Roboto';
+  font-size: 12px;
+  font-weight: 400;
+}

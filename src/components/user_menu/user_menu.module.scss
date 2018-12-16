@@ -1,0 +1,63 @@
+@import '../../styles/colors';
+
+.avatar {
+  width: 16px;
+  fill: $violet;
+}
+
+.avatar_wrapper {
+  width: 25px;
+  height: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 3px;
+  box-sizing: border-box;
+  margin-left: 16px;
+  margin-right: 8px;
+}
+
+.dropdown_title {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #fff;
+
+  &::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 5px 0 5px;
+    border-color: $orange transparent transparent transparent;
+  }
+}
+
+.dropdown_wrapper {
+  position: relative;
+}
+
+.dropdown_menu {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 47px;
+  background-color: #fff;
+  box-shadow: 0px 2px 6px 0px rgba(0,0,0,0.1);
+
+  .menu_item {
+    padding: 16px;
+    color: $grey;
+    white-space: nowrap;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $orange;
+      color: #fff;
+    }
+  }
+}

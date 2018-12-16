@@ -16,7 +16,7 @@ const Profile = ({user}) => (
 Profile.propTypes = {
   user: PropTypes.shape({
     email: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
   }),
 };
 

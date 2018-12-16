@@ -12,3 +12,35 @@
     color: #fff;
   }
 }
+
+.login_link {
+  &::after {
+    content: '|';
+    display: inline-block;
+    margin: 0 10px;
+  }
+
+  transition: transform 200ms;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.logo_link {
+  display: flex;
+  width: 200px;
+  align-items: center;
+  text-transform: uppercase;
+  transition: transform 200ms;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  img {
+    width: 37px;
+    height: 37px;
+    margin-right: 8px;
+  }
+}

@@ -1,0 +1,131 @@
+@import 'styles/_colors.scss';
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $violet;
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  text-align: center;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: url('../../../images/add.svg');
+    margin-right: 8px;
+    line-height: 24px;
+    vertical-align: middle;
+  }
+}
+
+.close {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+}
+
+.closesvg {
+  display: block;
+}
+
+.form {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+textarea {
+  display: block;
+  border: #dbdcdd 1px solid;
+  width: 354px;
+  height: 105px;
+  resize: none;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  margin-bottom: 20px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  &:last-of-type {
+    margin-bottom: 50px;
+  }
+}
+
+.label {
+  font-family: 'Roboto', sans-serif;
+}
+
+.datewrapper {
+  border: #dbdcdd 1px solid;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 2px 2px 3px 0px rgba(204, 204, 204, 0.3);
+  position: relative;
+  margin-top: 25px;
+}
+
+.dateinput {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  color: $orange;
+  border: none;
+  border-bottom: #dbdcdd 2px solid;
+  position: absolute;
+  top: -30px;
+  right: -2px;
+  width: 166px;
+  padding: 6px;
+  background: url(../../../images/calendar.svg);
+  background-position: right 5px bottom 5px;
+  background-repeat: no-repeat;
+}
+
+.colorwrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: relative;
+}
+
+.buttonColor {
+  color: #808285;
+  font-size: 12px;
+  width: 178px;
+  border-bottom: #dbdcdd 2px solid;
+  padding: 6px;
+  text-align-last: left;
+  display: flex;
+  align-items: center;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 6px 5px 0 5px;
+    border-color: #3f51b5 transparent transparent transparent;
+    margin-left: auto;
+  }
+}
+
+.buttonColorIcon {
+  display: block;
+  width: 17px;
+  height: 17px;
+  background: url(../../../images/square-default.svg);
+  margin-right: 10px;
+}
