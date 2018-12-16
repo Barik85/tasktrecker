@@ -66,7 +66,8 @@ class Login extends Component {
     }
   };
 
-  visiblePassword = () =>{
+  visiblePassword = (e) =>{
+    e.preventDefault();
       this.setState({
         isVisiblePassword:!this.state.isVisiblePassword
       })
@@ -76,11 +77,10 @@ class Login extends Component {
     e.preventDefault();
     const {email, password} = this.state;
 
-    /* eslint-disable-next-line */
     if (email === '' || password === '') return;
 
     this.props.signIn({...this.state});
-    this.resetState();
+    // this.resetState();
   }
 
   render() {
@@ -113,7 +113,7 @@ class Login extends Component {
           />
           <span>
             <input
-            type="image" 
+            type="image"
             onClick={this.visiblePassword}
             className={styles.login_passwordVisible}
             src={this.state.isVisiblePassword?privateEye:eye} alt='lock' width="5%" />
@@ -132,7 +132,7 @@ class Login extends Component {
         <div className={styles.login_submit}>
           <input type="submit" value="ВОЙТИ"/>
         </div>
-        
+
       </form>
     );
   }

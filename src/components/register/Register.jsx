@@ -72,13 +72,14 @@ class Register extends Component {
     }
   };
 
-  visiblePassword = () =>{
-      this.setState({
-        isVisiblePassword:!this.state.isVisiblePassword
-      })
+  visiblePassword = (e) => {
+    e.preventDefault();
+    this.setState({
+      isVisiblePassword:!this.state.isVisiblePassword
+    })
   };
 
-  
+
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -134,7 +135,7 @@ class Register extends Component {
           />
           <span>
             <input
-            type="image" 
+            type="image"
             onClick={this.visiblePassword}
             className={styles.login_passwordVisible}
             src={this.state.isVisiblePassword?privateEye:eye} alt='lock' width="5%" />
