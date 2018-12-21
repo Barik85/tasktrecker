@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import Note from '../note/Note';
+import AddButton from '../addTask/index';
 
 const styles = {
   display: 'flex',
@@ -12,6 +13,7 @@ const styles = {
 const NotesList = ({notes}) => (
   <div style={styles}>
     {notes.map(note => (<Note key={note.id} note={note} />))}
+    <AddButton/>
   </div>
 );
 

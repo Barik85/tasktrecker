@@ -1,0 +1,36 @@
+.addButton {
+    position: relative;
+    width: 200px;
+    min-height: 140px;
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    // background-color: #fff;
+    margin: 16px;
+    flex: column;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    text-align: center;
+
+
+}
+.plus {
+
+    font-size: 75px;
+    color: white;
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    text-align: center;
+    margin: 50px auto auto;
+    background: #fe5722;
+    line-height: 60px;
+}
+.title {
+    color: #fe5722;
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 20px
+    
+}

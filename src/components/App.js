@@ -12,6 +12,7 @@ import Profile from '../pages/Profile';
 import Register from '../components/register/Register';
 import styles from './App.module.scss';
 
+
 const App = ({auth}) => (
   <div className={styles.wrapper}>
     <Header />

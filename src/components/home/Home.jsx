@@ -135,18 +135,12 @@ const PrivateActions = () => (
       <Button text="Добавить задачу"/>
     </div>
     ) : <NotesList notes={CardsList} />
+    
 )
 const Home = ({authenticated, ...props}) => (
 
     <main className={styles.wrapper}>
-
-      { authenticated ?
-        (
-          <PrivateActions {...props}/>
-        ) : (
-          <PublicActions />
-        )
-      }
+      { authenticated ? (<PrivateActions {...props}/>) : (<PublicActions />)}
     </main>
 );
 
