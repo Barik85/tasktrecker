@@ -1,8 +1,28 @@
 import axios from 'axios';
 
-export const googleAuthorisation = (token) => (
-  axios.get('https://taskboard.luisi.top/users/me',
-    {headers: {"Authorization": `Bearer ${token}`}} )
+const HOST = 'https://taskboard.luisi.top';
+
+export const googleAuthorisation = token => (
+  axios.get(`${HOST}/users/me`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
 );
 
-export const sendUser = () => {};
+export const registerUser = ({ email, password }) => (
+  axios.post(`${HOST}/auth/register`,
+    {
+      email,
+      password,
+      password2: password,
+    },
+  )
+);
+
+export const loginUser = ({ email, password }) => (
+  axios.post(`${HOST}/auth/local/login`,
+    {
+      email,
+      password,
+    },
+  )
+);

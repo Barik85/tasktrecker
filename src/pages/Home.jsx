@@ -14,8 +14,8 @@ const fakeNote = {
   reminder: '',
   timestamps: {
     createdAt: '',
-    updatedAt: ''
-  }
+    updatedAt: '',
+  },
 };
 
 class Home extends Component {
@@ -33,23 +33,22 @@ class Home extends Component {
     const userToken = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
 
     if (userToken.token) {
-        this.props.signInWithGoogle(userToken.token);
-        this.props.history.push("/");
+      this.props.signInWithGoogle(userToken.token);
+      this.props.history.push('/');
     }
-
   }
 
   render() {
     return (
       <div>
-        <Note note={fakeNote}/>
+        <Note note={fakeNote} />
       </div>
     );
   }
 }
 
 const mDTP = dispatch => ({
-  signInWithGoogle: (token) => dispatch(signInWithGoogle(token)),
-})
+  signInWithGoogle: token => dispatch(signInWithGoogle(token)),
+});
 
 export default connect(null, mDTP)(Home);

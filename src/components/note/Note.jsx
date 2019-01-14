@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'class-names';
 import styles from './note.module.scss';
@@ -38,7 +38,7 @@ class Note extends Component {
       reminder: '',
       timestamps: {
         createdAt: '',
-        updatedAt: ''
+        updatedAt: '',
       },
     },
     onEdit: () => {},
@@ -55,40 +55,40 @@ class Note extends Component {
     this.showCheckmark();
     setTimeout(this.hideCheckmark, 500);
     this.setState(prevState => ({
-      isChecked: !prevState.isChecked
-    }))
+      isChecked: !prevState.isChecked,
+    }));
   }
 
   showDeleteDialog = () => {
     this.setState({
       isVisibleDeleteDialog: true,
-    })
+    });
   }
 
   hideDeleteDialog = () => {
     this.setState({
       isVisibleDeleteDialog: false,
-    })
+    });
   }
 
   showCheckmark = () => {
     this.setState({
       isVisibleCheckmark: true,
-    })
+    });
   }
 
   hideCheckmark = () => {
     this.setState({
       isVisibleCheckmark: false,
-    })
+    });
   }
 
   render() {
-    const {note, onEdit, onDelete} = this.props;
+    const { note, onEdit, onDelete } = this.props;
     const {
       isChecked,
       isVisibleDeleteDialog,
-      isVisibleCheckmark
+      isVisibleCheckmark,
     } = this.state;
 
     return (
@@ -143,9 +143,9 @@ class Note extends Component {
             <div className={styles.checkmark_box} />
           </div>
         )}
-        <div className={styles.corner} style={{backgroundColor: `${note.color}`}}/>
+        <div className={styles.corner} style={{ backgroundColor: `${note.color}` }} />
       </div>
-    )
+    );
   }
 }
 

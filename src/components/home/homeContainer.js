@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { setCurrentModal, openModal } from '../modalManager/modalActions';
-import {signOut, signInWithGoogle } from '../login/loginActions';
+import { signOut, signInWithGoogle } from '../login/loginActions';
 import Home from './Home';
 
 const mSTP = state => ({
@@ -14,7 +14,7 @@ const mDTP = dispatch => ({
     dispatch(setCurrentModal(modalName));
     dispatch(openModal());
   },
-  signInWithGoogle: (token) => dispatch(signInWithGoogle(token)),
+  signInWithGoogle: token => dispatch(signInWithGoogle(token)),
 });
 
 export default connect(mSTP, mDTP)(Home);

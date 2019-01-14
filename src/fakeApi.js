@@ -56,7 +56,7 @@ export const signIn = ({ email, password }) => new Promise((resolve, reject) => 
 });
 
 
-export const signOut = () => new Promise(resolve => {
+export const signOut = () => new Promise((resolve) => {
   setTimeout(() => {
     resolve();
   }, 300);

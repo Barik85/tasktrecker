@@ -19,8 +19,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -32,8 +32,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -45,8 +45,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -58,8 +58,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -71,8 +71,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -84,8 +84,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -97,8 +97,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -110,8 +110,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -123,22 +123,22 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
 ];
 
 const cardListEmpty = (CardsList.length === 0);
-const PublicActions = () => (<MainPage/>);
+const PublicActions = () => (<MainPage />);
 
 const PrivateActions = ({ openModal }) => (
   cardListEmpty ? (
     <div>
       <p className={styles.text}>Пока что ничего не создано</p>
-      <Button text="Добавить задачу" onClick={() => {openModal('NEW_TASK_MODAL')}}/>
+      <Button text="Добавить задачу" onClick={() => { openModal('NEW_TASK_MODAL'); }} />
     </div>
-    ) : <NotesList notes={CardsList} openModal={openModal} />
-)
+  ) : <NotesList notes={CardsList} openModal={openModal} />
+);
 
 PrivateActions.propTypes = {
   openModal: PropTypes.func.isRequired,
@@ -160,10 +160,9 @@ class Home extends Component {
     const userToken = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
 
     if (userToken.token) {
-        this.props.signInWithGoogle(userToken.token);
-        this.props.history.push("/");
+      this.props.signInWithGoogle(userToken.token);
+      this.props.history.push('/');
     }
-
   }
 
   render() {
@@ -173,7 +172,7 @@ class Home extends Component {
       <main className={styles.wrapper}>
         { authenticated ?
           (
-            <PrivateActions {...this.props}/>
+            <PrivateActions {...this.props} />
           ) : (
             <PublicActions />
           )

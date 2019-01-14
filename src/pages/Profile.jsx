@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-const Profile = ({user}) => (
+const Profile = ({ user }) => (
   <div>
     <div>
       <span>Имя фамилия</span> <span>{user.name}</span>
@@ -24,11 +24,11 @@ Profile.defaultProps = {
   user: {
     email: '',
     name: '',
-  }
+  },
 };
 
-const mSTP = (state) => ({
-  user: state.session.user
-})
+const mSTP = state => ({
+  user: state.session.user,
+});
 
 export default connect(mSTP)(Profile);
