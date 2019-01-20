@@ -1,3 +1,5 @@
+@import 'styles/_colors.scss';
+
 .addButton {
     position: relative;
     width: 200px;
@@ -12,9 +14,19 @@
     justify-content: flex-end;
     flex-wrap: nowrap;
     text-align: center;
-
-
+    button{
+        border: none;
+        border-radius: 10px;
+        background-color: $orange;
+        padding: 12px 30px;
+        margin: 16px;
+        color: #fff;
+        box-shadow: #999 3px 3px 9px 0;
+        cursor: pointer;
+    }
 }
+
+
 .plus {
 
     font-size: 75px;
