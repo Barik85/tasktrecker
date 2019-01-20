@@ -8,6 +8,7 @@
   margin: 16px;
   color: #fff;
   box-shadow: #999 3px 3px 9px 0;
+  cursor: pointer;
 
   &::before {
     content: "";
@@ -19,5 +20,13 @@
     width: 16px;
     vertical-align: middle;
     margin-right: 10px;
+  }
+
+  &:hover {
+    box-shadow: #888 3px 3px 9px 0;
+  }
+
+  &:active {
+    box-shadow: #999 1px 1px 3px 0;
   }
 }

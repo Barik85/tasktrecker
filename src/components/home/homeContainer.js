@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
+import { setCurrentModal, openModal } from '../modalManager/modalActions';
+import {signOut, signInWithGoogle } from '../login/loginActions';
 import Home from './Home';
-import {signOut} from '../../components/login/loginActions';
 
 const mSTP = state => ({
   authenticated: state.session.authenticated,
@@ -8,7 +9,12 @@ const mSTP = state => ({
 });
 
 const mDTP = dispatch => ({
-  handleLogout: () => dispatch(signOut())
+  handleLogout: () => dispatch(signOut()),
+  openModal: (modalName) => {
+    dispatch(setCurrentModal(modalName));
+    dispatch(openModal());
+  },
+  signInWithGoogle: (token) => dispatch(signInWithGoogle(token)),
 });
 
 export default connect(mSTP, mDTP)(Home);

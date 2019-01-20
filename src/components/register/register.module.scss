@@ -1,0 +1,142 @@
+.register_form{
+  max-width: 475px;
+  margin: 50px auto 0;
+  border: solid 1px #d7d8d8;
+  box-shadow: 1px 1px 1px 2px #d7d8d8;
+  background-color: #fff;
+}
+
+.register_form h3{
+  color: #3f51b5;
+  font-size: 30px;
+  font-weight: 500;
+  margin: 5px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.register_name{
+  color: #3f51b5;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 35px;
+}
+
+.register_boxName {
+  border: solid 0px #3f51b5;
+  border-bottom: solid 1px #3f51b5;
+  width: 70%;
+  height: 35px;
+}
+
+.register_name span{
+  margin-right: 15px;
+}
+
+.register_boxName:focus {
+  outline: none;
+}
+
+.register_email{
+  color: #3f51b5;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.register_boxEmail {
+  border: solid 0px #3f51b5;
+  border-bottom: solid 1px #3f51b5;
+  width: 70%;
+  height: 35px;
+}
+
+.register_email span{
+  margin-right: 15px;
+}
+
+.register_boxEmail:focus {
+  outline: none;
+
+}
+
+.register_password{
+  color: #3f51b5;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 35px;
+}
+
+.register_boxPassword {
+  border: solid 0px #3f51b5;
+  border-bottom: solid 1px #3f51b5;
+  width: 70%;
+  height: 35px;
+}
+
+.register_password span{
+  margin-right: 15px;
+}
+
+.register_boxPassword:focus {
+  outline: none;
+}
+
+.register_submit{
+  text-align: center;
+}
+
+.register_submit input{
+  background-color: #ee6337;
+  margin: 25px;
+  border-radius: 8px;
+  border: solid 1px #ee6337;
+  color: white;
+  width: 175px;
+  height: 35px;
+  font-size: 14px;
+  margin-top: 50px;
+}
+
+.register_submit input:focus {
+  outline: none;
+}
+
+.login_passwordVisible {
+  width: 5%;
+  border: none;
+}
+
+.subMenu {
+  display: flex;
+  justify-content: space-between;
+  margin: 45px 40px 15px;
+  font-size: 14px;
+}
+
+.errorLogin {
+  color: #ec3323;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 12px;
+  margin-right: 65px;
+}
+
+.socialnetBox {
+  display: flex;
+  justify-content: space-around;
+  margin: 25px;
+}
+
+.socialnetBox div button {
+  width: 125px;
+  height: 35px;
+  background-color: #f1f2f2;
+  border: none;
+  outline: none;
+}
+
+.socialnetBox div button img {
+  position: relative;
+  right: 15px;
+}
