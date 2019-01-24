@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import styles from './home.module.scss';
-import Button from '../../components/shared/Button';
+import AddTask from '../../components/addTask/addTask';
 import MainPage from '../mainPage/MainPage';
 import ModalManager from '../modalManager/ModalManager';
 import NotesList from '../notes_list/Note_list';
@@ -131,20 +131,19 @@ const CardsList = [
 const cardListEmpty = (CardsList.length === 0);
 const PublicActions = () => (<MainPage/>);
 
-const PrivateActions = () => (
+const PrivateActions = ({openModal}) => (
   cardListEmpty ? (
     <div>
       <p className={styles.text}>Пока что ничего не создано</p>
-      <Button text="Добавить задачу" />
+      <AddTask {...openModal} />
     </div>
-    ) : <NotesList notes={CardsList} />
-    
+  ) : 
+  <NotesList notes={CardsList} openModal={openModal}/>    
 )
 
-
-// PrivateActions.propTypes = {
-//   openModal: PropTypes.func.isRequired,
-// };
+PrivateActions.propTypes = {
+  openModal: PropTypes.func.isRequired,
+};
 
 class Home extends Component {
   static propTypes = {
@@ -170,7 +169,6 @@ class Home extends Component {
 
   render() {
     const { authenticated } = this.props;
-
     return (
       <main className={styles.wrapper}>
         { authenticated ?

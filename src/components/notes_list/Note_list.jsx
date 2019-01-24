@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Note from '../note/Note';
-import AddButton from '../addTask/addTask';
-import NewTaskModal from "../modals/newTaskModal/NewTaskModal"
+import AddTask from '../addTask/addTask';
+
 
 
 const styles = {
@@ -12,18 +12,28 @@ const styles = {
   maxWidth: '90%',
 }
 
-const NotesList = ({notes}) => (
-  <div style={styles}>
-    {notes.map(note => (<Note key={note.id} note={note} />))}
-    <AddButton/>
-    <NewTaskModal/>
+export default class NotesList extends React.Component {
+  state={
+    isOpen: false
+  }
 
-  </div>
-);
+  openModalTask = () => {
+    this.setState({
+      isOpen: true
+    })
+  }
 
-NotesList.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  // openModal: PropTypes.func.isRequired,
+
+  render() {
+    const { notes } = this.props
+    return (<div style={styles}>
+      {notes.map(note => (<Note key={note.id} note={note} />))}
+      <AddTask openModal={this.openModalTask} {...this.props}/>
+    </div>
+    )
+  }
 }
 
-export default NotesList;
+NotesList.propTypes = {
+  notes: PropTypes.arrayOf(PropTypes.object).isRequired
+}

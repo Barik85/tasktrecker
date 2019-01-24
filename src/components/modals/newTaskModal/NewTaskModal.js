@@ -94,7 +94,8 @@ const customStyles = {
 
     render() {
       const { isModalOpen, closeModal } = this.props;
-        return (
+        
+      return (
         <Modal
             isOpen={isModalOpen}
             onRequestClose={closeModal}
