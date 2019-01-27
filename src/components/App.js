@@ -12,7 +12,7 @@ import Profile from '../pages/Profile';
 import Register from '../components/register/Register';
 import styles from './App.module.scss';
 
-const App = ({auth}) => (
+const App = ({ auth }) => (
   <div className={styles.wrapper}>
     <Header />
     <div className={styles.main_container}>
@@ -30,14 +30,14 @@ const App = ({auth}) => (
 
 App.propTypes = {
   auth: PropTypes.bool,
-}
+};
 
 App.defaultProps = {
   auth: false,
-}
+};
 
-const mSTP = (state) => ({
-  auth: state.session.authenticated
+const mSTP = state => ({
+  auth: state.session.authenticated,
 });
 
 export default withRouter(connect(mSTP)(App));

@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 export default class TextInput extends Component {
-
   static propTypes = {
     value: PropTypes.string,
     placeholder: PropTypes.string,
@@ -16,26 +15,26 @@ export default class TextInput extends Component {
     placeholder: '',
     onChange: () => {},
     inputName: '',
-    label: ''
+    label: '',
   }
 
   state = {
-    text: this.props.value
+    text: this.props.value,
   }
 
   handleInputChange = (e) => {
     const value = e.target.value;
 
     this.setState({
-      text: value
-    })
+      text: value,
+    });
 
     if (this.props.onChange) this.props.onChange(value);
   }
 
   render() {
-    const {inputName, placeholder, label} = this.props;
-    const {text} = this.state;
+    const { inputName, placeholder, label } = this.props;
+    const { text } = this.state;
 
     return (
       <Fragment>

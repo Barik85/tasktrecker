@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { signIn } from './loginActions';
+import { signIn, resetSessionError } from './loginActions';
 import styles from './login.module.scss';
 import lockIcon from './img/blocked-padlock.svg';
 import letterIcon from './img/letter.svg';
 import tickFalse from './img/tick.svg';
-import tickTrue from './img/tickTrue.svg'
+import tickTrue from './img/tickTrue.svg';
 import privateEye from './img/private.svg';
 import eye from './img/eye.svg';
 import facebookLogo from './img/facebook-logo.svg';
@@ -16,8 +16,8 @@ import linkedinLogo from './img/linkedin-logo.svg';
 
 const initialState = {
   email: '',
-  password: ''
-}
+  password: '',
+};
 
 class Login extends Component {
   static propTypes = {
@@ -27,6 +27,7 @@ class Login extends Component {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }),
+    discardErrors: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -35,7 +36,7 @@ class Login extends Component {
     history: null,
   }
 
-  state = {...initialState,isValidEmail:true,isVisiblePassword:true};
+  state = { ...initialState, isValidEmail: true, isVisiblePassword: true };
 
   componentDidUpdate() {
     if (this.props.auth) {
@@ -43,55 +44,63 @@ class Login extends Component {
     }
   }
 
+  componentWillUnmount() {
+    const { discardErrors } = this.props;
+    discardErrors();
+  }
+
   resetState = () => {
     this.setState(initialState);
   }
 
   handleInputChange = (e) => {
-    const {value, name} = e.target;
+    const { value, name } = e.target;
 
     this.setState({
-      [name]: value
-    })
+      [name]: value,
+    });
 
-    this.validate(name,value)
+    this.validate(name, value);
   };
 
-  validate = (name,value)=>{
-    if(name === 'email'){
+  validate = (name, value) => {
+    if (name === 'email') {
       const valEmail = /^\S+@\S+\.\S+$/;
       this.setState({
-        isValidEmail: valEmail.test(value)
-      })
+        isValidEmail: valEmail.test(value),
+      });
     }
   };
 
-  visiblePassword = (e) =>{
+  visiblePassword = (e) => {
     e.preventDefault();
-      this.setState({
-        isVisiblePassword:!this.state.isVisiblePassword
-      })
+    this.setState({
+      isVisiblePassword: !this.state.isVisiblePassword,
+    });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const {email, password} = this.state;
+    const { email, password } = this.state;
 
     if (email === '' || password === '') return;
 
-    this.props.signIn({...this.state});
+    this.props.signIn({ ...this.state });
     // this.resetState();
   }
 
   render() {
-    const {error} = this.props;
+    const { error } = this.props;
+    const errorMessage = (error && error.message && typeof error.message === 'string')
+      ? error.message
+      : 'Вы ввели неверные данные';
 
-    return(
+    return (
       <>
         <form className={styles.login} onSubmit={this.handleSubmit}>
           <h3>Вход</h3>
           <div className={styles.login_inputEmail}>
-            <label htmlFor="email"><span><img src={letterIcon} alt='letter' width="5%" /></span></label>
+            <label htmlFor="email"><span><img src={letterIcon} alt="letter" width="5%" /></span></label>
             <input
               className={styles.login_box}
               type="email"
@@ -100,13 +109,13 @@ class Login extends Component {
               onChange={this.handleInputChange}
               value={this.state.email}
             />
-            <span><img src={this.state.isValidEmail?tickTrue:tickFalse} alt='tick' width="5%" /></span>
+            <span><img src={this.state.isValidEmail ? tickTrue : tickFalse} alt="tick" width="5%" /></span>
           </div>
           <div className={styles.login_inputPassword}>
-            <label htmlFor="password"><span><img src={lockIcon} alt='lock' width="5%"/></span></label>
+            <label htmlFor="password"><span><img src={lockIcon} alt="lock" width="5%" /></span></label>
             <input
               className={styles.login_box}
-              type={this.state.isVisiblePassword?"password":"text"}
+              type={this.state.isVisiblePassword ? 'password' : 'text'}
               name="password"
               placeholder="Пароль"
               onChange={this.handleInputChange}
@@ -114,29 +123,52 @@ class Login extends Component {
             />
             <span>
               <input
-              type="image"
-              onClick={this.visiblePassword}
-              className={styles.login_passwordVisible}
-              src={this.state.isVisiblePassword?privateEye:eye} alt='lock' width="5%" />
+                type="image"
+                onClick={this.visiblePassword}
+                className={styles.login_passwordVisible}
+                src={this.state.isVisiblePassword ? privateEye : eye}
+                alt="lock"
+                width="5%"
+              />
             </span>
           </div>
-          {error ? (<div className={styles.errorLogin}>Вы ввели неверные данные</div>) : null}
-          <div className={styles.subMenu}>
+          {error && error.type === 'login_error'
+            ? (
+              <div className={styles.errorLogin}>
+                {errorMessage}
+              </div>
+            ) : null
+          }
+          <div className={styles.sub_menu}>
             <div><input type="checkbox" /><span>Запомнить меня</span></div>
-            <div><a href="http://">Восстановить пароль</a></div>
+            <div>
+              <button className={styles.restore_password_link}>Восстановить пароль</button>
+            </div>
           </div>
-          <div className={styles.socialnetBox}>
-            <div><button type="button"><img src={facebookLogo} alt='lock' width="20%" />Facebook</button></div>
-            <div><button type="button"><img src={googleplusLogo} alt='lock' width="20%" />Google</button></div>
-            <div><button type="button"><img src={linkedinLogo} alt='lock' width="20%" />Linked In</button></div>
+          <div className={styles.socialnet_box}>
+            <div>
+              <button type="button" className={styles.btn}>
+                <img src={facebookLogo} alt="facebook_logo" className={styles.btn_img} />
+                Facebook
+              </button>
+            </div>
+            <div>
+              <a href="https://taskboard.luisi.top/auth/google" className={styles.btn}>
+                <img src={googleplusLogo} alt="google_logo" className={styles.btn_img_google} />
+                Google
+              </a>
+            </div>
+            <div>
+              <button type="button" className={styles.btn}>
+                <img src={linkedinLogo} alt="linked_in_logo" className={styles.btn_img} />
+                Linked In
+              </button>
+            </div>
           </div>
           <div className={styles.login_submit}>
-            <input type="submit" value="ВОЙТИ"/>
+            <input type="submit" value="ВОЙТИ" />
           </div>
         </form>
-        <div>
-          <a href="https://taskboard.luisi.top/auth/google">Login with google account</a>
-        </div>
       </>
     );
   }
@@ -144,9 +176,9 @@ class Login extends Component {
 
 const mSTP = state => ({
   error: state.session.error,
-  auth: state.session.authenticated
-})
+  auth: state.session.authenticated,
+});
 
-const mDTP = {signIn};
+const mDTP = { signIn, discardErrors: resetSessionError };
 
 export default connect(mSTP, mDTP)(Login);

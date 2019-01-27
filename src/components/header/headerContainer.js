@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Header from './header';
-import {signOut} from '../login/loginActions';
+import { signOut, getUserInfo } from '../login/loginActions';
 
 const mSTP = state => ({
   authenticated: state.session.authenticated,
@@ -8,7 +8,8 @@ const mSTP = state => ({
 });
 
 const mDTP = dispatch => ({
-  handleLogout: () => dispatch(signOut())
+  handleLogout: () => dispatch(signOut()),
+  getUserInfo: () => dispatch(getUserInfo()),
 });
 
 export default connect(mSTP, mDTP)(Header);
