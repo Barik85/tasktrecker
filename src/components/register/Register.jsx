@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { registerUser } from '../login/loginActions';
+import { registerUser, resetSessionError } from '../login/loginActions';
 import styles from './register.module.scss';
 import lockIcon from '../login/img/blocked-padlock.svg';
 import letterIcon from '../login/img/letter.svg';
@@ -19,6 +19,7 @@ const initialState = {
   name: '',
   email: '',
   password: '',
+  errorResponse: null,
 };
 
 class Register extends Component {
@@ -28,6 +29,7 @@ class Register extends Component {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }),
+    discardErrors: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -38,18 +40,23 @@ class Register extends Component {
 
   state = { ...initialState, isValidName: true, isValidEmail: true, isVisiblePassword: true };
 
+  componentWillUnmount() {
+    const { discardErrors } = this.props;
+    discardErrors();
+  }
+
   resetState = () => {
     this.setState(initialState);
   }
 
-    handleInputChange = (e) => {
-      const { value, name } = e.target;
+  handleInputChange = (e) => {
+    const { value, name } = e.target;
 
-      this.setState({
-        [name]: value,
-      });
-      this.validate(name, value);
-    };
+    this.setState({
+      [name]: value,
+    });
+    this.validate(name, value);
+  };
 
   validate = (name, value) => {
     if (name === 'email') {
@@ -76,12 +83,15 @@ class Register extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { email, password, name } = this.state;
+    const { registerUser: createUser } = this.props;
 
-    /* eslint-disable-next-line */
     if (email === '' || password === '' || name === '') return;
 
-    this.props.registerUser({ ...this.state });
-    this.resetState();
+    createUser({
+      email,
+      password,
+      password2: password,
+    });
   }
 
   responseFacebook = (res) => {
@@ -90,6 +100,9 @@ class Register extends Component {
 
   render() {
     const { error } = this.props;
+    const errorMessage = (error && error.message && typeof error.message === 'string')
+      ? error.message
+      : 'Вы ввели неверные данные';
 
     return (
       <>
@@ -119,7 +132,13 @@ class Register extends Component {
             />
             <span><img src={this.state.isValidEmail ? tickTrue : tickFalse} alt="tick" width="5%" /></span>
           </div>
-          {error ? (<div className={styles.errorLogin}>Вы ввели неверные данные</div>) : null}
+          {error && error.type === 'register_error'
+            ? (
+              <div className={styles.errorLogin}>
+                {errorMessage}
+              </div>
+            ) : null
+          }
           <div className={styles.register_password}>
             <label htmlFor="password"><span><img src={lockIcon} alt="lock" width="5%" /></span></label>
             <input
@@ -141,18 +160,30 @@ class Register extends Component {
               />
             </span>
           </div>
-          <div className={styles.socialnetBox}>
-            <div><button type="button" className={styles.socialnetBox_facebook}><img src={facebookLogo} alt="lock" width="20%" />Facebook</button></div>
-            <div><button type="button" className={styles.socialnetBox_google}><img src={googleplusLogo} alt="lock" width="20%" />Google</button></div>
-            <div><button type="button" className={styles.socialnetBox_linkeid}><img src={linkedinLogo} alt="lock" width="20%" />Linked In</button></div>
+          <div className={styles.socialnet_box}>
+            <div>
+              <button type="button" className={styles.btn}>
+                <img src={facebookLogo} alt="facebook_logo" className={styles.btn_img} />
+                Facebook
+              </button>
+            </div>
+            <div>
+              <a href="https://taskboard.luisi.top/auth/google" className={styles.btn}>
+                <img src={googleplusLogo} alt="google_logo" className={styles.btn_img_google} />
+                Google
+              </a>
+            </div>
+            <div>
+              <button type="button" className={styles.btn}>
+                <img src={linkedinLogo} alt="linked_in_logo" className={styles.btn_img} />
+                Linked In
+              </button>
+            </div>
           </div>
           <div className={styles.register_submit}>
             <input type="submit" value="Зарегистрироваться" />
           </div>
         </form>
-        <div>
-          <a href="https://taskboard.luisi.top/auth/google">Login with google account</a>
-        </div>
       </>
     );
   }
@@ -163,6 +194,9 @@ const mSTP = state => ({
   auth: state.session.authenticated,
 });
 
-const mDTP = { registerUser };
+const mDTP = (dispatch, ownProps) => ({
+  registerUser: credentials => dispatch(registerUser(credentials, ownProps)),
+  discardErrors: resetSessionError,
+});
 
 export default connect(mSTP, mDTP)(Register);

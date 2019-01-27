@@ -14,7 +14,7 @@ class Note extends Component {
       description: PropTypes.string,
       color: PropTypes.string,
       deadline: PropTypes.string,
-      completed: PropTypes.bool.isRequired,
+      completed: PropTypes.bool,
       reminder: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object,
@@ -40,6 +40,7 @@ class Note extends Component {
         createdAt: '',
         updatedAt: '',
       },
+      completed: false,
     },
     onEdit: () => {},
     onDelete: () => {},
@@ -95,7 +96,12 @@ class Note extends Component {
       <div className={styles.note_wrapper}>
         <div className={styles.row}>
           <button className={styles.checkbox} onClick={this.handleCeck}>
-            <input type="checkbox" name="completed" checked={isChecked} />
+            <input
+              type="checkbox"
+              name="completed"
+              checked={isChecked}
+              onChange={this.handleCeck}
+            />
             <span className={styles.checkmark} />
           </button >
           <div>

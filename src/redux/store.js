@@ -41,8 +41,12 @@ const store = createStore(
 );
 
 store.subscribe(throttle(() => {
+  const session = store.getState().session;
   (saveStateToLS({
-    session: store.getState().session,
+    session: {
+      ...session,
+      error: null,
+    },
   }));
 }, 1000));
 

@@ -1,6 +1,11 @@
 import { combineReducers } from 'redux';
 import {
-  SIGN_IN_REQUEST, SIGN_IN_SUCCES, SIGN_IN_FAILURE, SIGN_OUT,
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+  SIGN_OUT,
+  GET_USER_SUCCESS,
+  RESET_SESSION_ERROR,
 } from '../../redux/actionTypes';
 
 const initialState = {
@@ -16,13 +21,14 @@ const initialState = {
 
 const userReducer = (state = initialState.user, action) => {
   switch (action.type) {
-    case SIGN_IN_SUCCES:
+    case SIGN_IN_SUCCESS:
       return action.payload.user;
 
     case SIGN_OUT:
-      return {
-        user: initialState.user,
-      };
+      return initialState.user;
+
+    case GET_USER_SUCCESS:
+      return action.payload;
 
     default:
       return state;
@@ -31,7 +37,7 @@ const userReducer = (state = initialState.user, action) => {
 
 const authenticatedReducer = (state = initialState.authenticated, action) => {
   switch (action.type) {
-    case SIGN_IN_SUCCES:
+    case SIGN_IN_SUCCESS:
       return true;
 
     case SIGN_OUT:
@@ -44,7 +50,7 @@ const authenticatedReducer = (state = initialState.authenticated, action) => {
 
 const tokenReducer = (state = initialState.token, action) => {
   switch (action.type) {
-    case SIGN_IN_SUCCES:
+    case SIGN_IN_SUCCESS:
       return action.payload.token;
 
     case SIGN_OUT:
@@ -60,9 +66,11 @@ const errorReducer = (state = initialState.error, action) => {
     case SIGN_IN_FAILURE:
       return action.payload;
 
-    case SIGN_IN_SUCCES:
+    case SIGN_IN_SUCCESS:
     case SIGN_IN_REQUEST:
+    case GET_USER_SUCCESS:
     case SIGN_OUT:
+    case RESET_SESSION_ERROR:
       return null;
 
     default:

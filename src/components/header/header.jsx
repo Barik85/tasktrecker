@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './header.module.scss';
@@ -7,10 +7,10 @@ import Avatar from '../icons/Avatar';
 import UserMenu from '../user_menu/User_menu';
 
 const PublicActions = () => (
-  <Fragment>
+  <>
     <Link to="/login" className={styles.login_link}>Войти </Link>
     <Link to="/register">Зарегистрироваться </Link>
-  </Fragment>
+  </>
 );
 
 const PrivateActions = ({ userName, handleLogout }) => (
@@ -44,33 +44,44 @@ PrivateActions.defaultProps = {
   handleLogout: () => {},
 };
 
-const Header = ({ authenticated, userName, handleLogout }) => (
-  <header className={styles.header}>
-    <Link className={styles.logo_link} to="/">
-      <img src={logo} alt="tasktraker" /> Tasktracker
-    </Link>
-    <div>
-      { authenticated ?
-        (
-          <UserMenu userName={userName} handleLogout={handleLogout} />
-        ) : (
-          <PublicActions />
-        )
-      }
-    </div>
-  </header>
-);
+class Header extends Component {
+  static propTypes = {
+    authenticated: PropTypes.bool,
+    userName: PropTypes.string,
+    handleLogout: PropTypes.func,
+    getUserInfo: PropTypes.func.isRequired,
+  };
 
-Header.propTypes = {
-  authenticated: PropTypes.bool,
-  userName: PropTypes.string,
-  handleLogout: PropTypes.func,
-};
+  static defaultProps = {
+    authenticated: false,
+    userName: '',
+    handleLogout: () => {},
+  };
 
-Header.defaultProps = {
-  authenticated: false,
-  userName: '',
-  handleLogout: () => {},
-};
+  componentDidMount() {
+    const { authenticated, getUserInfo } = this.props;
+    if (authenticated) getUserInfo();
+  }
+
+  render() {
+    const { authenticated, userName, handleLogout } = this.props;
+    return (
+      <header className={styles.header}>
+        <Link className={styles.logo_link} to="/">
+          <img src={logo} alt="tasktraker" /> Tasktracker
+        </Link>
+        <div>
+          { authenticated ?
+            (
+              <UserMenu userName={userName} handleLogout={handleLogout} />
+            ) : (
+              <PublicActions />
+            )
+          }
+        </div>
+      </header>
+    );
+  }
+}
 
 export default Header;

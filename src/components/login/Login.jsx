@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { signIn } from './loginActions';
+import { signIn, resetSessionError } from './loginActions';
 import styles from './login.module.scss';
 import lockIcon from './img/blocked-padlock.svg';
 import letterIcon from './img/letter.svg';
@@ -27,6 +27,7 @@ class Login extends Component {
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
     }),
+    discardErrors: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -41,6 +42,11 @@ class Login extends Component {
     if (this.props.auth) {
       this.props.history.push('/');
     }
+  }
+
+  componentWillUnmount() {
+    const { discardErrors } = this.props;
+    discardErrors();
   }
 
   resetState = () => {
@@ -85,6 +91,9 @@ class Login extends Component {
 
   render() {
     const { error } = this.props;
+    const errorMessage = (error && error.message && typeof error.message === 'string')
+      ? error.message
+      : 'Вы ввели неверные данные';
 
     return (
       <>
@@ -123,23 +132,43 @@ class Login extends Component {
               />
             </span>
           </div>
-          {error ? (<div className={styles.errorLogin}>Вы ввели неверные данные</div>) : null}
-          <div className={styles.subMenu}>
+          {error && error.type === 'login_error'
+            ? (
+              <div className={styles.errorLogin}>
+                {errorMessage}
+              </div>
+            ) : null
+          }
+          <div className={styles.sub_menu}>
             <div><input type="checkbox" /><span>Запомнить меня</span></div>
-            <div><a href="http://">Восстановить пароль</a></div>
+            <div>
+              <button className={styles.restore_password_link}>Восстановить пароль</button>
+            </div>
           </div>
-          <div className={styles.socialnetBox}>
-            <div><button type="button"><img src={facebookLogo} alt="lock" width="20%" />Facebook</button></div>
-            <div><button type="button"><img src={googleplusLogo} alt="lock" width="20%" />Google</button></div>
-            <div><button type="button"><img src={linkedinLogo} alt="lock" width="20%" />Linked In</button></div>
+          <div className={styles.socialnet_box}>
+            <div>
+              <button type="button" className={styles.btn}>
+                <img src={facebookLogo} alt="facebook_logo" className={styles.btn_img} />
+                Facebook
+              </button>
+            </div>
+            <div>
+              <a href="https://taskboard.luisi.top/auth/google" className={styles.btn}>
+                <img src={googleplusLogo} alt="google_logo" className={styles.btn_img_google} />
+                Google
+              </a>
+            </div>
+            <div>
+              <button type="button" className={styles.btn}>
+                <img src={linkedinLogo} alt="linked_in_logo" className={styles.btn_img} />
+                Linked In
+              </button>
+            </div>
           </div>
           <div className={styles.login_submit}>
             <input type="submit" value="ВОЙТИ" />
           </div>
         </form>
-        <div>
-          <a href="https://taskboard.luisi.top/auth/google">Login with google account</a>
-        </div>
       </>
     );
   }
@@ -150,6 +179,6 @@ const mSTP = state => ({
   auth: state.session.authenticated,
 });
 
-const mDTP = { signIn };
+const mDTP = { signIn, discardErrors: resetSessionError };
 
 export default connect(mSTP, mDTP)(Login);

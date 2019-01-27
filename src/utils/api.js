@@ -13,7 +13,7 @@ export const registerUser = ({ email, password }) => (
     {
       email,
       password,
-      password2: password,
+      password2: password, // will be removed after api fixed
     },
   )
 );
@@ -24,5 +24,11 @@ export const loginUser = ({ email, password }) => (
       email,
       password,
     },
+  )
+);
+
+export const getUserInfo = token => (
+  axios.get(`${HOST}/users/me`,
+    { headers: { Authorization: `Bearer ${token}` } },
   )
 );
