@@ -1,6 +1,5 @@
 .login {
   max-width: 475px;
-  margin: 50px auto 0;
   border: solid 1px #d7d8d8;
   box-shadow: 1px 1px 1px 2px #d7d8d8;
   background-color: #fff;
@@ -72,16 +71,17 @@
   border: none;
 }
 
-.subMenu {
+.sub_menu {
   display: flex;
   justify-content: space-between;
   margin: 45px 40px 15px;
   font-size: 14px;
 }
 
-.subMenu a {
+.restore_password_link {
   color: #f29473;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .errorLogin {
@@ -92,21 +92,35 @@
   margin-right: 65px;
 }
 
-.socialnetBox {
+.socialnet_box {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   margin: 25px;
 }
 
-.socialnetBox div button {
-  width: 125px;
-  height: 35px;
+.btn {
+  display: flex;
+  align-items: center;
+  min-width: 125px;
+  min-height: 35px;
   background-color: #f1f2f2;
   border: none;
   outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e2e2e2;
+  }
 }
 
-.socialnetBox div button img {
-  position: relative;
-  right: 15px;
+.btn_img {
+  width: 20px;
+  margin: 0 12px;
+}
+
+.btn_img_google {
+  @extend .btn_img;
+
+  width: 25px;
 }

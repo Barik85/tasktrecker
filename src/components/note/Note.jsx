@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'class-names';
 import styles from './note.module.scss';
@@ -14,7 +14,7 @@ class Note extends Component {
       description: PropTypes.string,
       color: PropTypes.string,
       deadline: PropTypes.string,
-      completed: PropTypes.bool.isRequired,
+      completed: PropTypes.bool,
       reminder: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object,
@@ -38,8 +38,9 @@ class Note extends Component {
       reminder: '',
       timestamps: {
         createdAt: '',
-        updatedAt: ''
+        updatedAt: '',
       },
+      completed: false,
     },
     onEdit: () => {},
     onDelete: () => {},
@@ -55,47 +56,52 @@ class Note extends Component {
     this.showCheckmark();
     setTimeout(this.hideCheckmark, 500);
     this.setState(prevState => ({
-      isChecked: !prevState.isChecked
-    }))
+      isChecked: !prevState.isChecked,
+    }));
   }
 
   showDeleteDialog = () => {
     this.setState({
       isVisibleDeleteDialog: true,
-    })
+    });
   }
 
   hideDeleteDialog = () => {
     this.setState({
       isVisibleDeleteDialog: false,
-    })
+    });
   }
 
   showCheckmark = () => {
     this.setState({
       isVisibleCheckmark: true,
-    })
+    });
   }
 
   hideCheckmark = () => {
     this.setState({
       isVisibleCheckmark: false,
-    })
+    });
   }
 
   render() {
-    const {note, onEdit, onDelete} = this.props;
+    const { note, onEdit, onDelete } = this.props;
     const {
       isChecked,
       isVisibleDeleteDialog,
-      isVisibleCheckmark
+      isVisibleCheckmark,
     } = this.state;
 
     return (
       <div className={styles.note_wrapper}>
         <div className={styles.row}>
           <button className={styles.checkbox} onClick={this.handleCeck}>
-            <input type="checkbox" name="completed" checked={isChecked} />
+            <input
+              type="checkbox"
+              name="completed"
+              checked={isChecked}
+              onChange={this.handleCeck}
+            />
             <span className={styles.checkmark} />
           </button >
           <div>
@@ -143,9 +149,9 @@ class Note extends Component {
             <div className={styles.checkmark_box} />
           </div>
         )}
-        <div className={styles.corner} style={{backgroundColor: `${note.color}`}}/>
+        <div className={styles.corner} style={{ backgroundColor: `${note.color}` }} />
       </div>
-    )
+    );
   }
 }
 

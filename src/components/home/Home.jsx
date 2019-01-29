@@ -1,8 +1,8 @@
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import qs from 'qs';
 import styles from './home.module.scss';
-import AddTask from '../../components/addTask/addTask';
 import MainPage from '../mainPage/MainPage';
 import ModalManager from '../modalManager/ModalManager';
 import NotesList from '../notes_list/Note_list';
@@ -19,8 +19,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -32,8 +32,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -45,8 +45,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -58,8 +58,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -71,8 +71,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -84,8 +84,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -97,8 +97,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -110,8 +110,8 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
   {
     userId: '',
@@ -123,23 +123,21 @@ const CardsList = [
     reminder: '',
     timestamps: {
       createdAt: '',
-      updatedAt: ''
-    }
+      updatedAt: '',
+    },
   },
 ];
 
 const cardListEmpty = (CardsList.length === 0);
-const PublicActions = () => (<MainPage/>);
+const PublicActions = () => (<MainPage />);
 
-const PrivateActions = ({openModal}) => (
+const PrivateActions = ({ openModal }) => (
   cardListEmpty ? (
     <div>
       <p className={styles.text}>Пока что ничего не создано</p>
-      <AddTask {...openModal} />
     </div>
-  ) : 
-  <NotesList notes={CardsList} openModal={openModal}/>    
-)
+  ) : <NotesList openModal={openModal} notes={CardsList} />
+);
 
 PrivateActions.propTypes = {
   openModal: PropTypes.func.isRequired,
@@ -161,19 +159,18 @@ class Home extends Component {
     const userToken = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
 
     if (userToken.token) {
-        this.props.signInWithGoogle(userToken.token);
-        this.props.history.push("/");
+      this.props.signInWithGoogle(userToken.token);
+      this.props.history.push('/');
     }
-
   }
 
   render() {
     const { authenticated } = this.props;
     return (
       <main className={styles.wrapper}>
-        { authenticated ?
+        {authenticated ?
           (
-            <PrivateActions {...this.props}/>
+            <PrivateActions {...this.props} />
           ) : (
             <PublicActions />
           )

@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NewTaskModal from "../modals/newTaskModal/NewTaskModal";
-import { closeModal } from "./modalActions";
+import NewTaskModal from '../modals/newTaskModal/NewTaskModal';
+import { closeModal } from './modalActions';
 
 const ModalManager = ({ currentModal, ...props }) => {
   switch (currentModal) {
     case 'NEW_TASK_MODAL':
-      return <NewTaskModal { ...props }/>;
+      return <NewTaskModal {...props} />;
     default:
       return null;
   }

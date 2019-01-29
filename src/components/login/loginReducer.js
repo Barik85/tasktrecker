@@ -1,5 +1,12 @@
 import { combineReducers } from 'redux';
-import { SIGN_IN_REQUEST, SIGN_IN_SUCCES, SIGN_IN_FAILURE, SIGN_OUT } from '../../redux/actionTypes';
+import {
+  SIGN_IN_REQUEST,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
+  SIGN_OUT,
+  GET_USER_SUCCESS,
+  RESET_SESSION_ERROR,
+} from '../../redux/actionTypes';
 
 const initialState = {
   user: {
@@ -8,20 +15,20 @@ const initialState = {
     surname: '',
   },
   authenticated: false,
-  authenticating: false,
   token: null,
   error: null,
 };
 
 const userReducer = (state = initialState.user, action) => {
-  switch(action.type) {
-    case SIGN_IN_SUCCES:
+  switch (action.type) {
+    case SIGN_IN_SUCCESS:
       return action.payload.user;
 
     case SIGN_OUT:
-      return {
-        user: initialState.user
-      };
+      return initialState.user;
+
+    case GET_USER_SUCCESS:
+      return action.payload;
 
     default:
       return state;
@@ -29,8 +36,8 @@ const userReducer = (state = initialState.user, action) => {
 };
 
 const authenticatedReducer = (state = initialState.authenticated, action) => {
-  switch(action.type) {
-    case SIGN_IN_SUCCES:
+  switch (action.type) {
+    case SIGN_IN_SUCCESS:
       return true;
 
     case SIGN_OUT:
@@ -39,25 +46,11 @@ const authenticatedReducer = (state = initialState.authenticated, action) => {
     default:
       return state;
   }
-}
-
-const authenticatingReducer = (state = initialState.authenticating, action) => {
-  switch(action.type) {
-    case SIGN_IN_REQUEST:
-      return true;
-
-    case SIGN_IN_FAILURE:
-    case SIGN_IN_SUCCES:
-      return false;
-
-    default:
-      return state;
-  }
-}
+};
 
 const tokenReducer = (state = initialState.token, action) => {
-  switch(action.type) {
-    case SIGN_IN_SUCCES:
+  switch (action.type) {
+    case SIGN_IN_SUCCESS:
       return action.payload.token;
 
     case SIGN_OUT:
@@ -66,27 +59,28 @@ const tokenReducer = (state = initialState.token, action) => {
     default:
       return state;
   }
-}
+};
 
 const errorReducer = (state = initialState.error, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case SIGN_IN_FAILURE:
       return action.payload;
 
-    case SIGN_IN_SUCCES:
+    case SIGN_IN_SUCCESS:
     case SIGN_IN_REQUEST:
+    case GET_USER_SUCCESS:
     case SIGN_OUT:
+    case RESET_SESSION_ERROR:
       return null;
 
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   user: userReducer,
   authenticated: authenticatedReducer,
-  authenticating: authenticatingReducer,
   token: tokenReducer,
   error: errorReducer,
 });

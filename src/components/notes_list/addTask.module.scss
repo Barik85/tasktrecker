@@ -8,7 +8,6 @@
     box-sizing: border-box;
     border-radius: 10px;
     overflow: hidden;
-    // background-color: #fff;
     margin: 16px;
     flex: column;
     justify-content: flex-end;
@@ -17,33 +16,27 @@
     .plus {
         font-size: 75px;
         color: white;
-        height: 60px;
-        width: 60px;
+        height: 53px;
+        width: 53px;
         border-radius: 50%;
         text-align: center;
-        margin: 50px auto auto;
+        margin: 25px auto auto;
         background: #fe5722;
-        line-height: 60px;
+        line-height: 53px;
         padding: 0;
     }
-    button{
+    button {
         border: none;
         border-radius: 10px;
-        background-color: $orange;
-        padding: 12px 30px;
-        margin: 16px;
+        background-color: #f2f2f2;
         color: #fff;
-        box-shadow: #999 3px 3px 9px 0;
         cursor: pointer;
+        
     }
-}
-
-
-
-.title {
-    color: #fe5722;
-    font-size: 22px;
-    font-weight: 600;
-    margin-top: 20px
-    
+    .text {
+        color: #fe5722;
+        font-size: 32px;
+        font-weight: 800;
+        margin-top: 20px;
+    }
 }

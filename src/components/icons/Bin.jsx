@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'class-names';
 import PropTypes from 'prop-types';
 
-const Bin = ({className}) => (
+const Bin = ({ className }) => (
   <svg className={classNames(className)} version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 774.266 774.266">
     <g>
       <path d="M640.35,91.169H536.971V23.991C536.971,10.469,526.064,0,512.543,0c-1.312,0-2.187,0.438-2.614,0.875
@@ -11,10 +11,11 @@ const Bin = ({className}) => (
         c29.667,0,52.782-22.678,52.782-52.346v-491.6h45.366v-47.981v-38.387C693.133,114.286,670.008,91.169,640.35,91.169z
         M285.713,47.981h202.84v43.188h-202.84V47.981z M599.349,721.922c0,3.061-1.312,4.363-4.364,4.363H179.282
         c-3.052,0-4.364-1.303-4.364-4.363V230.32h424.431V721.922z M644.715,182.339H129.551v-38.387c0-3.053,1.312-4.802,4.364-4.802
-        H640.35c3.053,0,4.365,1.749,4.365,4.802V182.339z"/>
-      <rect x="475.031" y="286.593" width="48.418" height="396.942"/>
-      <rect x="363.361" y="286.593" width="48.418" height="396.942"/>
-      <rect x="251.69" y="286.593" width="48.418" height="396.942"/>
+        H640.35c3.053,0,4.365,1.749,4.365,4.802V182.339z"
+      />
+      <rect x="475.031" y="286.593" width="48.418" height="396.942" />
+      <rect x="363.361" y="286.593" width="48.418" height="396.942" />
+      <rect x="251.69" y="286.593" width="48.418" height="396.942" />
     </g>
   </svg>
 
@@ -22,10 +23,10 @@ const Bin = ({className}) => (
 
 Bin.propTypes = {
   className: PropTypes.string,
-}
+};
 
 Bin.defaultProps = {
   className: '',
-}
+};
 
 export default Bin;

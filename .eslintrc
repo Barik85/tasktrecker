@@ -1,17 +1,44 @@
 {
-  "extends": ["airbnb", "prettier", "prettier/react"],
+  "extends": ["airbnb"],
   "plugins": ["prettier"],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 2016,
-    "sourceType": "module"
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "env": {
     "es6": true,
     "browser": true,
-    "node": true
+    "node": true,
+    "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
   },
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-confusing-arrow": ["error", {"allowParens": true}],
+    "object-curly-newline": ["error", {
+        "ObjectExpression": { "consistent": true },
+        "ObjectPattern": { "multiline": true },
+        "ImportDeclaration": { "multiline": true, "minProperties": 4 },
+        "ExportDeclaration": { "multiline": true, "minProperties": 4 }
+    }],
+    "react/jsx-one-expression-per-line": [{ "allow": "single-child" }],
+    "react/destructuring-assignment": ["always", { "ignoreClassFields": true }],
+    "jsx-a11y/label-has-for": [ 2, {
+      "components": [ "Label" ],
+      "required": {
+          "some": [ "nesting", "id" ]
+      },
+      "allowChildren": false
+  }]
   }
 }

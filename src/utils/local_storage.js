@@ -16,4 +16,4 @@ export const saveStateToLS = (state) => {
   } catch (error) {
     // catch errors here
   }
-}
+};
