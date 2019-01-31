@@ -88,9 +88,9 @@ class Register extends Component {
     if (email === '' || password === '' || name === '') return;
 
     createUser({
+      name,
       email,
       password,
-      password2: password,
     });
   }
 

@@ -13,7 +13,17 @@ export const signIn = credentials => (dispatch) => {
   dispatch({ type: SIGN_IN_REQUEST });
 
   api.loginUser(credentials).then(
-    res => dispatch({ type: SIGN_IN_SUCCESS, payload: res.data }),
+    (res) => {
+      if (res.status === 200) {
+        dispatch({
+          type: SIGN_IN_SUCCESS,
+          payload: {
+            user: res.data.userData,
+            token: res.data.token,
+          },
+        });
+      }
+    },
     error => dispatch({
       type: SIGN_IN_FAILURE,
       payload: {
@@ -33,7 +43,17 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
   return api.registerUser(credentials).then(
     (res) => {
       if (res.status === 200) {
-        // dispatch({ type: SIGN_IN_SUCCESS, payload: res.data });
+        const data = res.data.dataUser;
+        dispatch({
+          type: SIGN_IN_SUCCESS,
+          payload: {
+            user: {
+              name: data.name,
+              email: data.email,
+            },
+            token: data.token,
+          },
+        });
         const { history } = ownProps;
         if (history) history.push('/');
       }
@@ -52,7 +72,7 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
 
 export const signInWithGoogle = token => (dispatch) => {
   dispatch({ type: SIGN_IN_REQUEST });
-
+  console.log('google token: ', token);
   api.googleAuthorisation(token)
     .then((response) => {
       const data = response.data[0];
