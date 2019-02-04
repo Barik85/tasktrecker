@@ -14,6 +14,7 @@ const NotesList = ({ notes, openModal }) => (
   <div style={styles}>
     {notes.map(note => (<Note key={note.id} note={note} />))}
     <Button text="Добавить задачу" onClick={() => openModal('NEW_TASK_MODAL')} />
+    <Button text="Напоминание" onClick={() => openModal('POPUP_REMINDER')} />
   </div>
 );
 
