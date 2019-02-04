@@ -15,11 +15,19 @@ export const signIn = credentials => (dispatch) => {
   api.loginUser(credentials).then(
     (res) => {
       if (res.status === 200) {
+        const userData = res.data && res.data.userData;
+
+        const user = {
+          name: userData.name,
+          id: userData.id,
+          email: userData.email,
+        };
+
         dispatch({
           type: SIGN_IN_SUCCESS,
           payload: {
-            user: res.data.userData,
-            token: res.data.token,
+            user,
+            token: userData.token,
           },
         });
       }
@@ -43,13 +51,14 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
   return api.registerUser(credentials).then(
     (res) => {
       if (res.status === 200) {
-        const data = res.data.dataUser;
+        const data = res.data && res.data.dataUser;
         dispatch({
           type: SIGN_IN_SUCCESS,
           payload: {
             user: {
               name: data.name,
               email: data.email,
+              id: data.id,
             },
             token: data.token,
           },
