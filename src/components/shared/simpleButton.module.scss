@@ -20,6 +20,14 @@
   box-shadow: #999 3px 3px 9px 0;
   width: 200px;
   margin-bottom: 14px;
+  &:hover {
+    box-shadow: #888 3px 3px 9px 0;
+    background-color: $violet;
+  }
+
+  &:active {
+    box-shadow: #999 1px 1px 3px 0;
+  }
 }
 
 .ok {
@@ -30,4 +38,12 @@
   color: #fff;
   box-shadow: #999 3px 3px 9px 0;
   width: 200px;
+  &:hover {
+    box-shadow: #888 3px 3px 9px 0;
+    background-color: $violet;
+  }
+
+  &:active {
+    box-shadow: #999 1px 1px 3px 0;
+  }
 }

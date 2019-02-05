@@ -19,6 +19,8 @@ const customStyles = {
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     padding: '36px',
+    border: 'none',
+    boxShadow: '0px 0px 5px 0px rgba(150,150,150,1)',
   },
 };
 
