@@ -8,12 +8,12 @@ export const googleAuthorisation = token => (
   )
 );
 
-export const registerUser = ({ email, password }) => (
+export const registerUser = ({ name, email, password }) => (
   axios.post(`${HOST}/auth/register`,
     {
+      name,
       email,
       password,
-      password2: password, // will be removed after api fixed
     },
   )
 );
