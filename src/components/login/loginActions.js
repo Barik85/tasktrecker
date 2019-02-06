@@ -107,7 +107,20 @@ export const getUserInfo = () => (dispatch, getState) => {
   const token = session && session.token;
   if (token) {
     return api.getUserInfo(token).then(
-      res => dispatch({ type: GET_USER_SUCCESS, payload: res.data[0] }),
+      (res) => {
+        const userData = res.data && res.data.userData;
+
+        const user = {
+          name: userData.name,
+          id: userData.id,
+          email: userData.email,
+        };
+
+        dispatch({
+          type: GET_USER_SUCCESS,
+          payload: user,
+        });
+      },
       error => dispatch({ type: SIGN_IN_FAILURE, payload: error }),
     );
   }
