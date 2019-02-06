@@ -5,6 +5,7 @@
 
 # testing
 /coverage
+/tasktrecker/config/redme.js
 
 # production
 /build

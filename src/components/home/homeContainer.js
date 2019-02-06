@@ -6,6 +6,7 @@ import Home from './Home';
 const mSTP = state => ({
   authenticated: state.session.authenticated,
   userName: state.session.user.name,
+  token: state.session.token,
 });
 
 const mDTP = dispatch => ({

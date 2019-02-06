@@ -1,12 +1,13 @@
-
+/*eslint-disable*/
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import axios from 'axios';
 import qs from 'qs';
 import styles from './home.module.scss';
 import MainPage from '../mainPage/MainPage';
 import ModalManager from '../modalManager/ModalManager';
 import NotesList from '../notes_list/Note_list';
-
 
 const CardsList = [
   {
@@ -155,13 +156,35 @@ class Home extends Component {
     authenticated: PropTypes.bool.isRequired,
   }
 
+  static getDerivedStateFromProps() {
+    // зміна пропів при необхідності
+    console.log('getDerived');
+  }
+
   componentDidMount() {
     const userToken = qs.parse(this.props.location.search, { ignoreQueryPrefix: true });
-
+    console.log(CardsList);
     if (userToken.token) {
       this.props.signInWithGoogle(userToken.token);
       this.props.history.push('/');
     }
+    const { token } = this.props;
+    const headers = { "Authorization": 'Bearer ' + token};
+    console.log(headers);
+    axios.get('https://taskboard.luisi.top/tasks/', headers)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err + " " + "<< Ypps...check how to use correct token in your GET request! >>");
+      });
+
+    // const CardsListTest = () => {
+    //   console.log("axios");
+    //   const AuthStr = window.localStorage.getItem('token');
+    //   const fullAuth = `{'Authorization': "Bearer" +  ${AuthStr}`;
+    //   const headers = { headers: { fullAuth } };    
+    // };
   }
 
   render() {
