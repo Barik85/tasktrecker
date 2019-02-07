@@ -81,21 +81,27 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
 
 export const signInWithGoogle = token => (dispatch) => {
   dispatch({ type: SIGN_IN_REQUEST });
-  console.log('google token: ', token);
   api.googleAuthorisation(token)
-    .then((response) => {
-      const data = response.data[0];
-      dispatch({
-        type: SIGN_IN_SUCCESS,
-        payload: {
-          token,
-          user: {
-            email: data.email,
-            name: data.firstName,
-            surname: data.lastName,
-          },
-        },
-      });
+    .then((res) => {
+      if (res.status === 200) {
+        const userData = res.data && res.data.userData;
+
+        if (userData) {
+          const user = {
+            name: userData.name,
+            id: userData.id,
+            email: userData.email,
+          };
+
+          dispatch({
+            type: SIGN_IN_SUCCESS,
+            payload: {
+              user,
+              token,
+            },
+          });
+        }
+      }
     })
     .catch((err) => {
       console.log(`${err}. Ypps...check how to use correct token in your request!`);
@@ -110,16 +116,18 @@ export const getUserInfo = () => (dispatch, getState) => {
       (res) => {
         const userData = res.data && res.data.userData;
 
-        const user = {
-          name: userData.name,
-          id: userData.id,
-          email: userData.email,
-        };
+        if (userData) {
+          const user = {
+            name: userData.name,
+            id: userData.id,
+            email: userData.email,
+          };
 
-        dispatch({
-          type: GET_USER_SUCCESS,
-          payload: user,
-        });
+          dispatch({
+            type: GET_USER_SUCCESS,
+            payload: user,
+          });
+        }
       },
       error => dispatch({ type: SIGN_IN_FAILURE, payload: error }),
     );
