@@ -60,6 +60,7 @@
   width: 125px;
   height: 35px;
   font-size: 18px;
+  text-align: center;
 }
 
 .login_submit input:focus {
@@ -108,7 +109,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-
+  
   &:hover {
     background-color: #e2e2e2;
   }
