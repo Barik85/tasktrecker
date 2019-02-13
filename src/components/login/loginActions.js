@@ -15,19 +15,19 @@ export const signIn = credentials => (dispatch) => {
   api.loginUser(credentials).then(
     (res) => {
       if (res.status === 200) {
-        const userData = res.data && res.data.userData;
+        const dataUser = res.data && res.data.dataUser;
 
         const user = {
-          name: userData.name,
-          id: userData.id,
-          email: userData.email,
+          name: dataUser.name,
+          id: dataUser.id,
+          email: dataUser.email,
         };
 
         dispatch({
           type: SIGN_IN_SUCCESS,
           payload: {
             user,
-            token: userData.token,
+            token: dataUser.token,
           },
         });
       }
@@ -84,13 +84,13 @@ export const signInWithGoogle = token => (dispatch) => {
   api.googleAuthorisation(token)
     .then((res) => {
       if (res.status === 200) {
-        const userData = res.data && res.data.userData;
+        const dataUser = res.data && res.data.dataUser;
 
-        if (userData) {
+        if (dataUser) {
           const user = {
-            name: userData.name,
-            id: userData.id,
-            email: userData.email,
+            name: dataUser.name,
+            id: dataUser.id,
+            email: dataUser.email,
           };
 
           dispatch({
@@ -114,13 +114,13 @@ export const getUserInfo = () => (dispatch, getState) => {
   if (token) {
     return api.getUserInfo(token).then(
       (res) => {
-        const userData = res.data && res.data.userData;
+        const dataUser = res.data && res.data.dataUser;
 
-        if (userData) {
+        if (dataUser) {
           const user = {
-            name: userData.name,
-            id: userData.id,
-            email: userData.email,
+            name: dataUser.name,
+            id: dataUser.id,
+            email: dataUser.email,
           };
 
           dispatch({
