@@ -24,6 +24,7 @@ class Profile extends Component {
   };
 
   state = {
+    isEditingName: false,
     newPass: '',
     oldPass: '',
     isVisibleOldPass: false,
@@ -53,14 +54,16 @@ class Profile extends Component {
   }
 
   render() {
-    const { isVisibleNewPass, isVisibleOldPass, newPass, oldPass } = this.state;
+    const { isVisibleNewPass, isVisibleOldPass, newPass, oldPass, isEditingName } = this.state;
     const { user } = this.props;
     return (
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <div className={styles.header}>
             <Avatar className={styles.avatar} />
-            <h1 className={styles.name}>{user.name}</h1>
+            {isEditingName ?
+              (<h1 className={styles.name}>{user.name}</h1>) :
+              <EditingInput />}
             <button>
               <Pencil className={styles.pencil} />
             </button>
@@ -133,3 +136,6 @@ const mSTP = state => ({
 });
 
 export default connect(mSTP)(Profile);
+
+
+const EditingInput = () => (<form><input type="text" /></form>);
