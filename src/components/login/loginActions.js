@@ -15,19 +15,19 @@ export const signIn = credentials => (dispatch) => {
   api.loginUser(credentials).then(
     (res) => {
       if (res.status === 200) {
-        const userData = res.data && res.data.userData;
+        const dataUser = res.data && res.data.dataUser;
 
         const user = {
-          name: userData.name,
-          id: userData.id,
-          email: userData.email,
+          name: dataUser.name,
+          id: dataUser.id,
+          email: dataUser.email,
         };
 
         dispatch({
           type: SIGN_IN_SUCCESS,
           payload: {
             user,
-            token: userData.token,
+            token: dataUser.token,
           },
         });
       }
@@ -81,21 +81,27 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
 
 export const signInWithGoogle = token => (dispatch) => {
   dispatch({ type: SIGN_IN_REQUEST });
-  console.log('google token: ', token);
   api.googleAuthorisation(token)
-    .then((response) => {
-      const data = response.data[0];
-      dispatch({
-        type: SIGN_IN_SUCCESS,
-        payload: {
-          token,
-          user: {
-            email: data.email,
-            name: data.firstName,
-            surname: data.lastName,
-          },
-        },
-      });
+    .then((res) => {
+      if (res.status === 200) {
+        const dataUser = res.data && res.data.dataUser;
+
+        if (dataUser) {
+          const user = {
+            name: dataUser.name,
+            id: dataUser.id,
+            email: dataUser.email,
+          };
+
+          dispatch({
+            type: SIGN_IN_SUCCESS,
+            payload: {
+              user,
+              token,
+            },
+          });
+        }
+      }
     })
     .catch((err) => {
       console.log(`${err}. Ypps...check how to use correct token in your request!`);
@@ -108,18 +114,20 @@ export const getUserInfo = () => (dispatch, getState) => {
   if (token) {
     return api.getUserInfo(token).then(
       (res) => {
-        const userData = res.data && res.data.userData;
+        const dataUser = res.data && res.data.dataUser;
 
-        const user = {
-          name: userData.name,
-          id: userData.id,
-          email: userData.email,
-        };
+        if (dataUser) {
+          const user = {
+            name: dataUser.name,
+            id: dataUser.id,
+            email: dataUser.email,
+          };
 
-        dispatch({
-          type: GET_USER_SUCCESS,
-          payload: user,
-        });
+          dispatch({
+            type: GET_USER_SUCCESS,
+            payload: user,
+          });
+        }
       },
       error => dispatch({ type: SIGN_IN_FAILURE, payload: error }),
     );
