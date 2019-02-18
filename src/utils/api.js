@@ -32,3 +32,8 @@ export const getUserInfo = token => (
     { headers: { Authorization: `Bearer ${token}` } },
   )
 );
+
+export const getTasks = token => (
+  axios.get('https://taskboard.luisi.top/tasks',
+    { headers: { Authorization: `Bearer ${token}` } })
+);
