@@ -5,8 +5,8 @@ import Pencil from '../components/icons/Pencil';
 import Avatar from '../components/icons/Avatar';
 import eye from '../components/login/img/eye.svg';
 import privat from '../components/login/img/private.svg';
-
 import styles from './profile.module.scss';
+import EditableInput from './../components/editableInput/editableInput';
 
 class Profile extends Component {
   static propTypes = {
@@ -24,7 +24,8 @@ class Profile extends Component {
   };
 
   state = {
-    isEditingName: false,
+    name: this.props.user.name,
+    isEditing: false,
     newPass: '',
     oldPass: '',
     isVisibleOldPass: false,
@@ -36,6 +37,12 @@ class Profile extends Component {
 
     this.setState({
       [name]: value,
+    });
+  }
+
+  openEditInput = () => {
+    this.setState({
+      isEditing: !this.state.isEditing,
     });
   }
 
@@ -53,18 +60,23 @@ class Profile extends Component {
     });
   }
 
+  editSuccess = (text) => {
+    this.setState({
+      name: text,
+      isEditing: true,
+    });
+  };
+
   render() {
-    const { isVisibleNewPass, isVisibleOldPass, newPass, oldPass, isEditingName } = this.state;
+    const { isVisibleNewPass, isVisibleOldPass, newPass, oldPass, isEditing } = this.state;
     const { user } = this.props;
     return (
       <div className={styles.wrapper}>
         <div className={styles.container}>
           <div className={styles.header}>
             <Avatar className={styles.avatar} />
-            {isEditingName ?
-              (<h1 className={styles.name}>{user.name}</h1>) :
-              <EditingInput />}
-            <button>
+            <h1 className={styles.name}>{user.name}</h1>
+            <button onClick={this.openEditInput}>
               <Pencil className={styles.pencil} />
             </button>
           </div>
@@ -72,15 +84,21 @@ class Profile extends Component {
             <h2 className={styles.h2}>Персональная информация</h2>
             <div className={styles.block}>
               <div className={styles.label}>Имя Фамилия</div>
-              <div className={styles.info}>{user.name}</div>
-            </div>
-            <div className={styles.block}>
-              <div className={styles.label}>Логин</div>
-              <div className={styles.info}>{user.name}</div>
+              {isEditing ? <EditableInput
+                className={styles.inputEdit}
+                text={user.name}
+                onEditSuccess={this.editSuccess}
+              />
+                : (<div className={styles.info}>{user.name}</div>)}
             </div>
             <div className={styles.block}>
               <div className={styles.label}>Электронная почта</div>
-              <div className={styles.info}>{user.email}</div>
+              {isEditing ? <EditableInput
+                className={styles.inputEdit}
+                text={user.email}
+                onEditSuccess={this.editSuccess}
+              />
+                : (<div className={styles.info}>{user.email}</div>) }
             </div>
           </div>
           <div>
@@ -88,6 +106,7 @@ class Profile extends Component {
             <div className={styles.block}>
               <label htmlFor="oldPass" className={styles.label}>Старый пароль</label>
               <input
+                className={styles.input}
                 type={isVisibleOldPass ? 'text' : 'password'}
                 id="oldPass"
                 name="oldPass"
@@ -96,6 +115,7 @@ class Profile extends Component {
               />
               <span>
                 <input
+                  className={styles.inputImage}
                   type="image"
                   src={isVisibleOldPass ? eye : privat}
                   alt="eye"
@@ -106,6 +126,7 @@ class Profile extends Component {
             <div className={styles.block}>
               <label htmlFor="newPass" className={styles.label}>Новый пароль</label>
               <input
+                className={styles.input}
                 type={isVisibleNewPass ? 'text' : 'password'}
                 id="newPass"
                 name="newPass"
@@ -114,6 +135,7 @@ class Profile extends Component {
               />
               <span>
                 <input
+                  className={styles.inputImage}
                   type="image"
                   src={isVisibleNewPass ? eye : privat}
                   alt="eye"
@@ -136,6 +158,3 @@ const mSTP = state => ({
 });
 
 export default connect(mSTP)(Profile);
-
-
-const EditingInput = () => (<form><input type="text" /></form>);

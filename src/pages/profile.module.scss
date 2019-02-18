@@ -72,7 +72,7 @@ label {
   font-size: 12px;
 }
 
-input {
+.input {
   border: none;
   border-bottom: 1px solid #a09fa0;
   text-align: right;
@@ -85,7 +85,21 @@ input {
   } 
 }
 
-input[type=image] {
+.inputEdit {
+  border: none;
+  border-bottom: 1px solid #a09fa0;
+  text-align: right;
+  align-self: flex-end;
+  font-size: 0.75rem;
+
+  &:active,
+  &:hover,
+  &:focus {
+    border-bottom: 1px solid $orange;
+  } 
+}
+
+.inputImage {
   width: 18px;
   height: 18px;
   border: none;
@@ -115,5 +129,4 @@ input[type=image] {
   &:active {
     box-shadow: #999 1px 1px 3px 0;
   }
-
 }
