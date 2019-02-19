@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Note from '../note/Note';
 import styles from './addTask.module.scss';
@@ -11,21 +11,41 @@ const styless = {
   maxWidth: '90%',
 };
 
-const Notelist = ({ notes, openModal }) => (
-  <div style={styless}>
-    {notes.map(note => (<Note key={note.id} note={note} />))}
-    <div className={styles.addButton}>
-      <button onClick={() => openModal('NEW_TASK_MODAL')}>
-        <div className={styles.plus}>+</div>
-        <div className={styles.text}>Add task</div>
-      </button>
-    </div>
-  </div>
-);
+export default class Notelist extends Component {
+  static propTypes = {
+    notes: PropTypes.arrayOf(PropTypes.object),
+    openModal: PropTypes.func.isRequired,
+    getTasks: PropTypes.func.isRequired,
+  };
 
-Notelist.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  openModal: PropTypes.func.isRequired,
-};
+  static defaultProps = {
+    notes: [],
+  }
 
-export default Notelist;
+  componentDidMount() {
+    const { getTasks } = this.props;
+    getTasks();
+  }
+
+  render() {
+    const { notes, openModal } = this.props;
+    return (
+      <div style={styless}>
+        {(notes && notes.length > 0)
+          ? notes.map(note => (<Note key={note.id} note={note} />))
+          : (
+            <div>
+              <p className={styles.text}>Пока что ничего не создано</p>
+            </div>
+          )
+        }
+        <div className={styles.addButton}>
+          <button onClick={() => openModal('NEW_TASK_MODAL')}>
+            <div className={styles.plus}>+</div>
+            <div className={styles.text}>Add task</div>
+          </button>
+        </div>
+      </div>
+    );
+  }
+}

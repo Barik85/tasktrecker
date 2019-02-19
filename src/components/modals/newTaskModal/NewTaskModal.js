@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Datetime from 'react-datetime';
 import Modal from 'react-modal';
-import { v4 } from 'uuid';
 import Close from '../../icons/Close';
 import ColorPicker from '../../colorPicker/ColorPicker';
 import SimpleButton from '../../shared/SimpleButton';
@@ -24,70 +23,60 @@ const customStyles = {
 };
 
 const initialState = {
-  isOpen: true,
   displayColorPicker: false,
-  task:
-  {
-    title: '',
-    text: '',
-    deadline: '',
-    notificationTime: '',
-    color: 'Без цвета',
-  },
+  title: '',
+  description: '',
+  deadline: '',
+  notificationTime: '',
+  color: 'Без цвета',
 };
 
 class NewTaskModal extends Component {
   static propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
+    createTask: PropTypes.func.isRequired,
   };
 
   state = {
     ...initialState,
-    tasks: [],
   };
 
   colorPickerOpener = (e) => {
     e.preventDefault();
-    this.setState({
-      displayColorPicker: !this.state.displayColorPicker,
-    });
+    this.setState(prevState => ({
+      displayColorPicker: !prevState.displayColorPicker,
+    }));
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { title, text, deadline, notificationTime, color } = this.state.task;
-    this.setState(prevState => ({
-      tasks: [
-        {
-          id: v4(),
-          createdDate: new Date(),
-          title,
-          text,
-          deadline,
-          notificationTime,
-          color,
-        },
-        ...prevState.tasks,
-      ],
-    }));
+    const { title, description, deadline, notificationTime, color } = this.state;
+    const newTask = {
+      title,
+      description,
+      deadline,
+      reminder: notificationTime,
+      color,
+    };
+    const { createTask, closeModal } = this.props;
+
+    createTask(newTask)
+      .then(() => {
+        closeModal();
+      });
   };
 
   handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    this.setState(prevState => ({
-      task: { ...prevState.task, [name]: value },
-    }));
+    this.setState({ [name]: value });
   };
 
   handleDateChange = (datemoment) => {
-    this.setState(prevState => ({
-      task: {
-        ...prevState.task,
-        deadline: datemoment.format('DD/MM/YYYY'),
-      },
-    }));
+    this.setState({
+      deadline: datemoment.format('DD/MM/YYYY'),
+    });
   };
 
   handleTimeChange = (time) => {
@@ -101,8 +90,8 @@ class NewTaskModal extends Component {
 
   selectColor = (color) => {
     this.setState(prevState => ({
-      displayColorPicker: !this.state.displayColorPicker,
-      task: { ...prevState.task, color },
+      displayColorPicker: !prevState.displayColorPicker,
+      color,
     }));
   };
 
@@ -121,7 +110,7 @@ class NewTaskModal extends Component {
         </button>
         <form className={styles.form} onSubmit={this.handleSubmit}>
           <textarea placeholder="Ввести название ..." className={styles.name} name="title" onChange={this.handleInputChange} />
-          <textarea placeholder="Добавить комментарий ..." className={styles.name} name="text" onChange={this.handleInputChange} />
+          <textarea placeholder="Добавить комментарий ..." className={styles.name} name="description" onChange={this.handleInputChange} />
           <div className={styles.wrapper}>
             <p className={styles.label}>Выполнить до</p>
             <Datetime
@@ -148,14 +137,14 @@ class NewTaskModal extends Component {
             <p className={styles.label}>Присвоить цвет</p>
             <div className={styles.colorwrap}>
               <button className={styles.buttonColor} onClick={this.colorPickerOpener}>
-                {(this.state.task.color !== 'Без цвета') ?
+                {(this.state.color !== 'Без цвета') ?
                   <span
                     className={styles.buttonColorIcon}
-                    style={{ background: this.state.task.color }}
+                    style={{ background: this.state.color }}
                   /> :
                   <span className={styles.buttonColorIcon} />
                 }
-                {this.state.task.color}
+                {this.state.color}
               </button>
               {this.state.displayColorPicker ?
                 <ColorPicker onSelectColor={this.selectColor} />

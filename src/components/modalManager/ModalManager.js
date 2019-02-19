@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NewTaskModal from '../modals/newTaskModal/NewTaskModal';
+import NewTaskModal from '../modals/newTaskModal/task_editor_container';
 import { closeModal } from './modalActions';
 
 const ModalManager = ({ currentModal, ...props }) => {
@@ -22,4 +22,3 @@ const mDTP = dispatch => ({
 });
 
 export default connect(mSTP, mDTP)(ModalManager);
-

@@ -10,3 +10,7 @@ export const RESET_SESSION_ERROR = 'RESET_SESSION_ERROR';
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 export const OPEN_MODAL = 'OPEN_MODAL';
 export const CURRENT_MODAL = 'CURRENT_MODAL';
+
+// tasks
+export const GET_TASKS = 'GET_TASKS';
+export const CREATED_TASK = 'CREATED_TASK';
