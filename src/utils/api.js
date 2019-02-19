@@ -33,7 +33,15 @@ export const getUserInfo = token => (
   )
 );
 
-export const getTasks = token => (
-  axios.get('https://taskboard.luisi.top/tasks',
+export const getAllTasks = token => (
+  axios.get(`${HOST}/tasks`,
     { headers: { Authorization: `Bearer ${token}` } })
+);
+
+export const requestCreateTask = (token, task) => (
+  axios.post(
+    `${HOST}/tasks/add`,
+    task,
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
 );
