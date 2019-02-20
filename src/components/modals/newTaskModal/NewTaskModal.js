@@ -60,7 +60,6 @@ class NewTaskModal extends Component {
       color,
     };
     const { createTask, closeModal } = this.props;
-
     createTask(newTask)
       .then(() => {
         closeModal();
@@ -75,17 +74,14 @@ class NewTaskModal extends Component {
 
   handleDateChange = (datemoment) => {
     this.setState({
-      deadline: datemoment.format('DD/MM/YYYY'),
+      deadline: datemoment.format('YYYY-MM-DD'),
     });
   };
 
   handleTimeChange = (time) => {
-    this.setState(prevState => ({
-      task: {
-        ...prevState.task,
-        notificationTime: time.format('HH:mm  DD/MM/YYYY'),
-      },
-    }));
+    this.setState({
+      notificationTime: time.format('YYYY-MM-DDTHH:MM:SSZ'),
+    });
   };
 
   selectColor = (color) => {
