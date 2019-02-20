@@ -70,6 +70,7 @@ label {
 .label,
 .info {
   font-size: 12px;
+  margin-bottom: 5px;
 }
 
 .input {
@@ -77,6 +78,7 @@ label {
   border-bottom: 1px solid #a09fa0;
   text-align: right;
   align-self: flex-end;
+  
 
   &:active,
   &:hover,
@@ -91,7 +93,7 @@ label {
   text-align: right;
   align-self: flex-end;
   font-size: 0.75rem;
-
+  
   &:active,
   &:hover,
   &:focus {

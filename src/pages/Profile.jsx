@@ -25,6 +25,7 @@ class Profile extends Component {
 
   state = {
     name: this.props.user.name,
+    email: this.props.user.email,
     isEditing: false,
     newPass: '',
     oldPass: '',
@@ -40,35 +41,41 @@ class Profile extends Component {
     });
   }
 
-  openEditInput = () => {
-    this.setState({
-      isEditing: !this.state.isEditing,
-    });
+  toggleEditInput = () => {
+    this.setState(prevState => ({
+      isEditing: !prevState.isEditing,
+    }));
   }
 
   changeVisibilityOldPass = (e) => {
     e.preventDefault();
-    this.setState({
-      isVisibleOldPass: !this.state.isVisibleOldPass,
-    });
+    this.setState(prevState => ({
+      isVisibleOldPass: !prevState.isVisibleOldPass,
+    }));
   }
 
   changeVisibilityNewPass = (e) => {
     e.preventDefault();
+    this.setState(prevState => ({
+      isVisibleNewPass: !prevState.isVisibleNewPass,
+    }));
+  }
+
+  saveChange = () => {
     this.setState({
-      isVisibleNewPass: !this.state.isVisibleNewPass,
+      isEditing: false,
     });
   }
 
-  editSuccess = (text) => {
-    this.setState({
-      name: text,
-      isEditing: true,
-    });
-  };
-
   render() {
-    const { isVisibleNewPass, isVisibleOldPass, newPass, oldPass, isEditing } = this.state;
+    const {
+      name,
+      email,
+      isVisibleNewPass,
+      isVisibleOldPass,
+      newPass, oldPass,
+      isEditing,
+    } = this.state;
     const { user } = this.props;
     return (
       <div className={styles.wrapper}>
@@ -76,30 +83,36 @@ class Profile extends Component {
           <div className={styles.header}>
             <Avatar className={styles.avatar} />
             <h1 className={styles.name}>{user.name}</h1>
-            <button onClick={this.openEditInput}>
+            <button onClick={this.toggleEditInput}>
               <Pencil className={styles.pencil} />
             </button>
           </div>
           <div>
             <h2 className={styles.h2}>Персональная информация</h2>
-            <div className={styles.block}>
-              <div className={styles.label}>Имя Фамилия</div>
-              {isEditing ? <EditableInput
-                className={styles.inputEdit}
-                text={user.name}
-                onEditSuccess={this.editSuccess}
-              />
-                : (<div className={styles.info}>{user.name}</div>)}
-            </div>
-            <div className={styles.block}>
-              <div className={styles.label}>Электронная почта</div>
-              {isEditing ? <EditableInput
-                className={styles.inputEdit}
-                text={user.email}
-                onEditSuccess={this.editSuccess}
-              />
-                : (<div className={styles.info}>{user.email}</div>) }
-            </div>
+            <form>
+              <div className={styles.block}>
+                <div className={styles.label}>Имя Фамилия</div>
+                {isEditing ?
+                  <EditableInput
+                    className={styles.inputEdit}
+                    handleInputChange={this.handleInputChange}
+                    value={name}
+                    name="name"
+                  />
+                  : (<div className={styles.info}>{name}</div>)}
+              </div>
+              <div className={styles.block}>
+                <div className={styles.label}>Электронная почта</div>
+                {isEditing ?
+                  <EditableInput
+                    className={styles.inputEdit}
+                    name="email"
+                    handleInputChange={this.handleInputChange}
+                    value={email}
+                  />
+                  : (<div className={styles.info}>{email}</div>)}
+              </div>
+            </form>
           </div>
           <div>
             <h2 className={styles.h2}>Смена пароля</h2>
@@ -145,7 +158,10 @@ class Profile extends Component {
             </div>
           </div>
           <div className={styles.btnBlock}>
-            <button className={styles.button}>Сохранить</button>
+            <button
+              className={styles.button}
+              onClick={this.saveChange}
+            >Сохранить</button>
           </div>
         </div>
       </div>
