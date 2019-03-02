@@ -14,3 +14,6 @@ export const CURRENT_MODAL = 'CURRENT_MODAL';
 // tasks
 export const GET_TASKS = 'GET_TASKS';
 export const CREATED_TASK = 'CREATED_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+export const SET_TASK_TO_EDIT = 'SET_TASK_TO_EDIT';
+export const RESET_TASK_TO_EDIT = 'RESET_TASK_TO_EDIT';

@@ -5,8 +5,9 @@ import Modal from 'react-modal';
 import Close from '../../icons/Close';
 import ColorPicker from '../../colorPicker/ColorPicker';
 import SimpleButton from '../../shared/SimpleButton';
-import styles from './NewTaskModal.module.scss';
+import styles from './TaskEditorModal.module.scss';
 import './datetime.css';
+import getFormatDate from '../../../utils/formatDate';
 
 Modal.setAppElement('#root');
 
@@ -26,21 +27,44 @@ const initialState = {
   displayColorPicker: false,
   title: '',
   description: '',
-  deadline: '',
+  deadline: new Date(),
   notificationTime: '',
   color: 'Без цвета',
 };
 
-class NewTaskModal extends Component {
+class TaskEditorModal extends Component {
   static propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
     closeModal: PropTypes.func.isRequired,
     createTask: PropTypes.func.isRequired,
+    taskToEdit: PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
+      deadline: PropTypes.string,
+      notificationTime: PropTypes.string,
+      color: PropTypes.string,
+    }),
+    resetTaskToEdit: PropTypes.func.isRequired,
+    updateTask: PropTypes.func.isRequired,
   };
+
+  static defaultProps = {
+    taskToEdit: null,
+  }
 
   state = {
     ...initialState,
   };
+
+  componentDidMount() {
+    const { taskToEdit } = this.props;
+    if (taskToEdit) {
+      this.setState(prevState => ({
+        ...prevState,
+        ...taskToEdit,
+      }));
+    }
+  }
 
   colorPickerOpener = (e) => {
     e.preventDefault();
@@ -51,7 +75,14 @@ class NewTaskModal extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { title, description, deadline, notificationTime, color } = this.state;
+    const {
+      title,
+      description,
+      deadline,
+      notificationTime,
+      color,
+    } = this.state;
+
     const newTask = {
       title,
       description,
@@ -59,12 +90,26 @@ class NewTaskModal extends Component {
       reminder: notificationTime,
       color,
     };
-    const { createTask, closeModal } = this.props;
-    createTask(newTask)
-      .then(() => {
-        closeModal();
-      });
+    const { createTask, taskToEdit, updateTask } = this.props;
+    if (taskToEdit) {
+      newTask.id = taskToEdit._id // eslint-disable-line
+      updateTask(newTask)
+        .then(() => {
+          this.handleCloseModal();
+        });
+    } else {
+      createTask(newTask)
+        .then(() => {
+          this.handleCloseModal();
+        });
+    }
   };
+
+  handleCloseModal = () => {
+    const { closeModal, resetTaskToEdit } = this.props;
+    resetTaskToEdit();
+    closeModal();
+  }
 
   handleInputChange = (e) => {
     const name = e.target.name;
@@ -92,21 +137,44 @@ class NewTaskModal extends Component {
   };
 
   render() {
-    const { isModalOpen, closeModal } = this.props;
+    const { isModalOpen, taskToEdit } = this.props;
+    const {
+      // displayColorPicker,
+      title,
+      description,
+      deadline,
+      // notificationTime,
+      // color,
+    } = this.state;
+
+    const deadlineString = getFormatDate(deadline);
+
     return (
       <Modal
         isOpen={isModalOpen}
-        onRequestClose={closeModal}
+        onRequestClose={this.handleCloseModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
         <h2 className={styles.title}>Новая задача</h2>
-        <button onClick={closeModal} className={styles.close}>
+        <button onClick={this.handleCloseModal} className={styles.close}>
           <Close className={styles.closesvg} />
         </button>
         <form className={styles.form} onSubmit={this.handleSubmit}>
-          <textarea placeholder="Ввести название ..." className={styles.name} name="title" onChange={this.handleInputChange} />
-          <textarea placeholder="Добавить комментарий ..." className={styles.name} name="description" onChange={this.handleInputChange} />
+          <textarea
+            placeholder="Ввести название ..."
+            className={styles.name}
+            name="title"
+            onChange={this.handleInputChange}
+            value={title}
+          />
+          <textarea
+            placeholder="Добавить комментарий ..."
+            className={styles.name}
+            name="description"
+            onChange={this.handleInputChange}
+            value={description}
+          />
           <div className={styles.wrapper}>
             <p className={styles.label}>Выполнить до</p>
             <Datetime
@@ -116,6 +184,7 @@ class NewTaskModal extends Component {
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
               onChange={this.handleDateChange}
+              value={taskToEdit ? deadlineString : deadline}
             />
           </div>
           <div className={styles.wrapper}>
@@ -154,4 +223,4 @@ class NewTaskModal extends Component {
   }
 }
 
-export default NewTaskModal;
+export default TaskEditorModal;

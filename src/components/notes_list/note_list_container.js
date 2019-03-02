@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import NoteList from './Note_list';
-import { getTasks } from './note_list_actions';
+import { getTasks, setTaskToEdit } from './note_list_actions';
 import { setCurrentModal, openModal } from '../modalManager/modalActions';
 
 const mSTP = state => ({
@@ -13,6 +13,7 @@ const mDTP = dispatch => ({
     dispatch(setCurrentModal(modalName));
     dispatch(openModal());
   },
+  setTaskToEdit: (task) => { dispatch(setTaskToEdit(task)); },
 });
 
 export default connect(mSTP, mDTP)(NoteList);

@@ -28,11 +28,18 @@ export default class Notelist extends Component {
   }
 
   render() {
-    const { notes, openModal } = this.props;
+    const { notes, openModal, ...rest } = this.props;
     return (
       <div style={styless}>
         {(notes && notes.length > 0)
-          ? notes.map(note => (<Note key={note.id} note={note} />))
+          ? notes.map(note => (
+            <Note
+              key={note._id} // eslint-disable-line
+              note={note}
+              {...rest}
+              openModal={openModal}
+            />
+          ))
           : (
             <div>
               <p className={styles.text}>Пока что ничего не создано</p>
@@ -40,7 +47,7 @@ export default class Notelist extends Component {
           )
         }
         <div className={styles.addButton}>
-          <button onClick={() => openModal('NEW_TASK_MODAL')}>
+          <button onClick={() => openModal('TASK_EDITOR_MODAL')}>
             <div className={styles.plus}>+</div>
             <div className={styles.text}>Add task</div>
           </button>
