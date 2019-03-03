@@ -6,6 +6,8 @@ import styles from './note.module.scss';
 import buttonStyles from '../../styles/buttons.module.scss';
 import Pencil from '../icons/Pencil';
 import Bin from '../icons/Bin';
+import getFormatDate from '../../utils/formatDate';
+
 
 class Note extends Component {
   static propTypes = {
@@ -26,8 +28,9 @@ class Note extends Component {
         updatedAt: PropTypes.string,
       }),
     }),
-    onEdit: PropTypes.func,
-    // onDelete: PropTypes.func,
+    setTaskToEdit: PropTypes.func,
+    onDelete: PropTypes.func,
+    openModal: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -45,7 +48,7 @@ class Note extends Component {
       },
       completed: false,
     },
-    onEdit: () => {},
+    setTaskToEdit: () => {},
     onDelete: () => {},
   }
 
@@ -99,13 +102,22 @@ class Note extends Component {
     });
   }
 
+  handleEditStart = () => {
+    const { note, setTaskToEdit, openModal } = this.props;
+    setTaskToEdit(note);
+    openModal('TASK_EDITOR_MODAL');
+  }
+
   render() {
-    const { note, onEdit } = this.props;
+    const { note, onDelete } = this.props;
     const {
       isChecked,
       isVisibleDeleteDialog,
       isVisibleCheckmark,
     } = this.state;
+    const date = note
+      && note.deadline
+      && getFormatDate(note.deadline);
 
     return (
       <div className={styles.note_wrapper}>
@@ -129,10 +141,12 @@ class Note extends Component {
           </div>
         </div>
         <div className={styles.buttons_row}>
-          <div className={styles.date}>
-            {note.deadline}
-          </div>
-          <button className={styles.btn_pencil} onClick={onEdit}>
+          {date ? (
+            <div className={styles.date}>
+              {date}
+            </div>
+          ) : null}
+          <button className={styles.btn_pencil} onClick={this.handleEditStart}>
             <Pencil className={styles.pencil} />
           </button>
           <button onClick={this.showDeleteDialog}>

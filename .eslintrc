@@ -39,6 +39,7 @@
           "some": [ "nesting", "id" ]
       },
       "allowChildren": false
-  }]
+    }],
+    "react/no-did-mount-set-state": 0
   }
 }

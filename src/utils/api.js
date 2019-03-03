@@ -38,7 +38,7 @@ export const getAllTasks = token => (
     { headers: { Authorization: `Bearer ${token}` } })
 );
 
-export const requestCreateTask = (token, task) => (
+export const requestCreateTask = ({ token, task }) => (
   axios.post(
     `${HOST}/tasks/add`,
     task,
@@ -49,6 +49,14 @@ export const requestCreateTask = (token, task) => (
 export const requestDeleteTask = (token, id) => (
   axios.delete(
     `${HOST}/tasks/${id}`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
+);
+
+export const requestUpdateTask = ({ token, task }) => (
+  axios.put(
+    `${HOST}/tasks/${task.id}`,
+    task,
     { headers: { Authorization: `Bearer ${token}` } },
   )
 );

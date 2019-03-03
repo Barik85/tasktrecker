@@ -1,6 +1,17 @@
+<<<<<<< HEAD
 
 import { getAllTasks, requestCreateTask, requestDeleteTask } from '../../utils/api';
 import { GET_TASKS, CREATED_TASK, DELETE_TASK } from '../../redux/actionTypes';
+=======
+import { getAllTasks, requestCreateTask, requestUpdateTask } from '../../utils/api';
+import {
+  GET_TASKS,
+  CREATED_TASK,
+  UPDATE_TASK,
+  SET_TASK_TO_EDIT,
+  RESET_TASK_TO_EDIT,
+} from '../../redux/actionTypes';
+>>>>>>> development
 
 export const getTasks = () => (dispatch, getState) => {
   const token = getState().session.token;
@@ -17,7 +28,7 @@ export const getTasks = () => (dispatch, getState) => {
 export const createTask = task => (dispatch, getState) => {
   const token = getState().session.token;
   if (token) {
-    return requestCreateTask(token, task).then((res) => {
+    return requestCreateTask({ token, task }).then((res) => {
       if (res.status === 200) {
         dispatch({
           type: CREATED_TASK,
@@ -49,3 +60,32 @@ export const deleteTask = id => (dispatch, getState) => {
   }
   return null;
 };
+
+export const updateTask = task => (dispatch, getState) => {
+  const token = getState().session.token;
+  if (token) {
+    return requestUpdateTask({ token, task }).then((res) => {
+      if (res.status === 200) {
+        dispatch({
+          type: UPDATE_TASK,
+          payload: res.data,
+        });
+
+        return res.data;
+      }
+
+      return null;
+    });
+  }
+
+  return null;
+};
+
+export const setTaskToEdit = task => ({
+  type: SET_TASK_TO_EDIT,
+  payload: task,
+});
+
+export const resetTaskToEdit = () => ({
+  type: RESET_TASK_TO_EDIT,
+});
