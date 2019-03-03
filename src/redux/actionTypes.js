@@ -14,3 +14,4 @@ export const CURRENT_MODAL = 'CURRENT_MODAL';
 // tasks
 export const GET_TASKS = 'GET_TASKS';
 export const CREATED_TASK = 'CREATED_TASK';
+export const DELETE_TASK = 'DELETE_TASK';

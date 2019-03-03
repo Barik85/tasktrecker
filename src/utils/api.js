@@ -45,3 +45,10 @@ export const requestCreateTask = (token, task) => (
     { headers: { Authorization: `Bearer ${token}` } },
   )
 );
+
+export const requestDeleteTask = (token, id) => (
+  axios.delete(
+    `${HOST}/tasks/${id}`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
+);

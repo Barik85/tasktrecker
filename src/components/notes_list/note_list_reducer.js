@@ -1,4 +1,4 @@
-import { GET_TASKS, CREATED_TASK } from '../../redux/actionTypes';
+import { GET_TASKS, CREATED_TASK, DELETE_TASK } from '../../redux/actionTypes';
 
 const INITIAL_STATE = [];
 
@@ -12,6 +12,9 @@ const notesReducer = (state = INITIAL_STATE, action) => {
         ...state,
         action.payload,
       ];
+
+    case DELETE_TASK:
+      return action.payload;
 
     default:
       return state;

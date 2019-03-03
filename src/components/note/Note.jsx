@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'class-names';
@@ -9,6 +10,7 @@ import Bin from '../icons/Bin';
 class Note extends Component {
   static propTypes = {
     note: PropTypes.shape({
+      _id: PropTypes.string,
       userId: PropTypes.string,
       title: PropTypes.string,
       description: PropTypes.string,
@@ -25,11 +27,12 @@ class Note extends Component {
       }),
     }),
     onEdit: PropTypes.func,
-    onDelete: PropTypes.func,
+    // onDelete: PropTypes.func,
   }
 
   static defaultProps = {
     note: {
+      _id: '',
       userId: '',
       title: '',
       description: '',
@@ -67,6 +70,7 @@ class Note extends Component {
   }
 
   hideDeleteDialog = () => {
+    console.log(1);
     this.setState({
       isVisibleDeleteDialog: false,
     });
@@ -78,6 +82,17 @@ class Note extends Component {
     });
   }
 
+  deleteTask = () => {
+    console.log(this.props.note._id);
+    console.log(this.props.DT);
+    const {_id} = this.props.note;
+    const funDel = this.props.DT;
+    funDel(_id);
+    this.setState({
+      isVisibleDeleteDialog: false,
+    });
+  }
+
   hideCheckmark = () => {
     this.setState({
       isVisibleCheckmark: false,
@@ -85,7 +100,7 @@ class Note extends Component {
   }
 
   render() {
-    const { note, onEdit, onDelete } = this.props;
+    const { note, onEdit } = this.props;
     const {
       isChecked,
       isVisibleDeleteDialog,
@@ -129,7 +144,7 @@ class Note extends Component {
             <div>
               <button
                 className={classNames(buttonStyles.btn, buttonStyles.btn_upper)}
-                onClick={onDelete}
+                onClick={this.deleteTask}
               >
                 Удалить
               </button>
