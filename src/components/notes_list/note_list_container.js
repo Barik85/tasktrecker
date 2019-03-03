@@ -1,10 +1,8 @@
 import { connect } from 'react-redux';
 import NoteList from './Note_list';
-<<<<<<< HEAD
-import { getTasks, deleteTask } from './note_list_actions';
-=======
-import { getTasks, setTaskToEdit } from './note_list_actions';
->>>>>>> development
+
+import { getTasks, setTaskToEdit, deleteTask } from './note_list_actions';
+
 import { setCurrentModal, openModal } from '../modalManager/modalActions';
 
 const mSTP = state => ({

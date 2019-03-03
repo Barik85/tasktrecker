@@ -1,17 +1,17 @@
-<<<<<<< HEAD
-
-import { getAllTasks, requestCreateTask, requestDeleteTask } from '../../utils/api';
-import { GET_TASKS, CREATED_TASK, DELETE_TASK } from '../../redux/actionTypes';
-=======
-import { getAllTasks, requestCreateTask, requestUpdateTask } from '../../utils/api';
+import {
+  getAllTasks,
+  requestCreateTask,
+  requestUpdateTask,
+  requestDeleteTask,
+} from '../../utils/api';
 import {
   GET_TASKS,
   CREATED_TASK,
   UPDATE_TASK,
   SET_TASK_TO_EDIT,
   RESET_TASK_TO_EDIT,
+  DELETE_TASK,
 } from '../../redux/actionTypes';
->>>>>>> development
 
 export const getTasks = () => (dispatch, getState) => {
   const token = getState().session.token;

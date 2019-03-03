@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Note from '../note/Note';
@@ -31,8 +30,6 @@ export default class Notelist extends Component {
   }
 
   delTask = (id) => {
-    console.log(id);
-    console.log(2);
     const { getTasks, deleteTask } = this.props;
     deleteTask(id);
     getTasks();
@@ -43,18 +40,15 @@ export default class Notelist extends Component {
     return (
       <div style={styless}>
         {(notes && notes.length > 0)
-<<<<<<< HEAD
-          ? notes.map(note => (<Note key={note.id} note={note} DT={this.delTask} />))
-=======
           ? notes.map(note => (
             <Note
               key={note._id} // eslint-disable-line
               note={note}
               {...rest}
               openModal={openModal}
+              DT={this.delTask}
             />
           ))
->>>>>>> development
           : (
             <div>
               <p className={styles.text}>Пока что ничего не создано</p>
@@ -62,11 +56,7 @@ export default class Notelist extends Component {
           )
         }
         <div className={styles.addButton}>
-<<<<<<< HEAD
-          <button onClick={() => openModal('NEW_TASK_MODAL')} >
-=======
           <button onClick={() => openModal('TASK_EDITOR_MODAL')}>
->>>>>>> development
             <div className={styles.plus}>+</div>
             <div className={styles.text}>Add task</div>
           </button>
