@@ -5,6 +5,7 @@ import {
   SIGN_OUT,
   GET_USER_SUCCESS,
   RESET_SESSION_ERROR,
+  UPDATE_USER,
 } from '../../redux/actionTypes';
 import * as api from '../../utils/api';
 
@@ -128,3 +129,9 @@ export const getUserInfo = () => (dispatch, getState) => {
 };
 
 export const resetSessionError = () => ({ type: RESET_SESSION_ERROR });
+
+export const updateUser = user => ({
+  type: UPDATE_USER,
+  payload: user,
+});
+

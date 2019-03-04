@@ -7,6 +7,8 @@ import eye from '../components/login/img/eye.svg';
 import privat from '../components/login/img/private.svg';
 import styles from './profile.module.scss';
 import EditableInput from './../components/editableInput/editableInput';
+import { updateUser } from './../components/login/loginActions';
+
 
 class Profile extends Component {
   static propTypes = {
@@ -14,11 +16,11 @@ class Profile extends Component {
       email: PropTypes.string.isRequired,
       name: PropTypes.string,
     }),
+    updateUser: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     user: {
-      email: '',
       name: '',
     },
   };
@@ -41,7 +43,8 @@ class Profile extends Component {
     });
   }
 
-  toggleEditInput = () => {
+  toggleEditInput = (e) => {
+    e.preventDefault();
     this.setState(prevState => ({
       isEditing: !prevState.isEditing,
     }));
@@ -61,10 +64,17 @@ class Profile extends Component {
     }));
   }
 
-  saveChange = () => {
+  saveChange = (e) => {
+    e.preventDefault();
     this.setState({
       isEditing: false,
     });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email } = this.state;
+    this.props.updateUser({ name, email });
   }
 
   render() {
@@ -78,7 +88,7 @@ class Profile extends Component {
     } = this.state;
     const { user } = this.props;
     return (
-      <div className={styles.wrapper}>
+      <form className={styles.wrapper} onSubmit={this.handleSubmit}>
         <div className={styles.container}>
           <div className={styles.header}>
             <Avatar className={styles.avatar} />
@@ -89,30 +99,28 @@ class Profile extends Component {
           </div>
           <div>
             <h2 className={styles.h2}>Персональная информация</h2>
-            <form>
-              <div className={styles.block}>
-                <div className={styles.label}>Имя Фамилия</div>
-                {isEditing ?
-                  <EditableInput
-                    className={styles.inputEdit}
-                    handleInputChange={this.handleInputChange}
-                    value={name}
-                    name="name"
-                  />
-                  : (<div className={styles.info}>{name}</div>)}
-              </div>
-              <div className={styles.block}>
-                <div className={styles.label}>Электронная почта</div>
-                {isEditing ?
-                  <EditableInput
-                    className={styles.inputEdit}
-                    name="email"
-                    handleInputChange={this.handleInputChange}
-                    value={email}
-                  />
-                  : (<div className={styles.info}>{email}</div>)}
-              </div>
-            </form>
+            <div className={styles.block}>
+              <div className={styles.label}>Имя Фамилия</div>
+              {isEditing ?
+                <EditableInput
+                  className={styles.inputEdit}
+                  handleInputChange={this.handleInputChange}
+                  value={name}
+                  name="name"
+                />
+                : (<div className={styles.info}>{name}</div>)}
+            </div>
+            <div className={styles.block}>
+              <div className={styles.label}>Электронная почта</div>
+              {isEditing ?
+                <EditableInput
+                  className={styles.inputEdit}
+                  name="email"
+                  handleInputChange={this.handleInputChange}
+                  value={email}
+                />
+                : (<div className={styles.info}>{email}</div>)}
+            </div>
           </div>
           <div>
             <h2 className={styles.h2}>Смена пароля</h2>
@@ -158,13 +166,15 @@ class Profile extends Component {
             </div>
           </div>
           <div className={styles.btnBlock}>
-            <button
+            <input
+              type="submit"
               className={styles.button}
               onClick={this.saveChange}
-            >Сохранить</button>
+              value="Сохранить"
+            />
           </div>
         </div>
-      </div>
+      </form>
     );
   }
 }
@@ -173,4 +183,9 @@ const mSTP = state => ({
   user: state.session.user,
 });
 
-export default connect(mSTP)(Profile);
+const mDTP = dispatch => ({
+  updateUser: ({ name, email }) => dispatch(updateUser(name, email)),
+});
+
+
+export default connect(mSTP, mDTP)(Profile);
