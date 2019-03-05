@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Pencil from '../components/icons/Pencil';
-import Avatar from '../components/icons/Avatar';
-import eye from '../components/login/img/eye.svg';
-import privat from '../components/login/img/private.svg';
+import Pencil from '../icons/Pencil';
+import Avatar from '../icons/Avatar';
+import eye from '..//login/img/eye.svg';
+import privat from '..//login/img/private.svg';
 import styles from './profile.module.scss';
-import EditableInput from './../components/editableInput/editableInput';
-import { updateUser } from './../components/login/loginActions';
+import EditableInput from '../editableInput/editableInput';
+import { updateUser } from '../login/loginActions';
 
 
 class Profile extends Component {
@@ -15,19 +15,13 @@ class Profile extends Component {
     user: PropTypes.shape({
       email: PropTypes.string.isRequired,
       name: PropTypes.string,
-    }),
+    }).isRequired,
     updateUser: PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    user: {
-      name: '',
-    },
-  };
-
   state = {
-    name: this.props.user.name,
-    email: this.props.user.email,
+    name: this.props.user.name || '',
+    email: this.props.user.email || '',
     isEditing: false,
     newPass: '',
     oldPass: '',

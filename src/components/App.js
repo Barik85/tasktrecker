@@ -8,7 +8,7 @@ import Home from './home/homeContainer';
 import Header from './header/headerContainer';
 import Footer from './footer/footer';
 import ProtectedRoute from './shared/ProtectedRoute';
-import Profile from '../pages/Profile';
+import Profile from './profile/Profile';
 import Register from '../components/register/Register';
 import styles from './App.module.scss';
 
