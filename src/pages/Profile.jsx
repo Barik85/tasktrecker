@@ -7,6 +7,8 @@ import eye from '../components/login/img/eye.svg';
 import privat from '../components/login/img/private.svg';
 import styles from './profile.module.scss';
 import EditableInput from './../components/editableInput/editableInput';
+import { updateUser } from './../components/login/loginActions';
+
 
 class Profile extends Component {
   static propTypes = {
@@ -14,17 +16,18 @@ class Profile extends Component {
       email: PropTypes.string.isRequired,
       name: PropTypes.string,
     }),
+    updateUser: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     user: {
-      email: '',
       name: '',
     },
   };
 
   state = {
     name: this.props.user.name,
+    email: this.props.user.email,
     isEditing: false,
     newPass: '',
     oldPass: '',
@@ -40,43 +43,57 @@ class Profile extends Component {
     });
   }
 
-  openEditInput = () => {
-    this.setState({
-      isEditing: !this.state.isEditing,
-    });
+  toggleEditInput = (e) => {
+    e.preventDefault();
+    this.setState(prevState => ({
+      isEditing: !prevState.isEditing,
+    }));
   }
 
   changeVisibilityOldPass = (e) => {
     e.preventDefault();
-    this.setState({
-      isVisibleOldPass: !this.state.isVisibleOldPass,
-    });
+    this.setState(prevState => ({
+      isVisibleOldPass: !prevState.isVisibleOldPass,
+    }));
   }
 
   changeVisibilityNewPass = (e) => {
     e.preventDefault();
+    this.setState(prevState => ({
+      isVisibleNewPass: !prevState.isVisibleNewPass,
+    }));
+  }
+
+  saveChange = (e) => {
+    e.preventDefault();
     this.setState({
-      isVisibleNewPass: !this.state.isVisibleNewPass,
+      isEditing: false,
     });
   }
 
-  editSuccess = (text) => {
-    this.setState({
-      name: text,
-      isEditing: true,
-    });
-  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, email } = this.state;
+    this.props.updateUser({ name, email });
+  }
 
   render() {
-    const { isVisibleNewPass, isVisibleOldPass, newPass, oldPass, isEditing } = this.state;
+    const {
+      name,
+      email,
+      isVisibleNewPass,
+      isVisibleOldPass,
+      newPass, oldPass,
+      isEditing,
+    } = this.state;
     const { user } = this.props;
     return (
-      <div className={styles.wrapper}>
+      <form className={styles.wrapper} onSubmit={this.handleSubmit}>
         <div className={styles.container}>
           <div className={styles.header}>
             <Avatar className={styles.avatar} />
             <h1 className={styles.name}>{user.name}</h1>
-            <button onClick={this.openEditInput}>
+            <button onClick={this.toggleEditInput}>
               <Pencil className={styles.pencil} />
             </button>
           </div>
@@ -84,21 +101,25 @@ class Profile extends Component {
             <h2 className={styles.h2}>Персональная информация</h2>
             <div className={styles.block}>
               <div className={styles.label}>Имя Фамилия</div>
-              {isEditing ? <EditableInput
-                className={styles.inputEdit}
-                text={user.name}
-                onEditSuccess={this.editSuccess}
-              />
-                : (<div className={styles.info}>{user.name}</div>)}
+              {isEditing ?
+                <EditableInput
+                  className={styles.inputEdit}
+                  handleInputChange={this.handleInputChange}
+                  value={name}
+                  name="name"
+                />
+                : (<div className={styles.info}>{name}</div>)}
             </div>
             <div className={styles.block}>
               <div className={styles.label}>Электронная почта</div>
-              {isEditing ? <EditableInput
-                className={styles.inputEdit}
-                text={user.email}
-                onEditSuccess={this.editSuccess}
-              />
-                : (<div className={styles.info}>{user.email}</div>) }
+              {isEditing ?
+                <EditableInput
+                  className={styles.inputEdit}
+                  name="email"
+                  handleInputChange={this.handleInputChange}
+                  value={email}
+                />
+                : (<div className={styles.info}>{email}</div>)}
             </div>
           </div>
           <div>
@@ -145,10 +166,15 @@ class Profile extends Component {
             </div>
           </div>
           <div className={styles.btnBlock}>
-            <button className={styles.button}>Сохранить</button>
+            <input
+              type="submit"
+              className={styles.button}
+              onClick={this.saveChange}
+              value="Сохранить"
+            />
           </div>
         </div>
-      </div>
+      </form>
     );
   }
 }
@@ -157,4 +183,9 @@ const mSTP = state => ({
   user: state.session.user,
 });
 
-export default connect(mSTP)(Profile);
+const mDTP = dispatch => ({
+  updateUser: ({ name, email }) => dispatch(updateUser(name, email)),
+});
+
+
+export default connect(mSTP, mDTP)(Profile);

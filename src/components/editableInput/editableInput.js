@@ -1,37 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { PropTypes } from 'prop-types';
 
+const EditableInput = ({ className, value, name, handleInputChange }) => (
+  <form>
+    <input
+      className={className}
+      type="text"
+      value={value}
+      name={name}
+      onChange={handleInputChange}
 
-export default class EditableInput extends Component {
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    className: PropTypes.string.isRequired,
-  }
+    />
+  </form>
+);
 
-  state = {
-    text: this.props.text,
-  }
+EditableInput.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+};
 
-  handleInputChange = (e) => {
-    const { value, name } = e.target;
-
-    this.setState({
-      [name]: value,
-    });
-  }
-  render() {
-    const { text } = this.state;
-
-    return (
-      <form>
-        <input
-          className={this.props.className}
-          type="text"
-          value={text}
-          name="text"
-          onChange={this.handleInputChange}
-        />
-      </form>
-    );
-  }
-}
+export default EditableInput;
