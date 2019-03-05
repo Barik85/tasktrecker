@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NewTaskModal from '../modals/newTaskModal/NewTaskModal';
+import TaskEditorModal from '../modals/Task_editor_modal/task_editor_container';
 import { closeModal } from './modalActions';
 
 const ModalManager = ({ currentModal, ...props }) => {
   switch (currentModal) {
-    case 'NEW_TASK_MODAL':
-      return <NewTaskModal {...props} />;
+    case 'TASK_EDITOR_MODAL':
+      return <TaskEditorModal {...props} />;
     default:
       return null;
   }
@@ -22,4 +22,3 @@ const mDTP = dispatch => ({
 });
 
 export default connect(mSTP, mDTP)(ModalManager);
-

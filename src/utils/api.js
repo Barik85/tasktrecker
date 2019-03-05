@@ -32,3 +32,24 @@ export const getUserInfo = token => (
     { headers: { Authorization: `Bearer ${token}` } },
   )
 );
+
+export const getAllTasks = token => (
+  axios.get(`${HOST}/tasks`,
+    { headers: { Authorization: `Bearer ${token}` } })
+);
+
+export const requestCreateTask = ({ token, task }) => (
+  axios.post(
+    `${HOST}/tasks/add`,
+    task,
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
+);
+
+export const requestUpdateTask = ({ token, task }) => (
+  axios.put(
+    `${HOST}/tasks/${task.id}`,
+    task,
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
+);

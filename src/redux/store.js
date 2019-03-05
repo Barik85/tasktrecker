@@ -6,29 +6,14 @@ import throttle from 'lodash/throttle';
 import loginReducer from '../components/login/loginReducer';
 import { modalOpenReducer, currentModalReducer } from '../components/modalManager/modalReducers';
 import { saveStateToLS, getStateFromLS } from '../utils/local_storage';
+import notesReducer, { taskToEditReducer } from '../components/notes_list/note_list_reducer';
 
 const rootReducer = combineReducers({
   session: loginReducer,
   isModalOpen: modalOpenReducer,
   currentModal: currentModalReducer,
-  // user: {
-  //   id: '',
-  //   name: '',
-  //   surname: '',
-  //   password: ''
-  // },
-
-  // tasks: [
-  //   {
-  //     id: '',
-  //     title: '',
-  //     text: '',
-  //     createdDate: '',
-  //     deadline: '',
-  //     notificationTime: '',
-  //     color: ''
-  //   }
-  // ]
+  notes: notesReducer,
+  taskToEdit: taskToEditReducer,
 });
 
 const enhancer = composeWithDevTools(applyMiddleware(thunk));
