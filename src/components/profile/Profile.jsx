@@ -177,8 +177,8 @@ const mSTP = state => ({
   user: state.session.user,
 });
 
-const mDTP = dispatch => ({
-  updateUser: ({ name, email }) => dispatch(updateUser(name, email)),
+const mDTP = () => ({
+  updateUser,
 });
 
 

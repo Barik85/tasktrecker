@@ -138,8 +138,38 @@ export const getUserInfo = () => (dispatch, getState) => {
 
 export const resetSessionError = () => ({ type: RESET_SESSION_ERROR });
 
-export const updateUser = user => ({
-  type: UPDATE_USER,
-  payload: user,
-});
+// export const updateUser = user => ({
+//   type: UPDATE_USER,
+//   payload: user,
+// });
+
+export const updateUser = credentials => (dispatch) => {
+  dispatch({ type: SIGN_IN_REQUEST });
+
+  api.editUser(credentials).then(
+    (res) => {
+      if (res.status === 200) {
+        const dataUser = res.data && res.data.dataUser;
+
+        const user = {
+          name: dataUser.name,
+          id: dataUser.id,
+          email: dataUser.email,
+        };
+
+        dispatch({
+          type: UPDATE_USER,
+          payload: user,
+        });
+      }
+    },
+    error => dispatch({
+      type: SIGN_IN_FAILURE,
+      payload: {
+        type: 'login_error',
+        message: error.response.data.message,
+      },
+    }),
+  );
+};
 
