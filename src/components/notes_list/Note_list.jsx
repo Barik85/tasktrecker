@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Note from '../note/Note';
+import {subscribeToTimer} from "../../utils/apiSocket";
 import styles from './addTask.module.scss';
 
 const styless = {
@@ -24,6 +25,17 @@ export default class Notelist extends Component {
     notes: [],
   }
 
+  constructor(props) {
+    super(props);
+    subscribeToTimer((err,timestamp)=> this.setState({
+      timestamp
+    }))
+  }
+
+  state = {
+    timestamp: 'no timestamp yet'
+  }
+
   componentDidMount() {
     const { getTasks } = this.props;
     getTasks();
@@ -39,6 +51,7 @@ export default class Notelist extends Component {
     const { notes, openModal, ...rest } = this.props;
     return (
       <div style={styless}>
+        <p>{this.timestamp}</p>
         {(notes && notes.length > 0)
           ? notes.map(note => (
             <Note
