@@ -21,6 +21,8 @@ const notesReducer = (state = INITIAL_STATE, action) => {
 
     case UPDATE_TASK: {
       const updatedNote = action.payload;
+      updatedNote._id = updatedNote.id; // eslint-disable-line
+      delete updatedNote.id;
 
       return state.map(note => (
         note._id === updatedNote._id // eslint-disable-line

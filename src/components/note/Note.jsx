@@ -6,6 +6,7 @@ import buttonStyles from '../../styles/buttons.module.scss';
 import Pencil from '../icons/Pencil';
 import Bin from '../icons/Bin';
 import getFormatDate from '../../utils/formatDate';
+import checkDeadline from '../../utils/checkDeadline';
 
 
 class Note extends Component {
@@ -29,6 +30,7 @@ class Note extends Component {
     setTaskToEdit: PropTypes.func,
     onDelete: PropTypes.func,
     openModal: PropTypes.func.isRequired,
+    updateTask: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -50,17 +52,28 @@ class Note extends Component {
   }
 
   state = {
-    isChecked: false,
+    isChecked: !!this.props.note.completed,
     isVisibleDeleteDialog: false,
     isVisibleCheckmark: false,
   }
 
   handleCeck = () => {
+    const { updateTask, note } = this.props;
+    const { isChecked } = this.state;
+
     this.showCheckmark();
-    setTimeout(this.hideCheckmark, 500);
-    this.setState(prevState => ({
-      isChecked: !prevState.isChecked,
-    }));
+
+    const noteToUpdate = {
+      ...note,
+      completed: !isChecked,
+      id: note._id // eslint-disable-line
+    };
+    updateTask(noteToUpdate).then(() => {
+      this.setState(prevState => ({
+        isChecked: !prevState.isChecked,
+      }));
+      this.hideCheckmark();
+    });
   }
 
   showDeleteDialog = () => {
@@ -127,7 +140,7 @@ class Note extends Component {
         </div>
         <div className={styles.buttons_row}>
           {date ? (
-            <div className={styles.date}>
+            <div className={styles.date} style={{ color: checkDeadline(note.deadline) ? '' : 'red' }}>
               {date}
             </div>
           ) : null}
@@ -163,7 +176,9 @@ class Note extends Component {
             <div className={styles.checkmark_box} />
           </div>
         )}
-        <div className={styles.corner} style={{ backgroundColor: `${note.color}` }} />
+        {note.color !== 'Без цвета'
+          && <div className={styles.corner} style={{ backgroundColor: `${note.color}` }} />
+        }
       </div>
     );
   }
