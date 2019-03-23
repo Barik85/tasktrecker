@@ -90,7 +90,6 @@ class TaskEditorModal extends Component {
       deadline,
       reminder,
       color,
-      completed: false,
     };
     const { createTask, taskToEdit, updateTask } = this.props;
     if (taskToEdit) {
