@@ -53,7 +53,7 @@ export default class Notelist extends Component {
         <div className={styles.addButton}>
           <button onClick={() => openModal('TASK_EDITOR_MODAL')}>
             <div className={styles.plus}>+</div>
-            <div className={styles.text}>Add task</div>
+            <div className={styles.text}>Добавить задачу</div>
           </button>
         </div>
       </div>

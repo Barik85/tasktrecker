@@ -27,8 +27,8 @@ const initialState = {
   displayColorPicker: false,
   title: '',
   description: '',
-  deadline: new Date(),
-  notificationTime: '',
+  deadline: '',
+  reminder: '',
   color: 'Без цвета',
 };
 
@@ -41,7 +41,7 @@ class TaskEditorModal extends Component {
       title: PropTypes.string,
       description: PropTypes.string,
       deadline: PropTypes.string,
-      notificationTime: PropTypes.string,
+      reminder: PropTypes.string,
       color: PropTypes.string,
     }),
     resetTaskToEdit: PropTypes.func.isRequired,
@@ -62,6 +62,7 @@ class TaskEditorModal extends Component {
       this.setState(prevState => ({
         ...prevState,
         ...taskToEdit,
+        deadline: getFormatDate(taskToEdit.deadline),
       }));
     }
   }
@@ -79,7 +80,7 @@ class TaskEditorModal extends Component {
       title,
       description,
       deadline,
-      notificationTime,
+      reminder,
       color,
     } = this.state;
 
@@ -87,19 +88,19 @@ class TaskEditorModal extends Component {
       title,
       description,
       deadline,
-      reminder: notificationTime,
+      reminder,
       color,
     };
     const { createTask, taskToEdit, updateTask } = this.props;
     if (taskToEdit) {
       newTask.id = taskToEdit._id // eslint-disable-line
       updateTask(newTask)
-        .then(() => {
+        .finally(() => {
           this.handleCloseModal();
         });
     } else {
       createTask(newTask)
-        .then(() => {
+        .finally(() => {
           this.handleCloseModal();
         });
     }
@@ -125,7 +126,7 @@ class TaskEditorModal extends Component {
 
   handleTimeChange = (time) => {
     this.setState({
-      notificationTime: time.format('YYYY-MM-DDTHH:MM:SSZ'),
+      reminder: time,
     });
   };
 
@@ -139,15 +140,13 @@ class TaskEditorModal extends Component {
   render() {
     const { isModalOpen, taskToEdit } = this.props;
     const {
-      // displayColorPicker,
+      displayColorPicker,
       title,
       description,
       deadline,
-      // notificationTime,
-      // color,
+      reminder,
+      color,
     } = this.state;
-
-    const deadlineString = getFormatDate(deadline);
 
     return (
       <Modal
@@ -156,7 +155,9 @@ class TaskEditorModal extends Component {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h2 className={styles.title}>Новая задача</h2>
+        <h2 className={styles.title}>
+          {taskToEdit ? 'Редактировать задачу' : 'Новая задача'}
+        </h2>
         <button onClick={this.handleCloseModal} className={styles.close}>
           <Close className={styles.closesvg} />
         </button>
@@ -179,12 +180,11 @@ class TaskEditorModal extends Component {
             <p className={styles.label}>Выполнить до</p>
             <Datetime
               timeFormat={false}
-              dateFormat="DD/MM/YYYY"
-              defaultValue={new Date()}
+              dateFormat="YYYY/MM/DD"
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
               onChange={this.handleDateChange}
-              value={taskToEdit ? deadlineString : deadline}
+              value={deadline}
             />
           </div>
           <div className={styles.wrapper}>
@@ -192,9 +192,9 @@ class TaskEditorModal extends Component {
             <Datetime
               timeFormat="HH:mm"
               dateFormat="DD/MM/YYYY"
-              defaultValue={new Date()}
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
+              value={reminder}
               onChange={this.handleTimeChange}
             />
           </div>
@@ -202,16 +202,16 @@ class TaskEditorModal extends Component {
             <p className={styles.label}>Присвоить цвет</p>
             <div className={styles.colorwrap}>
               <button className={styles.buttonColor} onClick={this.colorPickerOpener}>
-                {(this.state.color !== 'Без цвета') ?
+                {(color !== 'Без цвета') ?
                   <span
                     className={styles.buttonColorIcon}
                     style={{ background: this.state.color }}
                   /> :
                   <span className={styles.buttonColorIcon} />
                 }
-                {this.state.color}
+                {color}
               </button>
-              {this.state.displayColorPicker ?
+              {displayColorPicker ?
                 <ColorPicker onSelectColor={this.selectColor} />
                 : null}
             </div>
