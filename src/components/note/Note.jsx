@@ -87,9 +87,9 @@ class Note extends Component {
 
   deleteTask = () => {
     console.log(this.props.note._id);
-    console.log(this.props.DT);
+    console.log(this.props.onDelete);
     const {_id} = this.props.note;
-    const funDel = this.props.DT;
+    const funDel = this.props.onDelete;
     funDel(_id);
     this.setState({
       isVisibleDeleteDialog: false,

@@ -37,14 +37,8 @@ export default class Notelist extends Component {
     getTasks();
   }
 
-  delTask = (id) => {
-    const { getTasks, deleteTask } = this.props;
-    deleteTask(id);
-    getTasks();
-  }
-
   render() {
-    const { notes, openModal, ...rest } = this.props;
+    const { notes, openModal, deleteTask, ...rest } = this.props;
     return (
       <div style={styless}>
         <p>{this.timestamp}</p>
@@ -55,7 +49,7 @@ export default class Notelist extends Component {
               note={note}
               {...rest}
               openModal={openModal}
-              DT={this.delTask}
+              onDelete={deleteTask}
             />
           ))
           : (

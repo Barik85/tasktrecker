@@ -54,7 +54,6 @@ export const deleteTask = id => (dispatch, getState) => {
         });
         return res.data;
       }
-
       return null;
     });
   }
