@@ -1,4 +1,3 @@
-/*eslint-disable*/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'class-names';
@@ -73,7 +72,6 @@ class Note extends Component {
   }
 
   hideDeleteDialog = () => {
-    console.log(1);
     this.setState({
       isVisibleDeleteDialog: false,
     });
@@ -86,14 +84,9 @@ class Note extends Component {
   }
 
   deleteTask = () => {
-    console.log(this.props.note._id);
-    console.log(this.props.onDelete);
-    const {_id} = this.props.note;
-    const funDel = this.props.onDelete;
-    funDel(_id);
-    this.setState({
-      isVisibleDeleteDialog: false,
-    });
+    const { note, onDelete } = this.props;
+    const id = note && note._id; // eslint-disable-line
+    onDelete(id);
   }
 
   hideCheckmark = () => {
@@ -109,7 +102,7 @@ class Note extends Component {
   }
 
   render() {
-    const { note, onDelete } = this.props;
+    const { note } = this.props;
     const {
       isChecked,
       isVisibleDeleteDialog,
