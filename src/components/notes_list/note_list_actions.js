@@ -1,10 +1,16 @@
-import { getAllTasks, requestCreateTask, requestUpdateTask } from '../../utils/api';
+import {
+  getAllTasks,
+  requestCreateTask,
+  requestUpdateTask,
+  requestDeleteTask,
+} from '../../utils/api';
 import {
   GET_TASKS,
   CREATED_TASK,
   UPDATE_TASK,
   SET_TASK_TO_EDIT,
   RESET_TASK_TO_EDIT,
+  DELETE_TASK,
 } from '../../redux/actionTypes';
 
 export const getTasks = () => (dispatch, getState) => {
@@ -28,14 +34,29 @@ export const createTask = task => (dispatch, getState) => {
           type: CREATED_TASK,
           payload: res.data,
         });
-
         return res.data;
       }
 
       return null;
     });
   }
+  return null;
+};
 
+export const deleteTask = id => (dispatch, getState) => {
+  const token = getState().session.token;
+  if (token) {
+    return requestDeleteTask(token, id).then((res) => {
+      if (res.status === 200) {
+        dispatch({
+          type: DELETE_TASK,
+          payload: res.data,
+        });
+        return res.data;
+      }
+      return null;
+    });
+  }
   return null;
 };
 

@@ -46,6 +46,13 @@ export const requestCreateTask = ({ token, task }) => (
   )
 );
 
+export const requestDeleteTask = (token, id) => (
+  axios.delete(
+    `${HOST}/tasks/${id}`,
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
+);
+
 export const requestUpdateTask = ({ token, task }) => (
   axios.put(
     `${HOST}/tasks/${task.id}`,

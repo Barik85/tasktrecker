@@ -12,6 +12,7 @@ import checkDeadline from '../../utils/checkDeadline';
 class Note extends Component {
   static propTypes = {
     note: PropTypes.shape({
+      _id: PropTypes.string,
       userId: PropTypes.string,
       title: PropTypes.string,
       description: PropTypes.string,
@@ -35,6 +36,7 @@ class Note extends Component {
 
   static defaultProps = {
     note: {
+      _id: '',
       userId: '',
       title: '',
       description: '',
@@ -94,6 +96,12 @@ class Note extends Component {
     });
   }
 
+  deleteTask = () => {
+    const { note, onDelete } = this.props;
+    const id = note && note._id; // eslint-disable-line
+    onDelete(id);
+  }
+
   hideCheckmark = () => {
     this.setState({
       isVisibleCheckmark: false,
@@ -107,7 +115,7 @@ class Note extends Component {
   }
 
   render() {
-    const { note, onDelete } = this.props;
+    const { note } = this.props;
     const {
       isChecked,
       isVisibleDeleteDialog,
@@ -156,7 +164,7 @@ class Note extends Component {
             <div>
               <button
                 className={classNames(buttonStyles.btn, buttonStyles.btn_upper)}
-                onClick={onDelete}
+                onClick={this.deleteTask}
               >
                 Удалить
               </button>

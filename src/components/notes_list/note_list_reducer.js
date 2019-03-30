@@ -2,9 +2,11 @@ import {
   GET_TASKS,
   CREATED_TASK,
   UPDATE_TASK,
+  DELETE_TASK,
   SET_TASK_TO_EDIT,
   RESET_TASK_TO_EDIT,
 } from '../../redux/actionTypes';
+
 
 const INITIAL_STATE = [];
 
@@ -19,6 +21,12 @@ const notesReducer = (state = INITIAL_STATE, action) => {
         action.payload,
       ];
 
+    case DELETE_TASK: {
+      const deleteNote = action.payload;
+      return state.filter(note => (
+            note._id !== deleteNote._id // eslint-disable-line
+      ));
+    }
     case UPDATE_TASK: {
       const updatedNote = action.payload;
 

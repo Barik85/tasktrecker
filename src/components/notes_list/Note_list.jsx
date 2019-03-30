@@ -1,4 +1,3 @@
-
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Note from '../note/Note';
@@ -9,6 +8,7 @@ export default class Notelist extends Component {
     notes: PropTypes.arrayOf(PropTypes.object),
     openModal: PropTypes.func.isRequired,
     getTasks: PropTypes.func.isRequired,
+    deleteTask: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -21,7 +21,7 @@ export default class Notelist extends Component {
   }
 
   render() {
-    const { notes, openModal, ...rest } = this.props;
+    const { notes, openModal, deleteTask, ...rest } = this.props;
     return (notes && notes.length === 0)
       ? (
         <Fragment>
@@ -42,6 +42,7 @@ export default class Notelist extends Component {
                 note={note}
                 {...rest}
                 openModal={openModal}
+                onDelete={deleteTask}
               />
             ))
             : null
