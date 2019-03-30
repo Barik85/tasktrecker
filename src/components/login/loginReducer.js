@@ -31,6 +31,12 @@ const userReducer = (state = initialState.user, action) => {
     case GET_USER_SUCCESS:
       return action.payload;
 
+    case UPDATE_USER:
+      return action.payload;
+
+    case SIGN_IN_FAILURE:
+      return state;
+
     default:
       return state;
   }
@@ -78,19 +84,9 @@ const errorReducer = (state = initialState.error, action) => {
   }
 };
 
-const updateUserReducer = (state = initialState.user, action) => {
-  switch (action.type) {
-    case UPDATE_USER:
-      return action.payload.user;
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   user: userReducer,
   authenticated: authenticatedReducer,
   token: tokenReducer,
   error: errorReducer,
-  updateUser: updateUserReducer,
 });

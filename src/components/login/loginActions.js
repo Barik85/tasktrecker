@@ -20,7 +20,7 @@ export const signIn = credentials => (dispatch) => {
 
         const user = {
           name: dataUser.name,
-          id: dataUser.id,
+          id: dataUser._id, // eslint-disable-line
           email: dataUser.email,
         };
 
@@ -59,7 +59,7 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
             user: {
               name: data.name,
               email: data.email,
-              id: data.id,
+              id: data._id, // eslint-disable-line
             },
             token: data.token,
           },
@@ -90,7 +90,7 @@ export const signInWithGoogle = token => (dispatch) => {
         if (dataUser) {
           const user = {
             name: dataUser.name,
-            id: dataUser.id,
+            id: dataUser._id, // eslint-disable-line
             email: dataUser.email,
           };
 
@@ -120,7 +120,7 @@ export const getUserInfo = () => (dispatch, getState) => {
         if (dataUser) {
           const user = {
             name: dataUser.name,
-            id: dataUser.id,
+            id: dataUser._id, // eslint-disable-line
             email: dataUser.email,
           };
 
@@ -130,7 +130,15 @@ export const getUserInfo = () => (dispatch, getState) => {
           });
         }
       },
-      error => dispatch({ type: SIGN_IN_FAILURE, payload: error }),
+      (error) => {
+        dispatch({
+          type: SIGN_IN_FAILURE,
+          payload: {
+            type: 'get_user_error',
+            message: (error.response && error.response.data && error.response.data.message) || 'something went wrong!',
+          },
+        });
+      },
     );
   }
   return null;
@@ -138,20 +146,13 @@ export const getUserInfo = () => (dispatch, getState) => {
 
 export const resetSessionError = () => ({ type: RESET_SESSION_ERROR });
 
-// export const updateUser = user => ({
-//   type: UPDATE_USER,
-//   payload: user,
-// });
-
-export const updateUser = credentials => (dispatch) => {
-  dispatch({ type: SIGN_IN_REQUEST });
-
-  api.editUser(credentials).then(
+export const updateUser = user => dispatch => (
+  api.editUser(user).then(
     (res) => {
       if (res.status === 200) {
         const dataUser = res.data && res.data.dataUser;
 
-        const user = {
+        const updatedUser = {
           name: dataUser.name,
           id: dataUser.id,
           email: dataUser.email,
@@ -159,17 +160,18 @@ export const updateUser = credentials => (dispatch) => {
 
         dispatch({
           type: UPDATE_USER,
-          payload: user,
+          payload: updatedUser,
         });
       }
     },
-    error => dispatch({
-      type: SIGN_IN_FAILURE,
-      payload: {
-        type: 'login_error',
-        message: error.response.data.message,
-      },
-    }),
-  );
-};
-
+    (error) => {
+      dispatch({
+        type: SIGN_IN_FAILURE,
+        payload: {
+          type: 'edit_user_error',
+          message: (error.response && error.response.data && error.response.data.message) || 'something went wrong!',
+        },
+      });
+    },
+  )
+);

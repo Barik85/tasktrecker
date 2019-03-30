@@ -6,7 +6,6 @@ import Avatar from '../icons/Avatar';
 import eye from '..//login/img/eye.svg';
 import privat from '..//login/img/private.svg';
 import styles from './profile.module.scss';
-import EditableInput from '../editableInput/editableInput';
 import { updateUser } from '../login/loginActions';
 
 
@@ -68,7 +67,14 @@ class Profile extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, email } = this.state;
-    this.props.updateUser({ name, email });
+    const { user, updateUser: editUser } = this.props;
+    const id = user.id;
+
+    editUser({ id, name, email }).then(() => {
+      this.setState({
+        isEditing: false,
+      });
+    });
   }
 
   render() {
@@ -96,24 +102,24 @@ class Profile extends Component {
             <div className={styles.block}>
               <div className={styles.label}>Имя Фамилия</div>
               {isEditing ?
-                <EditableInput
+                <input
                   className={styles.inputEdit}
-                  handleInputChange={this.handleInputChange}
+                  onChange={this.handleInputChange}
                   value={name}
                   name="name"
                 />
-                : (<div className={styles.info}>{name}</div>)}
+                : (<div className={styles.info}>{user.name}</div>)}
             </div>
             <div className={styles.block}>
               <div className={styles.label}>Электронная почта</div>
               {isEditing ?
-                <EditableInput
+                <input
                   className={styles.inputEdit}
                   name="email"
-                  handleInputChange={this.handleInputChange}
+                  onChange={this.handleInputChange}
                   value={email}
                 />
-                : (<div className={styles.info}>{email}</div>)}
+                : (<div className={styles.info}>{user.email}</div>)}
             </div>
           </div>
           <div>
@@ -163,7 +169,6 @@ class Profile extends Component {
             <input
               type="submit"
               className={styles.button}
-              onClick={this.saveChange}
               value="Сохранить"
             />
           </div>
@@ -177,9 +182,9 @@ const mSTP = state => ({
   user: state.session.user,
 });
 
-const mDTP = () => ({
+const mDTP = {
   updateUser,
-});
+};
 
 
 export default connect(mSTP, mDTP)(Profile);
