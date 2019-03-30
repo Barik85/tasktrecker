@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Avatar from '../icons/Avatar';
@@ -11,16 +11,32 @@ class UserMenu extends Component {
     handleLogout: PropTypes.func.isRequired,
   }
 
+  constructor() {
+    super();
+    this.menuRef = createRef();
+  }
+
   state = {
     isOpen: false,
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
   }
 
   handleOpen = () => {
     this.setState(prevState => ({
       isOpen: !prevState.isOpen,
     }));
+    document.addEventListener('click', this.handleClickOutside);
   }
 
+  handleClickOutside = (e) => {
+    if (e.target !== this.menuRef.current) {
+      this.setState({ isOpen: false });
+      document.removeEventListener('click', this.handleClickOutside);
+    }
+  }
 
   render() {
     const { userName, handleLogout } = this.props;
@@ -32,6 +48,7 @@ class UserMenu extends Component {
         onClick={this.handleOpen}
         role="button"
         tabIndex="0"
+        ref={this.menuRef}
       >
         <div className={styles.dropdown_title}>
           {userName}
