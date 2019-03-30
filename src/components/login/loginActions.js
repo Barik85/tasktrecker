@@ -7,6 +7,7 @@ import {
   RESET_SESSION_ERROR,
 } from '../../redux/actionTypes';
 import * as api from '../../utils/api';
+import { setCurrentModal, openModal } from '../modalManager/modalActions';
 
 
 export const signIn = credentials => (dispatch) => {
@@ -65,6 +66,8 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
         });
         const { history } = ownProps;
         if (history) history.push('/');
+        dispatch(setCurrentModal('SUCCESS_REGISTER_MODAL'));
+        dispatch(openModal());
       }
     },
     (error) => {

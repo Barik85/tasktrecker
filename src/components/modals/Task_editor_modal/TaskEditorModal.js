@@ -8,20 +8,9 @@ import SimpleButton from '../../shared/SimpleButton';
 import styles from './TaskEditorModal.module.scss';
 import './datetime.css';
 import getFormatDate from '../../../utils/formatDate';
+import customStyles from '../modal_styles';
 
 Modal.setAppElement('#root');
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-    padding: '25px',
-  },
-};
 
 const initialState = {
   displayColorPicker: false,
