@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signIn, resetSessionError } from './loginActions';
+import { setCurrentModal, openModal } from '../modalManager/modalActions';
 import styles from './login.module.scss';
 import lockIcon from './img/blocked-padlock.svg';
 import letterIcon from './img/letter.svg';
@@ -28,6 +29,7 @@ class Login extends Component {
       push: PropTypes.func.isRequired,
     }),
     discardErrors: PropTypes.func.isRequired,
+    openModal: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -142,7 +144,10 @@ class Login extends Component {
           <div className={styles.sub_menu}>
             <div><input type="checkbox" /><span>Запомнить меня</span></div>
             <div>
-              <button className={styles.restore_password_link}>Восстановить пароль</button>
+              <button
+                className={styles.restore_password_link}
+                onClick={() => this.props.openModal('FORGOTTEN_PASSWORD')}
+              >Восстановить пароль</button>
             </div>
           </div>
           <div className={styles.socialnet_box}>
@@ -179,6 +184,13 @@ const mSTP = state => ({
   auth: state.session.authenticated,
 });
 
-const mDTP = { signIn, discardErrors: resetSessionError };
+const mDTP = {
+  signIn,
+  discardErrors: resetSessionError,
+  openModal: (modalName) => {
+    setCurrentModal(modalName);
+    openModal();
+  },
+};
 
 export default connect(mSTP, mDTP)(Login);
