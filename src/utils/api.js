@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const HOST = 'https://taskboard.luisi.top';
+// const HOST = 'https://taskboard.luisi.top';
+const HOST = 'http://localhost:5050';
 
 export const googleAuthorisation = token => (
   axios.get(`${HOST}/users/me`,

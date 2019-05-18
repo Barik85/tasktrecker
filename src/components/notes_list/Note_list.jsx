@@ -1,8 +1,12 @@
+/*eslint-disable*/
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Note from '../note/Note';
-import { subscribeToTimer } from '../../utils/apiSocket';
+import openSocket from 'socket.io-client';
+// import { subscribeToTimer } from '../../utils/apiSocket';
 import styles from './addTask.module.scss';
+
+const socket = openSocket('http://localhost:5050/');
 
 const styless = {
   display: 'flex',
@@ -25,16 +29,21 @@ export default class Notelist extends Component {
     notes: [],
   }
 
-  constructor(props) {
-    super(props);
-    subscribeToTimer((err, timestamp) => this.setState({ timestamp }));
-  }
-
   state = { timestamp: 'no timestamp yet' }
 
   componentDidMount() {
     const { getTasks } = this.props;
     getTasks();
+    // subscribeToTimer((err, timestamp) => this.setState({ timestamp }));
+    socket.on('news', data => console.log('From socket: ', data));
+    setInterval(()=>{
+      socket.emit("post", {reactSend:"tttttttt"})
+    }, 10000 )
+
+  }
+
+  componentDidUpdate() {
+    socket.on('news', data => console.log('From socket: ', data));
   }
 
   render() {
