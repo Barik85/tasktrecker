@@ -4,6 +4,7 @@ import {
   requestUpdateTask,
   requestDeleteTask,
 } from '../../utils/api';
+
 import {
   GET_TASKS,
   CREATED_TASK,
@@ -13,6 +14,8 @@ import {
   DELETE_TASK,
 } from '../../redux/actionTypes';
 
+import { createNotificationsList } from '../Notifications/notifications_actions';
+
 export const getTasks = () => (dispatch, getState) => {
   const token = getState().session.token;
   if (token) {
@@ -21,6 +24,7 @@ export const getTasks = () => (dispatch, getState) => {
         type: GET_TASKS,
         payload: res.data,
       });
+      dispatch(createNotificationsList());
     });
   }
 };
@@ -34,6 +38,7 @@ export const createTask = task => (dispatch, getState) => {
           type: CREATED_TASK,
           payload: res.data,
         });
+        dispatch(createNotificationsList());
         return res.data;
       }
 
@@ -52,6 +57,7 @@ export const deleteTask = id => (dispatch, getState) => {
           type: DELETE_TASK,
           payload: res.data,
         });
+        dispatch(createNotificationsList());
         return res.data;
       }
       return null;
@@ -69,6 +75,7 @@ export const updateTask = task => (dispatch, getState) => {
           type: UPDATE_TASK,
           payload: res.data,
         });
+        dispatch(createNotificationsList());
 
         return res.data;
       }
@@ -88,3 +95,15 @@ export const setTaskToEdit = task => ({
 export const resetTaskToEdit = () => ({
   type: RESET_TASK_TO_EDIT,
 });
+
+export const setTasksReminderShowed = tasks => (dispatch) => {
+  if (!Array.isArray(tasks)) return null;
+  const updatedTasks = tasks.map(task => ({
+    ...task,
+    id: task._id,
+    reminderShowed: true,
+  }));
+  return (
+    Promise.all(updatedTasks.map(task => dispatch(updateTask(task))))
+  );
+};

@@ -19,6 +19,7 @@ const initialState = {
   deadline: '',
   reminder: '',
   color: 'Без цвета',
+  reminderShowed: false,
 };
 
 class TaskEditorModal extends Component {
@@ -71,6 +72,7 @@ class TaskEditorModal extends Component {
       deadline,
       reminder,
       color,
+      reminderShowed,
     } = this.state;
 
     const newTask = {
@@ -79,10 +81,11 @@ class TaskEditorModal extends Component {
       deadline,
       reminder,
       color,
+      reminderShowed,
     };
     const { createTask, taskToEdit, updateTask } = this.props;
     if (taskToEdit) {
-      newTask.id = taskToEdit._id // eslint-disable-line
+      newTask.id = taskToEdit._id;
       updateTask(newTask)
         .finally(() => {
           this.handleCloseModal();
@@ -116,6 +119,7 @@ class TaskEditorModal extends Component {
   handleTimeChange = (time) => {
     this.setState({
       reminder: time,
+      reminderShowed: false,
     });
   };
 
