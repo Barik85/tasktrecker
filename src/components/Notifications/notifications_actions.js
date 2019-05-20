@@ -1,8 +1,12 @@
-/* eslint-disable */
 import { isValidDate } from '../../utils/formatDate';
-import { SET_NOTIFICATIONS, SET_CURRENT_NOTIFICATION, RESET_CURRENT_NOTIFICATION } from '../../redux/actionTypes';
+import {
+  SET_NOTIFICATIONS,
+  SET_CURRENT_NOTIFICATION,
+  RESET_CURRENT_NOTIFICATION,
+} from '../../redux/actionTypes';
 import { setTasksReminderShowed } from '../notes_list/note_list_actions';
 import { setCurrentModal, openModal } from '../modalManager/modalActions';
+
 let intervalSettingReminders;
 
 export const setCurrentNotification = notification => ({
@@ -19,7 +23,7 @@ export const setReminders = ({ dates, notifications, dispatch, getState }) => {
   if (!Array.isArray(dates)) return;
   if (dates.length === 0) return;
 
-  const state = getState()
+  const state = getState();
 
   const isNotificationShowing = state.notifications && state.notifications.notificationToShow;
   const now = new Date();
@@ -46,11 +50,13 @@ export const createNotificationsList = () => (dispatch, getState) => {
 
     const notificationList = tasksWithReminder.reduce((list, task) => {
       if (list[task.reminder]) {
+        // eslint-disable-next-line
         list[task.reminder] = [
           ...list[task.reminder],
           task,
-        ]
+        ];
       } else {
+        // eslint-disable-next-line
         list[task.reminder] = [ task ];
       }
       return list;
@@ -63,10 +69,15 @@ export const createNotificationsList = () => (dispatch, getState) => {
 
     clearInterval(intervalSettingReminders);
     intervalSettingReminders = setInterval(() => {
-      setReminders({ dates: notificationDates, notifications: notificationList, dispatch, getState });
+      setReminders({
+        dates: notificationDates,
+        notifications: notificationList,
+        dispatch,
+        getState,
+      });
     }, 5000);
 
-    dispatch ({
+    dispatch({
       type: SET_NOTIFICATIONS,
       payload: { notificationList, notificationDates },
     });

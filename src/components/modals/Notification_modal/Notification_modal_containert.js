@@ -6,6 +6,7 @@ import {
   setTaskToEdit,
   updateTask,
   deleteTask,
+  setDownTaskReminder,
 } from '../../notes_list/note_list_actions';
 
 const mSTP = state => ({
@@ -18,6 +19,7 @@ const mDTP = {
   updateTask,
   onDelete: deleteTask,
   openModal: setAndOpenModal,
+  setDownTaskReminder,
 };
 
 export default connect(mSTP, mDTP)(NotificationModal);

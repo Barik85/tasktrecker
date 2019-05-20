@@ -28,3 +28,15 @@
   text-align: center;
   padding: 25px 0;
 }
+
+.bell_icon {
+  width: 18px;
+  margin-right: 8px;
+  fill: $orange;
+}
+
+.notes_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
+}

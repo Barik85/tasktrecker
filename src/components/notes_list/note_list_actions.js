@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   getAllTasks,
   requestCreateTask,
@@ -106,4 +107,32 @@ export const setTasksReminderShowed = tasks => (dispatch) => {
   return (
     Promise.all(updatedTasks.map(task => dispatch(updateTask(task))))
   );
+};
+
+export const setDownTaskReminder = ({ task, hoursToAdd }) => (dispatch, getState) => {
+  const token = getState().session.token;
+  const updatedTask = {
+    ...task,
+    reminder: moment(task.reminder).add(hoursToAdd, 'hours').format(),
+    reminderShowed: false,
+    id: task._id,
+  };
+
+  if (token) {
+    return requestUpdateTask({ token, task: updatedTask }).then((res) => {
+      if (res.status === 200) {
+        dispatch({
+          type: UPDATE_TASK,
+          payload: res.data,
+        });
+        dispatch(createNotificationsList());
+
+        return res.data;
+      }
+
+      return null;
+    });
+  }
+
+  return null;
 };
