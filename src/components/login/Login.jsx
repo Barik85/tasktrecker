@@ -29,7 +29,7 @@ class Login extends Component {
       push: PropTypes.func.isRequired,
     }),
     discardErrors: PropTypes.func.isRequired,
-    openModal: PropTypes.func.isRequired,
+    isOpenModal: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -146,7 +146,7 @@ class Login extends Component {
             <div>
               <button
                 className={styles.restore_password_link}
-                onClick={() => this.props.openModal('FORGOTTEN_PASSWORD')}
+                onClick={() => this.props.isOpenModal('FORGOTTEN_PASSWORD')}
               >Восстановить пароль</button>
             </div>
           </div>
@@ -179,6 +179,11 @@ class Login extends Component {
   }
 }
 
+const isOpenModal = (modalName) => {
+  setCurrentModal(modalName);
+  openModal();
+};
+
 const mSTP = state => ({
   error: state.session.error,
   auth: state.session.authenticated,
@@ -187,10 +192,7 @@ const mSTP = state => ({
 const mDTP = {
   signIn,
   discardErrors: resetSessionError,
-  openModal: (modalName) => {
-    setCurrentModal(modalName);
-    openModal();
-  },
+  isOpenModal,
 };
 
 export default connect(mSTP, mDTP)(Login);

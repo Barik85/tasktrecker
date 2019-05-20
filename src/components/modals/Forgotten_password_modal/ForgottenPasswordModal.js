@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import Close from '../../icons/Close';
-import letterIcon from '../../login/img/letter.svg';
-import SimpleButton from '../../shared/SimpleButton';
+// import letterIcon from '../../login/img/letter.svg';
+// import SimpleButton from '../../shared/SimpleButton';
 import styles from './ForgottenPasswordModal.module.scss';
 
 Modal.setAppElement('#root');
@@ -33,11 +33,15 @@ const ForgottenPasswordModal = props => (
     <button onClick={this.handleCloseModal} className={styles.close}>
       <Close className={styles.closesvg} />
     </button>
-    <div>
+    {/* <div>
       <div>
         <form action="">
           <div className={styles.login_inputEmail}>
-            <label htmlFor="email"><span><img src={letterIcon} alt="letter" width="5%" /></span></label>
+            <label htmlFor="email">
+              <span>
+                <img src={letterIcon} alt="letter" width="5%" />
+              </span>
+            </label>
             <input
               className={styles.login_box}
               type="email"
@@ -56,7 +60,7 @@ const ForgottenPasswordModal = props => (
         <button>Google</button>
         <Link to="/register" className={styles.button}>Зарегистрироваться </Link>
       </div>
-    </div>
+    </div> */}
   </Modal>
 );
 
