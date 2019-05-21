@@ -42,9 +42,9 @@ export default class Notelist extends Component {
 
   }
 
-  componentDidUpdate() {
-    socket.on('news', data => console.log('From socket: ', data));
-  }
+  // componentDidUpdate() {
+  //   socket.on('news', data => console.log('From socket: ', data));
+  // }
 
   render() {
     const { notes, openModal, deleteTask, ...rest } = this.props;
