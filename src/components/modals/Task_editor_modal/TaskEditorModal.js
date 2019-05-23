@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Datetime from 'react-datetime';
 import Modal from 'react-modal';
+import moment from 'moment';
 import Close from '../../icons/Close';
 import ColorPicker from '../../colorPicker/ColorPicker';
 import SimpleButton from '../../shared/SimpleButton';
 import styles from './TaskEditorModal.module.scss';
 import './datetime.css';
-import getFormatDate from '../../../utils/formatDate';
 import customStyles from '../modal_styles';
 
 Modal.setAppElement('#root');
@@ -52,7 +52,10 @@ class TaskEditorModal extends Component {
       this.setState(prevState => ({
         ...prevState,
         ...taskToEdit,
-        deadline: getFormatDate(taskToEdit.deadline),
+        deadline: moment(taskToEdit.deadline).format('DD.MM.YYYY'),
+        reminder: taskToEdit.reminder
+          ? moment(taskToEdit.reminder).format('DD.MM.YYYY hh:mm')
+          : '',
       }));
     }
   }
@@ -78,8 +81,8 @@ class TaskEditorModal extends Component {
     const newTask = {
       title,
       description,
-      deadline,
-      reminder,
+      deadline: deadline ? moment(deadline).toDate() : '',
+      reminder: reminder ? moment(reminder).toDate() : '',
       color,
       reminderShowed,
     };
@@ -112,7 +115,7 @@ class TaskEditorModal extends Component {
 
   handleDateChange = (datemoment) => {
     this.setState({
-      deadline: datemoment.format('YYYY-MM-DD'),
+      deadline: datemoment,
     });
   };
 
@@ -129,6 +132,8 @@ class TaskEditorModal extends Component {
       color,
     }));
   };
+
+  validateDate = date => moment() < moment(date);
 
   render() {
     const { isModalOpen, taskToEdit } = this.props;
@@ -173,22 +178,25 @@ class TaskEditorModal extends Component {
             <p className={styles.label}>Выполнить до</p>
             <Datetime
               timeFormat={false}
-              dateFormat="YYYY/MM/DD"
+              dateFormat="DD.MM.YYYY"
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
               onChange={this.handleDateChange}
               value={deadline}
+              isValidDate={this.validateDate}
+              closeOnSelect
             />
           </div>
           <div className={styles.wrapper}>
             <p className={styles.label}>Установить напоминание</p>
             <Datetime
-              timeFormat="HH:mm"
-              dateFormat="DD/MM/YYYY"
+              timeFormat="hh:mm"
+              dateFormat="DD.MM.YYYY"
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
               value={reminder}
               onChange={this.handleTimeChange}
+              isValidDate={this.validateDate}
             />
           </div>
           <div className={styles.wrapper}>
