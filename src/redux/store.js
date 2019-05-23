@@ -7,6 +7,7 @@ import loginReducer from '../components/login/loginReducer';
 import { modalOpenReducer, currentModalReducer } from '../components/modalManager/modalReducers';
 import { saveStateToLS, getStateFromLS } from '../utils/local_storage';
 import notesReducer, { taskToEditReducer } from '../components/notes_list/note_list_reducer';
+import notificationsReducer from '../components/Notifications/notifications_reducer';
 
 const rootReducer = combineReducers({
   session: loginReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   currentModal: currentModalReducer,
   notes: notesReducer,
   taskToEdit: taskToEditReducer,
+  notifications: notificationsReducer,
 });
 
 const enhancer = composeWithDevTools(applyMiddleware(thunk));

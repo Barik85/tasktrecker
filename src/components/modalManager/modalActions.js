@@ -12,3 +12,8 @@ export const setCurrentModal = current => ({
   type: CURRENT_MODAL,
   payload: current,
 });
+
+export const setAndOpenModal = modalName => (dispatch) => {
+  dispatch(setCurrentModal(modalName));
+  dispatch(openModal());
+};

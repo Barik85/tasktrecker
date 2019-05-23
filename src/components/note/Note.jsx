@@ -32,6 +32,7 @@ class Note extends Component {
     onDelete: PropTypes.func,
     openModal: PropTypes.func.isRequired,
     updateTask: PropTypes.func.isRequired,
+    backgroundColor: PropTypes.string,
   }
 
   static defaultProps = {
@@ -51,6 +52,7 @@ class Note extends Component {
     },
     setTaskToEdit: () => {},
     onDelete: () => {},
+    backgroundColor: '#fff',
   }
 
   state = {
@@ -115,7 +117,7 @@ class Note extends Component {
   }
 
   render() {
-    const { note } = this.props;
+    const { note, backgroundColor } = this.props;
     const {
       isChecked,
       isVisibleDeleteDialog,
@@ -126,7 +128,7 @@ class Note extends Component {
       && getFormatDate(note.deadline);
 
     return (
-      <div className={styles.note_wrapper}>
+      <div className={styles.note_wrapper} style={{ backgroundColor }}>
         <div className={styles.row}>
           <button className={styles.checkbox} onClick={this.handleCeck}>
             <input

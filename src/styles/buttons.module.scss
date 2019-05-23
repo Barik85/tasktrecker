@@ -16,3 +16,16 @@
 .btn_upper {
   text-transform: uppercase;
 }
+
+.btn_grey {
+  @extend .btn;
+
+  width: 100%;
+  background-color: $middle_grey;
+  font-weight: 600;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background-color: $grey;
+  }
+}
