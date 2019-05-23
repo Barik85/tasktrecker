@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { isValidDate } from '../../utils/formatDate';
 import {
   SET_NOTIFICATIONS,
@@ -50,14 +51,12 @@ export const createNotificationsList = () => (dispatch, getState) => {
 
     const notificationList = tasksWithReminder.reduce((list, task) => {
       if (list[task.reminder]) {
-        // eslint-disable-next-line
         list[task.reminder] = [
           ...list[task.reminder],
           task,
         ];
       } else {
-        // eslint-disable-next-line
-        list[task.reminder] = [ task ];
+        list[task.reminder] = [task];
       }
       return list;
     }, {});
