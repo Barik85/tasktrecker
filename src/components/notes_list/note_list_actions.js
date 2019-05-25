@@ -113,7 +113,7 @@ export const setDownTaskReminder = ({ task, hoursToAdd }) => (dispatch, getState
   const token = getState().session.token;
   const updatedTask = {
     ...task,
-    reminder: moment().add(hoursToAdd, 'hours').format(),
+    reminder: moment().add(hoursToAdd, 'hours').toDate(),
     reminderShowed: false,
     id: task._id,
   };

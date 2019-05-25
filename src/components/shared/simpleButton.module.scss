@@ -6,7 +6,9 @@
   background-color: $orange;
   height: 32px;
   color: #fff;
-  box-shadow: #999 3px 3px 9px 0;  
-  width: 105px;
+  box-shadow: rgba(0, 0, 0, 0.2) 3px 3px 9px 0;
+  min-width: 105px;
+  padding: 0 10px;
   margin: auto;
+  cursor: pointer;
 }

@@ -17,13 +17,13 @@ const NotificationNote = ({ note, setDownOneHour, setDownOneDay, ...rest }) => {
   return (
     <div className={styles.notification_note}>
       <Note note={note} {...rest} />
-      <div>
-        <button type="button" className={buttonStyles.btn_grey} onClick={handleDownOneHour}>
+      <div className={styles.btn_box}>
+        <button type="button" className={buttonStyles.btn_wide} onClick={handleDownOneHour}>
           Напомнить через час
         </button>
       </div>
-      <div>
-        <button type="button" className={buttonStyles.btn_grey} onClick={handleDownOneDay}>
+      <div className={styles.btn_box}>
+        <button type="button" className={buttonStyles.btn_wide} onClick={handleDownOneDay}>
           Напомнить завтра
         </button>
       </div>

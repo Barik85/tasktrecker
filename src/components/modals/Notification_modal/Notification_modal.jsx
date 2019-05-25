@@ -17,28 +17,44 @@ class NotificationModal extends Component {
     resetCurrentNotification: PropTypes.func.isRequired,
   };
 
+  state = { notes: this.props.notes }
+
   componentWillUnmount() {
     const { resetCurrentNotification } = this.props;
     resetCurrentNotification();
   }
 
   setDownOneHour = (task) => {
-    const { setDownTaskReminder, closeModal, notes } = this.props;
+    const { setDownTaskReminder, closeModal } = this.props;
+    const { notes } = this.state;
+
     setDownTaskReminder({ task, hoursToAdd: 1 });
-    if (notes && notes.length === 1) closeModal();
+    if (notes && notes.length <= 1) closeModal();
+    else this.removeTaskFromModal(task);
   }
 
   setDownOneDay = (task) => {
-    const { setDownTaskReminder, closeModal, notes } = this.props;
+    const { setDownTaskReminder, closeModal } = this.props;
+    const { notes } = this.state;
+
     setDownTaskReminder({ task, hoursToAdd: 24 });
-    if (notes && notes.length === 1) closeModal();
+    if (notes && notes.length <= 1) closeModal();
+    else this.removeTaskFromModal(task);
+  }
+
+  removeTaskFromModal = (task) => {
+    this.setState(prevState => ({
+      notes: prevState.notes.filter(note => note._id !== task._id),
+    }));
   }
 
   render() {
     const {
-      notes, isModalOpen, closeModal,
+      isModalOpen, closeModal,
       resetCurrentNotification, ...rest
     } = this.props;
+
+    const { notes } = this.state;
 
     const handleCloseModal = () => {
       closeModal();

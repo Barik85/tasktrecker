@@ -52,13 +52,23 @@ class TaskEditorModal extends Component {
       this.setState(prevState => ({
         ...prevState,
         ...taskToEdit,
-        deadline: moment(taskToEdit.deadline).format('DD.MM.YYYY'),
+        deadline: taskToEdit.deadline
+          ? moment(taskToEdit.deadline).format('DD.MM.YYYY')
+          : '',
         reminder: taskToEdit.reminder
-          ? moment(taskToEdit.reminder).format('DD.MM.YYYY hh:mm')
+          ? moment(taskToEdit.reminder).format('DD.MM.YYYY HH:mm')
           : '',
       }));
     }
   }
+
+  setMinimalDate = date => (
+    moment()
+      .hours(0)
+      .minutes(0)
+      .seconds(0)
+      .subtract(1, 'days') < moment(date)
+  );
 
   colorPickerOpener = (e) => {
     e.preventDefault();
@@ -75,8 +85,15 @@ class TaskEditorModal extends Component {
       deadline,
       reminder,
       color,
-      reminderShowed,
     } = this.state;
+
+    const now = moment().seconds(0);
+    let reminderShowed = !reminder;
+    if (reminder && reminder.seconds && reminder.seconds(0) >= now) {
+      reminderShowed = false;
+    } else if (reminder && moment(reminder).seconds(0) >= now) {
+      reminderShowed = false;
+    }
 
     const newTask = {
       title,
@@ -86,6 +103,7 @@ class TaskEditorModal extends Component {
       color,
       reminderShowed,
     };
+
     const { createTask, taskToEdit, updateTask } = this.props;
     if (taskToEdit) {
       newTask.id = taskToEdit._id;
@@ -132,8 +150,6 @@ class TaskEditorModal extends Component {
       color,
     }));
   };
-
-  validateDate = date => moment() < moment(date);
 
   render() {
     const { isModalOpen, taskToEdit } = this.props;
@@ -183,20 +199,20 @@ class TaskEditorModal extends Component {
               inputProps={{ className: styles.dateinput }}
               onChange={this.handleDateChange}
               value={deadline}
-              isValidDate={this.validateDate}
+              isValidDate={this.setMinimalDate}
               closeOnSelect
             />
           </div>
           <div className={styles.wrapper}>
             <p className={styles.label}>Установить напоминание</p>
             <Datetime
-              timeFormat="hh:mm"
+              timeFormat="HH:mm"
               dateFormat="DD.MM.YYYY"
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
               value={reminder}
               onChange={this.handleTimeChange}
-              isValidDate={this.validateDate}
+              isValidDate={this.setMinimalDate}
             />
           </div>
           <div className={styles.wrapper}>

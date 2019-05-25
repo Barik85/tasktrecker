@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import moment from 'moment';
 import { isValidDate } from '../../utils/formatDate';
 import {
   SET_NOTIFICATIONS,
@@ -48,8 +49,15 @@ export const createNotificationsList = () => (dispatch, getState) => {
   if (Array.isArray(tasks) && tasks.length > 0) {
     const tasksWithReminder = tasks.filter(task =>
       task.reminder && isValidDate(new Date(task.reminder)) && !task.reminderShowed);
+    const now = moment();
+    const tasksWithReminderGroupedPast = tasksWithReminder.map((task) => {
+      if (moment(task.reminder) < now) {
+        return { ...task, reminder: now.utc().format() };
+      }
+      return task;
+    });
 
-    const notificationList = tasksWithReminder.reduce((list, task) => {
+    const notificationList = tasksWithReminderGroupedPast.reduce((list, task) => {
       if (list[task.reminder]) {
         list[task.reminder] = [
           ...list[task.reminder],
