@@ -33,6 +33,7 @@ const ForgottenPasswordModal = props => (
     <button onClick={this.handleCloseModal} className={styles.close}>
       <Close className={styles.closesvg} />
     </button>
+    <h4>Войти как пользователь</h4>
     {/* <div>
       <div>
         <form action="">
@@ -55,7 +56,6 @@ const ForgottenPasswordModal = props => (
         </form>
       </div>
       <div>
-        <h4>Войти как пользователь</h4>
         <button>Facebook</button>
         <button>Google</button>
         <Link to="/register" className={styles.button}>Зарегистрироваться </Link>
@@ -66,7 +66,7 @@ const ForgottenPasswordModal = props => (
 
 
 ForgottenPasswordModal.propTypes = {
-  isModalOpen: PropTypes.func.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
 };
 
 export default ForgottenPasswordModal;

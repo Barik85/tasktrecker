@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signIn, resetSessionError } from './loginActions';
 import { setCurrentModal, openModal } from '../modalManager/modalActions';
+import { FORGOTTEN_PASSWORD } from '../../redux/actionTypes';
 import styles from './login.module.scss';
 import lockIcon from './img/blocked-padlock.svg';
 import letterIcon from './img/letter.svg';
@@ -29,7 +30,7 @@ class Login extends Component {
       push: PropTypes.func.isRequired,
     }),
     discardErrors: PropTypes.func.isRequired,
-    isOpenModal: PropTypes.func.isRequired,
+    setModalAndOpen: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -92,7 +93,7 @@ class Login extends Component {
   }
 
   render() {
-    const { error } = this.props;
+    const { error, setModalAndOpen } = this.props;
     const errorMessage = (error && error.message && typeof error.message === 'string')
       ? error.message
       : 'Вы ввели неверные данные';
@@ -146,7 +147,7 @@ class Login extends Component {
             <div>
               <button
                 className={styles.restore_password_link}
-                onClick={() => this.props.isOpenModal('FORGOTTEN_PASSWORD')}
+                onClick={() => setModalAndOpen(FORGOTTEN_PASSWORD)}
               >Восстановить пароль</button>
             </div>
           </div>
@@ -179,9 +180,9 @@ class Login extends Component {
   }
 }
 
-const isOpenModal = (modalName) => {
-  setCurrentModal(modalName);
-  openModal();
+const setModalAndOpen = modalName => (dispatch) => {
+  dispatch(setCurrentModal(modalName));
+  dispatch(openModal());
 };
 
 const mSTP = state => ({
@@ -192,7 +193,7 @@ const mSTP = state => ({
 const mDTP = {
   signIn,
   discardErrors: resetSessionError,
-  isOpenModal,
+  setModalAndOpen,
 };
 
 export default connect(mSTP, mDTP)(Login);
