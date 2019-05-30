@@ -10,6 +10,7 @@ import Footer from './footer/footer';
 import ProtectedRoute from './shared/ProtectedRoute';
 import Profile from '../pages/Profile';
 import Register from '../components/register/Register';
+import ModalManager from './modalManager/ModalManager';
 import styles from './App.module.scss';
 
 const App = ({ auth }) => (
@@ -25,6 +26,7 @@ const App = ({ auth }) => (
       </Switch>
     </div>
     <Footer />
+    <ModalManager />
   </div>
 );
 

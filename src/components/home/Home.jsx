@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import qs from 'qs';
 import styles from './home.module.scss';
 import MainPage from '../mainPage/MainPage';
-import ModalManager from '../modalManager/ModalManager';
 import NotesList from '../notes_list/note_list_container';
 
 class Home extends Component {
@@ -37,7 +36,6 @@ class Home extends Component {
             <MainPage />
           )
         }
-        <ModalManager />
       </main>
     );
   }
