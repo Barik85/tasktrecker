@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import Close from '../../icons/Close';
 // import letterIcon from '../../login/img/letter.svg';
@@ -22,9 +22,9 @@ const customStyles = {
 };
 
 
-const ForgottenPasswordModal = props => (
+const ForgottenPasswordModal = () => (
   <Modal
-    isOpen={props.isModalOpen}
+    isOpen
     onRequestClose={this.handleCloseModal}
     style={customStyles}
     contentLabel="Example Modal"
@@ -66,7 +66,7 @@ const ForgottenPasswordModal = props => (
 
 
 ForgottenPasswordModal.propTypes = {
-  isModalOpen: PropTypes.bool.isRequired,
+  // isModalOpen: PropTypes.bool.isRequired,
 };
 
 export default ForgottenPasswordModal;

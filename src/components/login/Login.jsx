@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { signIn, resetSessionError } from './loginActions';
 import { setCurrentModal, openModal } from '../modalManager/modalActions';
-import { FORGOTTEN_PASSWORD } from '../../redux/actionTypes';
 import styles from './login.module.scss';
 import lockIcon from './img/blocked-padlock.svg';
 import letterIcon from './img/letter.svg';
@@ -147,7 +146,7 @@ class Login extends Component {
             <div>
               <button
                 className={styles.restore_password_link}
-                onClick={() => setModalAndOpen(FORGOTTEN_PASSWORD)}
+                onClick={() => setModalAndOpen('FORGOTTEN_PASSWORD')}
               >Восстановить пароль</button>
             </div>
           </div>
