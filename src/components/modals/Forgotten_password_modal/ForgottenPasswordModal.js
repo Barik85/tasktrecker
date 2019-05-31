@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import Modal from 'react-modal';
 import Close from '../../icons/Close';
 // import letterIcon from '../../login/img/letter.svg';
@@ -15,22 +15,21 @@ const customStyles = {
     left: '50%',
     right: 'auto',
     bottom: 'auto',
-    marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
     padding: '25px',
   },
 };
 
 
-const ForgottenPasswordModal = () => (
+const ForgottenPasswordModal = ({ isModalOpen, closeModal }) => (
   <Modal
-    isOpen
-    onRequestClose={this.handleCloseModal}
+    isOpen={isModalOpen}
+    onRequestClose={closeModal}
     style={customStyles}
     contentLabel="Example Modal"
   >
     <h3>Восстановление пароля</h3>
-    <button onClick={this.handleCloseModal} className={styles.close}>
+    <button onClick={closeModal} className={styles.close}>
       <Close className={styles.closesvg} />
     </button>
     <h4>Войти как пользователь</h4>
@@ -66,7 +65,8 @@ const ForgottenPasswordModal = () => (
 
 
 ForgottenPasswordModal.propTypes = {
-  // isModalOpen: PropTypes.bool.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
 };
 
 export default ForgottenPasswordModal;
