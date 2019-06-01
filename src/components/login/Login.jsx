@@ -17,7 +17,6 @@ import linkedinLogo from './img/linkedin-logo.svg';
 
 const initialState = {
   email: '',
-  password: '',
 };
 
 class Login extends Component {
