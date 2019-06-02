@@ -38,7 +38,7 @@ export default class Notelist extends Component {
           {(notes && notes.length > 0)
             ? notes.map(note => (
               <Note
-                key={note._id} // eslint-disable-line
+                key={note._id}
                 note={note}
                 {...rest}
                 openModal={openModal}

@@ -26,6 +26,7 @@ const userReducer = (state = initialState.user, action) => {
       return action.payload.user;
 
     case SIGN_OUT:
+    case SIGN_IN_FAILURE:
       return initialState.user;
 
     case GET_USER_SUCCESS:
@@ -48,6 +49,7 @@ const authenticatedReducer = (state = initialState.authenticated, action) => {
       return true;
 
     case SIGN_OUT:
+    case SIGN_IN_FAILURE:
       return false;
 
     default:

@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Datetime from 'react-datetime';
 import Modal from 'react-modal';
+import moment from 'moment';
 import Close from '../../icons/Close';
 import ColorPicker from '../../colorPicker/ColorPicker';
 import SimpleButton from '../../shared/SimpleButton';
 import styles from './TaskEditorModal.module.scss';
 import './datetime.css';
-import getFormatDate from '../../../utils/formatDate';
 import customStyles from '../modal_styles';
 
 Modal.setAppElement('#root');
@@ -19,6 +19,7 @@ const initialState = {
   deadline: '',
   reminder: '',
   color: 'Без цвета',
+  reminderShowed: false,
 };
 
 class TaskEditorModal extends Component {
@@ -51,10 +52,23 @@ class TaskEditorModal extends Component {
       this.setState(prevState => ({
         ...prevState,
         ...taskToEdit,
-        deadline: getFormatDate(taskToEdit.deadline),
+        deadline: taskToEdit.deadline
+          ? moment(taskToEdit.deadline).format('DD.MM.YYYY')
+          : '',
+        reminder: taskToEdit.reminder
+          ? moment(taskToEdit.reminder).format('DD.MM.YYYY HH:mm')
+          : '',
       }));
     }
   }
+
+  setMinimalDate = date => (
+    moment()
+      .hours(0)
+      .minutes(0)
+      .seconds(0)
+      .subtract(1, 'days') < moment(date)
+  );
 
   colorPickerOpener = (e) => {
     e.preventDefault();
@@ -73,16 +87,26 @@ class TaskEditorModal extends Component {
       color,
     } = this.state;
 
+    const now = moment().seconds(0);
+    let reminderShowed = !reminder;
+    if (reminder && reminder.seconds && reminder.seconds(0) >= now) {
+      reminderShowed = false;
+    } else if (reminder && moment(reminder).seconds(0) >= now) {
+      reminderShowed = false;
+    }
+
     const newTask = {
       title,
       description,
-      deadline,
-      reminder,
+      deadline: deadline ? moment(deadline).toDate() : '',
+      reminder: reminder ? moment(reminder).toDate() : '',
       color,
+      reminderShowed,
     };
+
     const { createTask, taskToEdit, updateTask } = this.props;
     if (taskToEdit) {
-      newTask.id = taskToEdit._id // eslint-disable-line
+      newTask.id = taskToEdit._id;
       updateTask(newTask)
         .finally(() => {
           this.handleCloseModal();
@@ -109,13 +133,14 @@ class TaskEditorModal extends Component {
 
   handleDateChange = (datemoment) => {
     this.setState({
-      deadline: datemoment.format('YYYY-MM-DD'),
+      deadline: datemoment,
     });
   };
 
   handleTimeChange = (time) => {
     this.setState({
       reminder: time,
+      reminderShowed: false,
     });
   };
 
@@ -169,22 +194,25 @@ class TaskEditorModal extends Component {
             <p className={styles.label}>Выполнить до</p>
             <Datetime
               timeFormat={false}
-              dateFormat="YYYY/MM/DD"
+              dateFormat="DD.MM.YYYY"
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
               onChange={this.handleDateChange}
               value={deadline}
+              isValidDate={this.setMinimalDate}
+              closeOnSelect
             />
           </div>
           <div className={styles.wrapper}>
             <p className={styles.label}>Установить напоминание</p>
             <Datetime
               timeFormat="HH:mm"
-              dateFormat="DD/MM/YYYY"
+              dateFormat="DD.MM.YYYY"
               className={styles.datewrapper}
               inputProps={{ className: styles.dateinput }}
               value={reminder}
               onChange={this.handleTimeChange}
+              isValidDate={this.setMinimalDate}
             />
           </div>
           <div className={styles.wrapper}>

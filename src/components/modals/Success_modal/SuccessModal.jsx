@@ -11,7 +11,6 @@ const SuccessModal = ({ title, text, isModalOpen, closeModal }) => (
     isOpen={isModalOpen}
     onRequestClose={closeModal}
     style={customStyles}
-    contentLabel="Example Modal"
   >
     <button onClick={closeModal} className={styles.close}>
       <Close className={styles.closesvg} />
