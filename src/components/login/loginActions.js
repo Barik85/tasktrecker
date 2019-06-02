@@ -21,7 +21,7 @@ export const signIn = credentials => (dispatch) => {
 
         const user = {
           name: dataUser.name,
-          id: dataUser._id, // eslint-disable-line
+          id: dataUser._id,
           email: dataUser.email,
         };
 
@@ -60,7 +60,7 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
             user: {
               name: data.name,
               email: data.email,
-              id: data._id, // eslint-disable-line
+              id: data._id,
             },
             token: data.token,
           },
@@ -93,7 +93,7 @@ export const signInWithGoogle = token => (dispatch) => {
         if (dataUser) {
           const user = {
             name: dataUser.name,
-            id: dataUser._id, // eslint-disable-line
+            id: dataUser._id,
             email: dataUser.email,
           };
 
@@ -123,7 +123,7 @@ export const getUserInfo = () => (dispatch, getState) => {
         if (dataUser) {
           const user = {
             name: dataUser.name,
-            id: dataUser._id, // eslint-disable-line
+            id: dataUser._id,
             email: dataUser.email,
           };
 
@@ -149,15 +149,19 @@ export const getUserInfo = () => (dispatch, getState) => {
 
 export const resetSessionError = () => ({ type: RESET_SESSION_ERROR });
 
-export const updateUser = user => dispatch => (
-  api.editUser(user).then(
+export const updateUser = ({ id, name, email }) => (dispatch, getState) => {
+  const { session } = getState();
+  const token = session && session.token;
+  if (!token) return null;
+
+  return api.editUser({ id, name, email, token }).then(
     (res) => {
       if (res.status === 200) {
-        const dataUser = res.data && res.data.dataUser;
+        const dataUser = res.data;
 
         const updatedUser = {
           name: dataUser.name,
-          id: dataUser.id,
+          id: dataUser._id,
           email: dataUser.email,
         };
 
@@ -176,5 +180,5 @@ export const updateUser = user => dispatch => (
         },
       });
     },
-  )
-);
+  );
+};

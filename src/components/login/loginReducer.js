@@ -35,9 +35,6 @@ const userReducer = (state = initialState.user, action) => {
     case UPDATE_USER:
       return action.payload;
 
-    case SIGN_IN_FAILURE:
-      return state;
-
     default:
       return state;
   }
