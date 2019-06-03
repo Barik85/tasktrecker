@@ -24,8 +24,8 @@ const customStyles = {
 
 const initialState = {
   email: '',
-  password: '',
 };
+
 export default class ForgottenPasswordModal extends Component {
   static propTypes = {
     isModalOpen: PropTypes.bool.isRequired,
