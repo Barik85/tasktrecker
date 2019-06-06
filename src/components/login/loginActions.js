@@ -154,31 +154,24 @@ export const updateUser = ({ id, name, email }) => (dispatch, getState) => {
   const token = session && session.token;
   if (!token) return null;
 
-  return api.editUser({ id, name, email, token }).then(
-    (res) => {
-      if (res.status === 200) {
-        const dataUser = res.data;
+  return api.editUser({ id, name, email, token })
+    .then(
+      (res) => {
+        if (res.status === 200) {
+          const dataUser = res.data;
 
-        const updatedUser = {
-          name: dataUser.name,
-          id: dataUser._id,
-          email: dataUser.email,
-        };
+          const updatedUser = {
+            name: dataUser.name,
+            id: dataUser._id,
+            email: dataUser.email,
+          };
 
-        dispatch({
-          type: UPDATE_USER,
-          payload: updatedUser,
-        });
-      }
-    },
-    (error) => {
-      dispatch({
-        type: SIGN_IN_FAILURE,
-        payload: {
-          type: 'edit_user_error',
-          message: (error.response && error.response.data && error.response.data.message) || 'something went wrong!',
-        },
-      });
-    },
-  );
+          dispatch({
+            type: UPDATE_USER,
+            payload: updatedUser,
+          });
+        }
+      },
+    )
+    .catch(err => err && err.response);
 };

@@ -26,6 +26,7 @@ class Profile extends Component {
     oldPass: '',
     isVisibleOldPass: false,
     isVisibleNewPass: false,
+    error: null,
   }
 
   handleInputChange = (e) => {
@@ -33,6 +34,7 @@ class Profile extends Component {
 
     this.setState({
       [name]: value,
+      error: null,
     });
   }
 
@@ -70,11 +72,15 @@ class Profile extends Component {
     const { user, updateUser: editUser } = this.props;
     const id = user.id;
 
-    editUser({ id, name, email }).then(() => {
-      this.setState({
-        isEditing: false,
+    editUser({ id, name, email })
+      .then((res) => {
+        if (res && res.status === 400) {
+          this.setState({ error: res && res.data && res.data.info });
+        }
+        this.setState({
+          isEditing: false,
+        });
       });
-    });
   }
 
   render() {
@@ -85,6 +91,7 @@ class Profile extends Component {
       isVisibleOldPass,
       newPass, oldPass,
       isEditing,
+      error,
     } = this.state;
     const { user } = this.props;
     return (
@@ -121,6 +128,7 @@ class Profile extends Component {
                 />
                 : (<div className={styles.info}>{user.email}</div>)}
             </div>
+            {error ? <p className={styles.error}>{error}</p> : null}
           </div>
           <div>
             <h2 className={styles.h2}>Смена пароля</h2>
