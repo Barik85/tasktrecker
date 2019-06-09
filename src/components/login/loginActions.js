@@ -5,6 +5,7 @@ import {
   SIGN_OUT,
   GET_USER_SUCCESS,
   RESET_SESSION_ERROR,
+  UPDATE_USER,
 } from '../../redux/actionTypes';
 import * as api from '../../utils/api';
 import { setCurrentModal, openModal } from '../modalManager/modalActions';
@@ -20,7 +21,7 @@ export const signIn = credentials => (dispatch) => {
 
         const user = {
           name: dataUser.name,
-          id: dataUser.id,
+          id: dataUser._id,
           email: dataUser.email,
         };
 
@@ -59,7 +60,7 @@ export const registerUser = (credentials, ownProps) => (dispatch) => {
             user: {
               name: data.name,
               email: data.email,
-              id: data.id,
+              id: data._id,
             },
             token: data.token,
           },
@@ -92,7 +93,7 @@ export const signInWithGoogle = token => (dispatch) => {
         if (dataUser) {
           const user = {
             name: dataUser.name,
-            id: dataUser.id,
+            id: dataUser._id,
             email: dataUser.email,
           };
 
@@ -122,7 +123,7 @@ export const getUserInfo = () => (dispatch, getState) => {
         if (dataUser) {
           const user = {
             name: dataUser.name,
-            id: dataUser.id,
+            id: dataUser._id,
             email: dataUser.email,
           };
 
@@ -132,10 +133,44 @@ export const getUserInfo = () => (dispatch, getState) => {
           });
         }
       },
-      error => dispatch({ type: SIGN_IN_FAILURE, payload: error }),
+      (error) => {
+        dispatch({
+          type: SIGN_IN_FAILURE,
+          payload: {
+            type: 'get_user_error',
+            message: (error.response && error.response.data && error.response.data.message) || 'something went wrong!',
+          },
+        });
+      },
     );
   }
   return null;
 };
 
 export const resetSessionError = () => ({ type: RESET_SESSION_ERROR });
+
+export const updateUser = ({ id, name, email }) => (dispatch, getState) => {
+  const { session } = getState();
+  const token = session && session.token;
+  if (!token) return null;
+
+  return api.editUser({ id, name, email, token })
+    .then(
+      (res) => {
+        if (res.status === 200) {
+          const dataUser = res.data && res.data.dataUser;
+          const updatedUser = {
+            name: dataUser.name,
+            id,
+            email: dataUser.email,
+          };
+
+          dispatch({
+            type: UPDATE_USER,
+            payload: updatedUser,
+          });
+        }
+      },
+    )
+    .catch(err => err && err.response);
+};

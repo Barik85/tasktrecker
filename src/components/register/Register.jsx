@@ -10,9 +10,9 @@ import tickFalse from '../login/img/tick.svg';
 import tickTrue from '../login/img/tickTrue.svg';
 import privateEye from '../login/img/private.svg';
 import eye from '../login/img/eye.svg';
-import facebookLogo from '../login/img/facebook-logo.svg';
+// import facebookLogo from '../login/img/facebook-logo.svg';
 import googleplusLogo from '../login/img/google-plus.svg';
-import linkedinLogo from '../login/img/linkedin-logo.svg';
+// import linkedinLogo from '../login/img/linkedin-logo.svg';
 
 
 const initialState = {
@@ -161,24 +161,24 @@ class Register extends Component {
             </span>
           </div>
           <div className={styles.socialnet_box}>
-            <div>
+            {/* <div>
               <button type="button" className={styles.btn}>
                 <img src={facebookLogo} alt="facebook_logo" className={styles.btn_img} />
                 Facebook
               </button>
-            </div>
+            </div> */}
             <div>
               <a href="https://taskboard.luisi.top/auth/google" className={styles.btn}>
                 <img src={googleplusLogo} alt="google_logo" className={styles.btn_img_google} />
                 Google
               </a>
             </div>
-            <div>
+            {/* <div>
               <button type="button" className={styles.btn}>
                 <img src={linkedinLogo} alt="linked_in_logo" className={styles.btn_img} />
                 Linked In
               </button>
-            </div>
+            </div> */}
           </div>
           <div className={styles.register_submit}>
             <input type="submit" value="Зарегистрироваться" />

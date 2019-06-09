@@ -60,6 +60,7 @@
   width: 125px;
   height: 35px;
   font-size: 18px;
+  text-align: center;
 }
 
 .login_submit input:focus {
@@ -72,8 +73,7 @@
 }
 
 .sub_menu {
-  display: flex;
-  justify-content: space-between;
+  text-align: right;
   margin: 45px 40px 15px;
   font-size: 14px;
 }

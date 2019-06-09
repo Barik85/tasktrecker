@@ -60,3 +60,13 @@ export const requestUpdateTask = ({ token, task }) => (
     { headers: { Authorization: `Bearer ${token}` } },
   )
 );
+
+export const editUser = ({ id, name, email, token }) => (
+  axios.put(`${HOST}/users/${id}`,
+    {
+      name,
+      email,
+    },
+    { headers: { Authorization: `Bearer ${token}` } },
+  )
+);

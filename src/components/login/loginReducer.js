@@ -6,6 +6,7 @@ import {
   SIGN_OUT,
   GET_USER_SUCCESS,
   RESET_SESSION_ERROR,
+  UPDATE_USER,
 } from '../../redux/actionTypes';
 
 const initialState = {
@@ -29,6 +30,9 @@ const userReducer = (state = initialState.user, action) => {
       return initialState.user;
 
     case GET_USER_SUCCESS:
+      return action.payload;
+
+    case UPDATE_USER:
       return action.payload;
 
     default:
@@ -74,7 +78,6 @@ const errorReducer = (state = initialState.error, action) => {
     case SIGN_OUT:
     case RESET_SESSION_ERROR:
       return null;
-
     default:
       return state;
   }

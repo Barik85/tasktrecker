@@ -9,9 +9,9 @@ import tickFalse from './img/tick.svg';
 import tickTrue from './img/tickTrue.svg';
 import privateEye from './img/private.svg';
 import eye from './img/eye.svg';
-import facebookLogo from './img/facebook-logo.svg';
+// import facebookLogo from './img/facebook-logo.svg';
 import googleplusLogo from './img/google-plus.svg';
-import linkedinLogo from './img/linkedin-logo.svg';
+// import linkedinLogo from './img/linkedin-logo.svg';
 
 
 const initialState = {
@@ -140,30 +140,27 @@ class Login extends Component {
             ) : null
           }
           <div className={styles.sub_menu}>
-            <div><input type="checkbox" /><span>Запомнить меня</span></div>
-            <div>
-              <button className={styles.restore_password_link}>Восстановить пароль</button>
-            </div>
+            <button className={styles.restore_password_link}>Восстановить пароль</button>
           </div>
           <div className={styles.socialnet_box}>
-            <div>
+            {/* <div>
               <button type="button" className={styles.btn}>
                 <img src={facebookLogo} alt="facebook_logo" className={styles.btn_img} />
                 Facebook
               </button>
-            </div>
+            </div> */}
             <div>
               <a href="https://taskboard.luisi.top/auth/google" className={styles.btn}>
                 <img src={googleplusLogo} alt="google_logo" className={styles.btn_img_google} />
                 Google
               </a>
             </div>
-            <div>
+            {/* <div>
               <button type="button" className={styles.btn}>
                 <img src={linkedinLogo} alt="linked_in_logo" className={styles.btn_img} />
                 Linked In
               </button>
-            </div>
+            </div> */}
           </div>
           <div className={styles.login_submit}>
             <input type="submit" value="ВОЙТИ" />
