@@ -8,11 +8,22 @@ export default class Chat extends Component {
     openChat: false,
   };
 
+  handlerVisible = () => {
+    this.setState(prevState,{
+      openChat: prevState.openChat ? false : true,
+    })
+  }
+
   render() {
+    const valVisible = this.state.openChat?
+      styles.iconChat : styles.visible;
     return (
-      <Fragment>
-        <div className={styles.iconChat} >1</div>
-        <CabinetChat />
+      <Fragment>rrr
+        <div
+          className={valVisible}
+          onClick={this.handlerVisible}
+        />
+        <CabinetChat  visible={this.state.openChat? false : true}/>
       </Fragment>
     );
   }
