@@ -73,8 +73,7 @@
 }
 
 .sub_menu {
-  display: flex;
-  justify-content: space-between;
+  text-align: right;
   margin: 45px 40px 15px;
   font-size: 14px;
 }
@@ -109,7 +108,7 @@
   border: none;
   outline: none;
   cursor: pointer;
-  
+
   &:hover {
     background-color: #e2e2e2;
   }

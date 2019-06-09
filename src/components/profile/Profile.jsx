@@ -40,8 +40,13 @@ class Profile extends Component {
 
   toggleEditInput = (e) => {
     e.preventDefault();
+    const { user } = this.props;
+    const name = user && user.name;
+    const email = user && user.email;
     this.setState(prevState => ({
       isEditing: !prevState.isEditing,
+      name: name || '',
+      email: email || '',
     }));
   }
 

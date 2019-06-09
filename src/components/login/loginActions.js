@@ -158,11 +158,10 @@ export const updateUser = ({ id, name, email }) => (dispatch, getState) => {
     .then(
       (res) => {
         if (res.status === 200) {
-          const dataUser = res.data;
-
+          const dataUser = res.data && res.data.dataUser;
           const updatedUser = {
             name: dataUser.name,
-            id: dataUser._id,
+            id,
             email: dataUser.email,
           };
 
