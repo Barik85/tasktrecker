@@ -1,3 +1,11 @@
+.notVisible {
+  display: none;
+}
+
+.mainBlock {
+  position:relative;
+}
+
 .iconChat {
   background-image: url("../../images/chat1.svg");
   display: block;
@@ -9,10 +17,38 @@
 }
 
 .blockChat {
-  display: none;
+  display: block;
+  position: fixed;
+  width: 270px;
+  min-height: 250px;
+  bottom: 35px;
+  right: 30px;
+  background: #f29473;
+  border-radius: 5px;
 }
 
-.visible {
-  display: none;
+.iconClose {
+  display: block;
+  position: relative;
+  top: 0;
+  right: 5px;
+  height: 0px;
+  width: 100%;
+  color: black;
+  text-align: right;
 }
 
+.blockIntroduce {
+  position: absolute;
+  bottom: 2px;
+  left: 5px;
+  input {
+    border-radius: 2px;
+  }
+  button {
+    background: #303f9f;
+    margin-left: 10px;
+    padding: 3px 5px;
+    border-radius: 5px;
+  }
+}
