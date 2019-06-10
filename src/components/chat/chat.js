@@ -1,30 +1,33 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import CabinetChat from './cabinetChat';
-// import PropTypes from 'prop-types';
 import styles from './chat.module.scss';
 
 export default class Chat extends Component {
   state = {
-    openChat: false,
+    openChat: true,
   };
 
   handlerVisible = () => {
-    this.setState(prevState,{
-      openChat: prevState.openChat ? false : true,
-    })
+    this.setState(prevState => ({
+      openChat: !prevState.openChat,
+    }));
   }
 
   render() {
-    const valVisible = this.state.openChat?
-      styles.iconChat : styles.visible;
+    const valVisible = this.state.openChat ? styles.iconChat : styles.notVisible;
+    const iconClose = this.state.openChat ? styles.notVisible : styles.iconClose;
+
     return (
-      <Fragment>rrr
-        <div
+      <div className="mainBlock">
+        <button className={iconClose} onClick={this.handlerVisible}>x</button>
+        <button
           className={valVisible}
           onClick={this.handlerVisible}
+          alt="іконка чата"
         />
-        <CabinetChat  visible={this.state.openChat? false : true}/>
-      </Fragment>
+        <CabinetChat visible={!this.state.openChat} />
+
+      </div>
     );
   }
 }
