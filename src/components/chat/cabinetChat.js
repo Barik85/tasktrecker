@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styles from './chat.module.scss';
 import openSocket from 'socket.io-client';
 
+
 const socket = openSocket('http://localhost:5050/');
 
 export default class CabinetChat extends Component {
