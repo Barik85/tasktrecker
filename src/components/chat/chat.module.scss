@@ -40,7 +40,7 @@
 
 .blockIntroduce {
   position: absolute;
-  bottom: 2px;
+  bottom: 10px;
   left: 5px;
   input {
     border-radius: 2px;
@@ -51,11 +51,17 @@
     padding: 3px 5px;
     border-radius: 5px;
   }
-  top: 20px;
   right: 35px;
   height: 20px;
-  width: 20px;
+  width: 100%;
   color: black;
+}
+
+.blockMessage {
+  display: block;
+  width: 100px;
+  height: 100px;
+  background: #414042;
 }
 
 
