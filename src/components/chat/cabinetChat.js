@@ -3,9 +3,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './chat.module.scss';
 import openSocket from 'socket.io-client';
+import { v4 } from 'uuid';
 
 
-const socket = openSocket('http://localhost:5050/');
+// const socket = openSocket('http://localhost:5050/');
 
 export default class CabinetChat extends Component {
   state = {
@@ -19,20 +20,22 @@ export default class CabinetChat extends Component {
   handlerChange = (e) => {
     const { value } = e.target;
     this.setState({ message: value },
-      // () => { console.log(this.state); }
+      ()=> {console.log(this.state.message)}
     );
+    // e.preventDefault();
   }
 
-  addMessage = name => (e) => {
+  addMessage = name => e =>  {
+    (name.length > 0) ?
+    this.setState( state =>
+      {arrMessage: state.arrMessage.push({id:v4() ,name:name ,message:state.message})},
+      ()=> {console.log(this.state.arrMessage)}
 
-    const newMessage = [name, this.state.message];
-    // console.log(this.state.arrMessage);
-    this.setState(prevState=>{
-      arrMessage: prevState.arrMessage.push(newMessage)
-    })
+    )
+      : e.preventDefault();
     // console.log(this.state.arrMessage);
     //socket.on('newMessage', )
-    // e.preventDefault();
+
     // socket.on('news', data=>console.log('From socket: ', data));
     // setInterval(()=>{
     //   socket.emit("post", { reactSend:'tttttttt' });
@@ -50,19 +53,26 @@ export default class CabinetChat extends Component {
       : styles.notVisible;
 
     console.log(this.state.arrMessage);
-    console.log(this.state.arrMessage);
+
+    const {arrMessage} = this.state;
 
     const { name } = JSON.parse(window.localStorage.taskTrackerState).session.user;
     return (
       <div className={valVisible} >
         <button className={iconClose} onClick={this.closeChat}>x</button>
-        {this.state.arrMessage.length &&
-          <section className={styles.blockMessage}>
-            <img src="/layout/tasktreker/src/images/user1.png" alt="avatar" />
-            <p>{}</p>
-            <p>{this.state.arrMessage}</p>
-          </section>
-        }
+          {arrMessage.length > 0 &&
+          <ul className={styles.blockMessage}>
+            {arrMessage.map(elem => {
+              <li key={elem.id}>
+                <img src="/layout/tasktreker/src/images/user1.png" alt="avatar"/>
+                <p>{elem.name}</p>
+                <p>{elem.message}</p>
+              </li>
+              })
+            }
+          </ul>
+          }
+
         <section className={styles.blockIntroduce}>
           <input type="text" value={this.state.message} onChange={this.handlerChange} />
           <button onClick={this.addMessage(name)}>send</button>
