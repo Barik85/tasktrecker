@@ -19,10 +19,8 @@ export default class CabinetChat extends Component {
   }
   handlerChange = (e) => {
     const { value } = e.target;
-    this.setState({ message: value },
-      ()=> {console.log(this.state.message)}
-    );
-    // e.preventDefault();
+    this.setState({ message: value });
+    e.preventDefault();
   }
 
   addMessage = name => e =>  {
@@ -52,7 +50,7 @@ export default class CabinetChat extends Component {
     const iconClose = this.props.visible ? styles.iconClose
       : styles.notVisible;
 
-    console.log(this.state.arrMessage);
+    // console.log(this.state.arrMessage);
 
     const {arrMessage} = this.state;
 
@@ -60,18 +58,23 @@ export default class CabinetChat extends Component {
     return (
       <div className={valVisible} >
         <button className={iconClose} onClick={this.closeChat}>x</button>
-          {arrMessage.length > 0 &&
-          <ul className={styles.blockMessage}>
-            {arrMessage.map(elem => {
-              <li key={elem.id}>
-                <img src="/layout/tasktreker/src/images/user1.png" alt="avatar"/>
-                <p>{elem.name}</p>
-                <p>{elem.message}</p>
-              </li>
-              })
-            }
-          </ul>
+        {console.log('61', arrMessage.length)}
+          {this.state.arrMessage.length > 0 &&
+          <p>{this.state.arrMessage.toString()} <span>{this.state.arrMessage.length}</span></p>
+
           }
+
+          {/*//   <ul className={styles.blockMessage}>*/}
+          {/*//   {arrMessage.map(elem => {*/}
+          {/*//     <li key={elem.id}>*/}
+          {/*//       <img src="/layout/tasktreker/src/images/user1.png" alt="avatar"/>*/}
+          {/*//       <p>{elem.name}</p>*/}
+          {/*//       <p>{elem.message}</p>*/}
+          {/*//     </li>*/}
+          {/*//     })*/}
+          {/*//   }*/}
+          {/*// </ul>*/}
+          {/*}*/}
 
         <section className={styles.blockIntroduce}>
           <input type="text" value={this.state.message} onChange={this.handlerChange} />
