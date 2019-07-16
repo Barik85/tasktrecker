@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './chat.module.scss';
-import openSocket from 'socket.io-client';
+// import openSocket from 'socket.io-client';
 import { v4 } from 'uuid';
 
 
@@ -24,13 +24,13 @@ export default class CabinetChat extends Component {
   }
 
   addMessage = name => e =>  {
-    (name.length > 0) ?
-    this.setState( state =>
-      {arrMessage: state.arrMessage.push({id:v4() ,name:name ,message:state.message})},
+    e.preventDefault();
+    let a = this.state.arrMessage.concat({id:v4(), name:name ,message:this.state.message})
+    console.log(a);
+    this.setState(
+      {arrMessage: a },
       ()=> {console.log(this.state.arrMessage)}
-
     )
-      : e.preventDefault();
     // console.log(this.state.arrMessage);
     //socket.on('newMessage', )
 
@@ -50,7 +50,7 @@ export default class CabinetChat extends Component {
     const iconClose = this.props.visible ? styles.iconClose
       : styles.notVisible;
 
-    // console.log(this.state.arrMessage);
+    console.log(this.state.arrMessage);
 
     const {arrMessage} = this.state;
 
@@ -58,9 +58,20 @@ export default class CabinetChat extends Component {
     return (
       <div className={valVisible} >
         <button className={iconClose} onClick={this.closeChat}>x</button>
-        {console.log('61', arrMessage.length)}
+        {/*{console.log('61', arrMessage.length)}*/}
           {this.state.arrMessage.length > 0 &&
-          <p>{this.state.arrMessage.toString()} <span>{this.state.arrMessage.length}</span></p>
+          <div>
+            <ul>
+              {arrMessage.map( (i) => (
+                <li key={i.id} className={styles.sendUser}>
+                  {i.message}
+                  {console.log(i.message)}
+                </li>
+                )
+               ) }
+            </ul>
+          {/*<span>{this.state.arrMessage.length}</span>*/}
+          </div>
 
           }
 
