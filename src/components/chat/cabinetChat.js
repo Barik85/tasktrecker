@@ -21,7 +21,23 @@ export default class CabinetChat extends Component {
   handlerChange = (e) => {
     const { value } = e.target;
     this.setState({ message: value });
-    e.preventDefault();
+    if(e.keyCode === 13)
+      e.preventDefault();
+  }
+  handlerChangeEnter = name => (e) => {
+    // console.log("e.keyCode", e.key);
+    if(e.key === 'Enter' ) {
+      console.log("e.keyCode", e.key);
+      this.setState(prevState => ({
+            arrMessage: prevState.arrMessage.concat({id: v4(), name: name, message: prevState.message})
+          }),
+          () => {
+            console.log(this.state.message);
+          }
+      );
+    }
+    // e.preventDefault();
+    // this.setState(prewState => ({message: ''}))
   }
 
   addMessage = name => e =>  {
@@ -34,8 +50,7 @@ export default class CabinetChat extends Component {
       console.log(this.state.message);
     }
     )
-    this.setState(prewState => ({message: ''})
-    )
+    this.setState(prewState => ({message: ''}))
     // console.log(this.state.arrMessage);
     //socket.on('newMessage', )
 
@@ -81,7 +96,7 @@ export default class CabinetChat extends Component {
 
           }
         <section className={styles.blockIntroduce}>
-          <input type="text" value={this.state.message} onChange={this.handlerChange} />
+          <input type="text" value={this.state.message} onChange={this.handlerChange} onKeyPress={this.handlerChangeEnter(name)}/>
           <button onClick={this.addMessage(name)}>send</button>
         </section>
       </div>
