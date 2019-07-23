@@ -25,7 +25,7 @@ export default class CabinetChat extends Component {
       e.preventDefault();
   }
   handlerChangeEnter = name => (e) => {
-    // console.log("e.keyCode", e.key);
+
     if(e.key === 'Enter' ) {
       console.log("e.keyCode", e.key);
       this.setState(prevState => ({
@@ -35,7 +35,9 @@ export default class CabinetChat extends Component {
             console.log(this.state.message);
           }
       );
+      this.setState({message:""})
     }
+
     // e.preventDefault();
     // this.setState(prewState => ({message: ''}))
   }
@@ -79,21 +81,22 @@ export default class CabinetChat extends Component {
       <div className={valVisible} >
         <button className={iconClose} onClick={this.closeChat}>x</button>
         {this.state.arrMessage.length > 0 &&
-          <div>
-            <ul>
+          <div className={styles.blockMessages}>
+            <ul className={styles.sendsUser}>
               {arrMessage.map( (i) => (
                 <li key={i.id} className={styles.sendUser}>
                   <div className={styles.userData}>
                     <img src={icon1} alt="avatar"/>
-                    <p>{i.name}</p>
                   </div>
-                  <div className={styles.userMessage}>{i.message}</div>
+                  <div className={styles.userMessage}>
+                    <p>{i.name}</p>
+                    <div>{i.message}</div>
+                  </div>
                 </li>
                 )
               ) }
             </ul>
           </div>
-
           }
         <section className={styles.blockIntroduce}>
           <input type="text" value={this.state.message} onChange={this.handlerChange} onKeyPress={this.handlerChangeEnter(name)}/>
@@ -108,3 +111,4 @@ CabinetChat.propTypes = {
   visible: PropTypes.bool.isRequired,
   onclose: PropTypes.func.isRequired,
 };
+
