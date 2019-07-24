@@ -29,7 +29,7 @@ export default class CabinetChat extends Component {
     if(e.key === 'Enter' ) {
       console.log("e.keyCode", e.key);
       this.setState(prevState => ({
-            arrMessage: prevState.arrMessage.concat({id: v4(), name: name, message: prevState.message})
+            arrMessage: prevState.arrMessage.concat({id: v4(), name: name, message: prevState.message, date: new Date()})
           }),
           () => {
             console.log(this.state.message);
@@ -89,7 +89,8 @@ export default class CabinetChat extends Component {
                     <img src={icon1} alt="avatar"/>
                   </div>
                   <div className={styles.userMessage}>
-                    <p>{i.name}</p>
+                    <span>{i.name}</span>
+                    {/*<span>{i.date}</span>*/}
                     <div>{i.message}</div>
                   </div>
                 </li>

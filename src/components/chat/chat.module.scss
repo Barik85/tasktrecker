@@ -36,14 +36,16 @@
   color: black;
 }
 
-.blockMessage {
+.blockMessages {
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  max-height: 400px;
+  overflow: auto;
+  margin-bottom: 50px;
 }
 .sendsUser {
   overflow: auto;
-  height: 400px;
+  height: auto;
   padding-bottom: 40px;
 }
 .sendUser {
@@ -77,14 +79,17 @@
 .userMessage {
   width: 70%;
   height: 100%;
+  flex-direction: column;
   p {
     color: #888888;
+    width: 100%;
 
   }
   div {
     background: #999999;
     padding: 3px 5px;
     text-align: left;
+    width: 100%;
   }
 
 }
